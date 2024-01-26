@@ -16,7 +16,7 @@ struct LoginView: View {
     
     var body: some View {
         Button {
-            kakaoAuth.loginWithKakao()
+            kakaoAuth.handleLogin()
 
         } label : {
             Image("kakao_login_large_wide")

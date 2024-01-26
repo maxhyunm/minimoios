@@ -17,6 +17,7 @@
 		BA4C9E102B63996D00C96C87 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9E0F2B63996D00C96C87 /* .gitignore */; };
 		BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E132B639FD300C96C87 /* LoginView.swift */; };
 		BA4C9E172B63A9DC00C96C87 /* KakaoAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E162B63A9DC00C96C87 /* KakaoAuthViewModel.swift */; };
+		BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		BA4C9E132B639FD300C96C87 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BA4C9E152B63A23400C96C87 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BA4C9E162B63A9DC00C96C87 /* KakaoAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthViewModel.swift; sourceTree = "<group>"; };
+		BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,14 +68,13 @@
 		BA4C9DF82B6395F500C96C87 /* MinimoiOS */ = {
 			isa = PBXGroup;
 			children = (
-				BA4C9E0E2B63984600C96C87 /* Info.plist */,
 				BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */,
-				BA4C9E152B63A23400C96C87 /* Config.xcconfig */,
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
+				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
+				BA4C9E152B63A23400C96C87 /* Config.xcconfig */,
+				BA4C9E0E2B63984600C96C87 /* Info.plist */,
 				BA4C9DFF2B6395F700C96C87 /* Preview Content */,
-				BA4C9E132B639FD300C96C87 /* LoginView.swift */,
-				BA4C9E162B63A9DC00C96C87 /* KakaoAuthViewModel.swift */,
 			);
 			path = MinimoiOS;
 			sourceTree = "<group>";
@@ -84,6 +85,16 @@
 				BA4C9E002B6395F700C96C87 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BA4C9E192B63C7B300C96C87 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C9E162B63A9DC00C96C87 /* KakaoAuthViewModel.swift */,
+				BA4C9E132B639FD300C96C87 /* LoginView.swift */,
+				BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +180,7 @@
 				BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
 				BA4C9E172B63A9DC00C96C87 /* KakaoAuthViewModel.swift in Sources */,
+				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
