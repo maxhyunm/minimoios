@@ -6,15 +6,34 @@
 //
 
 import SwiftUI
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 struct ContentView: View {
+    @EnvironmentObject var kakaoAuth: KakaoAuthViewModel
+    
     var body: some View {
-        Text("Hello")
+        if kakaoAuth.isLogin {
+            Button {
+                kakaoAuth.logoutWithKakao()
+            } label: {
+                Text("LogOut")
+            }
+
+        } else {
+            LoginView()
+                .environmentObject(kakaoAuth)
+                .onOpenURL { url in
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ = AuthController.handleOpenUrl(url: url)
+                    }
+                }
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(KakaoAuthViewModel())
     }
 }

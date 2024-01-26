@@ -11,7 +11,7 @@ import KakaoSDKAuth
 
 @main
 struct MinimoiOSApp: App {
-    @State private var userToken: String = ""
+    @State private var kakaoAuth = KakaoAuthViewModel()
     
     init() {
         guard let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String else { return }
@@ -20,12 +20,8 @@ struct MinimoiOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoginView()
-                .onOpenURL { url in
-                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                        _ = AuthController.handleOpenUrl(url: url)
-                    }
-                }
+            ContentView()
+                .environmentObject(kakaoAuth)
         }
     }
 }

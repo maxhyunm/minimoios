@@ -9,29 +9,15 @@ import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import Combine
 
 struct LoginView: View {
+    @EnvironmentObject var kakaoAuth: KakaoAuthViewModel
+    
     var body: some View {
         Button {
-            if (UserApi.isKakaoTalkLoginAvailable()) {
-                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                    if let error = error {
-                        print(error)
-                    }
-                    if let oauthToken = oauthToken {
-                        print("kakao success")
-                    }
-                }
-            } else {
-                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    if let error = error {
-                        print(error)
-                    }
-                    if let oauthToken = oauthToken {
-                        print("kakao success")
-                    }
-                }
-            }
+            kakaoAuth.loginWithKakao()
+
         } label : {
             Image("kakao_login_large_wide")
                 .resizable()
@@ -43,6 +29,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView().environmentObject(KakaoAuthViewModel())
     }
 }
