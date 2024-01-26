@@ -10,19 +10,19 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 
 struct ContentView: View {
-    @EnvironmentObject var authViewModel: KakaoAuthViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
-        if authViewModel.isLogin {
+        if userViewModel.isLoggedIn {
             Button {
-                authViewModel.handleLogout()
+                userViewModel.handleLogout()
             } label: {
                 Text("LogOut")
             }
             
         } else {
             LoginView()
-                .environmentObject(authViewModel)
+                .environmentObject(userViewModel)
                 .onOpenURL { url in
                     if (AuthApi.isKakaoTalkLoginUrl(url)) {
                         _ = AuthController.handleOpenUrl(url: url)
@@ -34,6 +34,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(KakaoAuthViewModel())
+        ContentView().environmentObject(UserViewModel(user: UserModel(
+            token: "", name: "", email: "", oAuthType: .unknown
+        )))
     }
 }
