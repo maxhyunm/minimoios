@@ -14,9 +14,7 @@ struct MinimoiOSApp: App {
     @State private var userToken: String = ""
     
     init() {
-        guard let url = Bundle.main.url(forResource: "Info", withExtension: "plist"),
-              let dictionary = NSDictionary(contentsOf: url),
-              let nativeKey = dictionary["KAKAO_NATIVE_APP_KEY"] as? String else { return }
+        guard let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String else { return }
         KakaoSDK.initSDK(appKey: nativeKey)
     }
     
