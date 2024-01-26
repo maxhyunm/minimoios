@@ -15,6 +15,7 @@
 		BA4C9E0B2B6397EB00C96C87 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E0A2B6397EB00C96C87 /* KakaoSDKCommon */; };
 		BA4C9E0D2B6397EB00C96C87 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E0C2B6397EB00C96C87 /* KakaoSDKUser */; };
 		BA4C9E102B63996D00C96C87 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9E0F2B63996D00C96C87 /* .gitignore */; };
+		BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E132B639FD300C96C87 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,8 @@
 		BA4C9E002B6395F700C96C87 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA4C9E0E2B63984600C96C87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BA4C9E0F2B63996D00C96C87 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		BA4C9E132B639FD300C96C87 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BA4C9E152B63A23400C96C87 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +66,11 @@
 			children = (
 				BA4C9E0E2B63984600C96C87 /* Info.plist */,
 				BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */,
+				BA4C9E152B63A23400C96C87 /* Config.xcconfig */,
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
 				BA4C9DFF2B6395F700C96C87 /* Preview Content */,
+				BA4C9E132B639FD300C96C87 /* LoginView.swift */,
 			);
 			path = MinimoiOS;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
 				BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
 			);
@@ -167,6 +173,7 @@
 /* Begin XCBuildConfiguration section */
 		BA4C9E022B6395F700C96C87 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA4C9E152B63A23400C96C87 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -227,6 +234,7 @@
 		};
 		BA4C9E032B6395F700C96C87 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA4C9E152B63A23400C96C87 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -281,6 +289,7 @@
 		};
 		BA4C9E052B6395F700C96C87 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA4C9E152B63A23400C96C87 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -311,6 +320,7 @@
 		};
 		BA4C9E062B6395F700C96C87 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA4C9E152B63A23400C96C87 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
