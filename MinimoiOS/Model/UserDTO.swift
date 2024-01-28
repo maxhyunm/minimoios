@@ -5,11 +5,11 @@
 //  Created by Min Hyun on 2024/01/26.
 //
 
-import Combine
+import Foundation
 
-struct UserModel {
-    var token: String
+struct UserDTO: Codable {
+    var id: String
     var name: String
     var email: String
-    var oAuthType: OAuthType
+    var oAuthType: String
 }

@@ -1,0 +1,14 @@
+[
+    {
+        "id": "40abdded-d746-46e8-bfed-ef7c065d53e3",
+        "name": "현민",
+        "email": "terulina@hanmail.net",
+        "oAuthType": "KAKAO"
+    },
+    {
+        "id": "c8ad784e-a52a-4914-9aec-e115a2143b87",
+        "name": "Max Hyun",
+        "email": "minnimida@gmail.com",
+        "oAuthType": "GOOGLE"
+    }
+]

@@ -9,10 +9,21 @@ import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import GoogleSignIn
+//import FirebaseCore
+//
+//class AppDelegate: NSObject, UIApplicationDelegate {
+//  func application(_ application: UIApplication,
+//                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+//    FirebaseApp.configure()
+//
+//    return true
+//  }
+//}
 
 @main
 struct MinimoiOSApp: App {
-    @State private var userViewModel = UserViewModel(user: UserModel(token: "", name: "", email: "", oAuthType: .unknown))
+    @State private var loginViewModel = LoginViewModel()
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
         guard let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String else { return }
@@ -24,24 +35,14 @@ struct MinimoiOSApp: App {
             ContentView()
                 .onOpenURL { url in
                     GIDSignIn.sharedInstance.handle(url)
-                }
-                .onAppear {
-                    GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-//                        if let error {
-//
-//                        }
-                        if let user,
-                           let userName = user.profile?.name,
-                           let userEmail = user.profile?.email {
-                            self.userViewModel.user.token = "\(user.accessToken)"
-                            self.userViewModel.user.name = userName
-                            self.userViewModel.user.email = userEmail
-                            self.userViewModel.user.oAuthType = .google
-                            self.userViewModel.isLoggedIn = true
-                        }
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ = AuthController.handleOpenUrl(url: url)
                     }
                 }
-                .environmentObject(userViewModel)
+                .onAppear {
+                    loginViewModel.checkLogin()
+                }
+                .environmentObject(loginViewModel)
         }
     }
 }

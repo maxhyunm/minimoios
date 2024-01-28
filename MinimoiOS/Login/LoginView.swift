@@ -14,13 +14,12 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct LoginView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     var body: some View {
         VStack(spacing: 20) {
             Button {
-                userViewModel.user.oAuthType = .kakao
-                userViewModel.handleLogin()
+                loginViewModel.handleLogin(for: .kakao)
             } label : {
                 Image("kakao_login_large_wide")
                     .resizable()
@@ -29,12 +28,11 @@ struct LoginView: View {
             }
             
             GoogleSignInButton(scheme: .light, style: .wide) {
-                userViewModel.user.oAuthType = .google
-                userViewModel.handleLogin()
+                loginViewModel.handleLogin(for: .google)
             }
             .frame(width : UIScreen.main.bounds.width * 0.9, height: 60, alignment: .center)
         }
-        .navigationDestination(isPresented: $userViewModel.isLoggedIn) {
+        .navigationDestination(isPresented: $loginViewModel.isLoggedIn) {
             Text("Logged In")
         }
         .onAppear {
@@ -46,8 +44,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .environmentObject(UserViewModel(user: UserModel(
-                token: "", name: "", email: "", oAuthType: .unknown
-            )))
+            .environmentObject(LoginViewModel())
     }
 }
