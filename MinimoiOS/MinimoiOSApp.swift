@@ -22,7 +22,7 @@ import GoogleSignIn
 
 @main
 struct MinimoiOSApp: App {
-    @State private var loginViewModel = LoginViewModel()
+    @State private var authModel = AuthModel()
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
@@ -39,10 +39,7 @@ struct MinimoiOSApp: App {
                         _ = AuthController.handleOpenUrl(url: url)
                     }
                 }
-                .onAppear {
-                    loginViewModel.checkLogin()
-                }
-                .environmentObject(loginViewModel)
+                .environmentObject(authModel)
         }
     }
 }

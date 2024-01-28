@@ -8,24 +8,33 @@
 import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
+import Combine
 
 struct ContentView: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var authModel: AuthModel
     
     var body: some View {
-        if loginViewModel.isLoggedIn {
-            TimelineView().environmentObject(loginViewModel)
-            
+        if let user = authModel.user {
+            let timelineViewModel = TimelineViewModel(user: user.id)
+            TimelineList()
+                .onAppear {
+                    timelineViewModel.readTimeline()
+                }
+                .environmentObject(authModel)
+                .environmentObject(timelineViewModel)
         } else {
             LoginView()
-                .environmentObject(loginViewModel)
-                
+                .onAppear {
+                    authModel.checkLogin()
+                }
+                .environmentObject(authModel)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(LoginViewModel())
+        ContentView()
+            .environmentObject(AuthModel())
     }
 }

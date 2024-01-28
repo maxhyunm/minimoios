@@ -8,4 +8,5 @@
 enum MinimoError: Error {
     case decodingError
     case fileNotFound
+    case unknown
 }

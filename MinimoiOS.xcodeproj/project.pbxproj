@@ -13,6 +13,8 @@
 		BA28F0972B661DE000042912 /* DecodingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0962B661DE000042912 /* DecodingManager.swift */; };
 		BA28F0992B6621FA00042912 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0982B6621FA00042912 /* Error.swift */; };
 		BA28F09B2B6632AC00042912 /* ContentsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09A2B6632AC00042912 /* ContentsDTO.swift */; };
+		BA28F09E2B6648B300042912 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09D2B6648B300042912 /* TimelineViewModel.swift */; };
+		BA28F0A22B666D8E00042912 /* TimelineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A12B666D8E00042912 /* TimelineRow.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -26,8 +28,8 @@
 		BA4C9E232B63ECB100C96C87 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E222B63ECB100C96C87 /* GoogleSignIn */; };
 		BA4C9E252B63ECB100C96C87 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E242B63ECB100C96C87 /* GoogleSignInSwift */; };
 		BA4C9E292B63F0CC00C96C87 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */; };
-		BA4C9E2B2B63FC2C00C96C87 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2A2B63FC2C00C96C87 /* LoginViewModel.swift */; };
-		BA4C9E2E2B640B7000C96C87 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2D2B640B7000C96C87 /* TimelineView.swift */; };
+		BA4C9E2B2B63FC2C00C96C87 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2A2B63FC2C00C96C87 /* AuthModel.swift */; };
+		BA4C9E2E2B640B7000C96C87 /* TimelineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2D2B640B7000C96C87 /* TimelineList.swift */; };
 		BA4C9E312B66158C00C96C87 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E302B66158C00C96C87 /* FirebaseAnalytics */; };
 		BA4C9E332B66158C00C96C87 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E322B66158C00C96C87 /* FirebaseAnalyticsOnDeviceConversion */; };
 		BA4C9E352B66158C00C96C87 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E342B66158C00C96C87 /* FirebaseAnalyticsSwift */; };
@@ -64,6 +66,8 @@
 		BA28F0962B661DE000042912 /* DecodingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingManager.swift; sourceTree = "<group>"; };
 		BA28F0982B6621FA00042912 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		BA28F09A2B6632AC00042912 /* ContentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsDTO.swift; sourceTree = "<group>"; };
+		BA28F09D2B6648B300042912 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
+		BA28F0A12B666D8E00042912 /* TimelineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRow.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,8 +79,8 @@
 		BA4C9E152B63A23400C96C87 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthType.swift; sourceTree = "<group>"; };
 		BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
-		BA4C9E2A2B63FC2C00C96C87 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		BA4C9E2D2B640B7000C96C87 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		BA4C9E2A2B63FC2C00C96C87 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		BA4C9E2D2B640B7000C96C87 /* TimelineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA28F09C2B66489900042912 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C9E2D2B640B7000C96C87 /* TimelineList.swift */,
+				BA28F09D2B6648B300042912 /* TimelineViewModel.swift */,
+				BA28F0A12B666D8E00042912 /* TimelineRow.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
 		BA4C9DED2B6395F500C96C87 = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +159,7 @@
 				BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */,
 				BA4C9E2C2B640ABB00C96C87 /* Model */,
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
-				BA4C9E2D2B640B7000C96C87 /* TimelineView.swift */,
+				BA28F09C2B66489900042912 /* Timeline */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
 				BA4C9E152B63A23400C96C87 /* Config.xcconfig */,
@@ -170,7 +184,7 @@
 		BA4C9E192B63C7B300C96C87 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				BA4C9E2A2B63FC2C00C96C87 /* LoginViewModel.swift */,
+				BA4C9E2A2B63FC2C00C96C87 /* AuthModel.swift */,
 				BA4C9E132B639FD300C96C87 /* LoginView.swift */,
 			);
 			path = Login;
@@ -181,8 +195,8 @@
 			children = (
 				BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */,
 				BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */,
-				BA28F0982B6621FA00042912 /* Error.swift */,
 				BA28F09A2B6632AC00042912 /* ContentsDTO.swift */,
+				BA28F0982B6621FA00042912 /* Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -301,15 +315,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
-				BA4C9E2E2B640B7000C96C87 /* TimelineView.swift in Sources */,
-				BA4C9E2B2B63FC2C00C96C87 /* LoginViewModel.swift in Sources */,
+				BA4C9E2E2B640B7000C96C87 /* TimelineList.swift in Sources */,
+				BA4C9E2B2B63FC2C00C96C87 /* AuthModel.swift in Sources */,
 				BA4C9E292B63F0CC00C96C87 /* UserDTO.swift in Sources */,
 				BA28F0972B661DE000042912 /* DecodingManager.swift in Sources */,
 				BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */,
+				BA28F09E2B6648B300042912 /* TimelineViewModel.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
 				BA28F09B2B6632AC00042912 /* ContentsDTO.swift in Sources */,
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
+				BA28F0A22B666D8E00042912 /* TimelineRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

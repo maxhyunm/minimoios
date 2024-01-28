@@ -11,8 +11,7 @@ import KakaoSDKUser
 import GoogleSignIn
 import Combine
 
-final class LoginViewModel: ObservableObject {
-    
+final class AuthModel: ObservableObject {
     @Published var user: UserDTO?
     @Published var isLoggedIn: Bool = false
     @Published var error: Error?
@@ -29,9 +28,8 @@ final class LoginViewModel: ObservableObject {
     }
     
     func handleLogout() {
-        guard let user,
-              let oauthType = OAuthType(rawValue: user.oAuthType) else { return }
-        switch oauthType {
+        guard let user else { return }
+        switch user.oAuthType {
         case .kakao:
             handleKakaoLogout()
         case .google:
@@ -180,10 +178,10 @@ final class LoginViewModel: ObservableObject {
     private func addUser(name: String, email: String, type: OAuthType) {
         // TODO: 새 유저 만들기
         self.user = UserDTO(
-            id: UUID().uuidString,
+            id: UUID(),
             name: name,
             email: email,
-            oAuthType: type.rawValue
+            oAuthType: type
         )
     }
 }
