@@ -43,6 +43,6 @@ struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
         TimelineList()
             .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
-            .environmentObject(TimelineViewModel(user: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!))
+            .environmentObject(TimelineViewModel(user: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!, firebaseManager: FirebaseManager()))
     }
 }

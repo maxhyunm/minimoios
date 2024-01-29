@@ -58,7 +58,7 @@ final class AuthModel: ObservableObject {
                     if let error {
                         self.error = error
                     } else {
-                        self.getKakaoUserDetail()
+                        self.fetchKakaoUserDetail()
                     }
                 }
             }
@@ -67,10 +67,9 @@ final class AuthModel: ObservableObject {
                 if let error {
                     self.error = error
                 }
-                
                 if let user,
                    let profile = user.profile {
-                    self.getGoogleUserDetail(profile: profile)
+                    self.fetchGoogleUserDetail(profile: profile)
                 }
             }
         default:
@@ -84,7 +83,7 @@ final class AuthModel: ObservableObject {
                 if let error {
                     self.error = error
                 } else {
-                    self.getKakaoUserDetail()
+                    self.fetchKakaoUserDetail()
                 }
             }
         } else {
@@ -92,7 +91,7 @@ final class AuthModel: ObservableObject {
                 if let error {
                     self.error = error
                 } else {
-                    self.getKakaoUserDetail()
+                    self.fetchKakaoUserDetail()
                 }
             }
         }
@@ -111,7 +110,7 @@ final class AuthModel: ObservableObject {
         }
     }
     
-    private func getKakaoUserDetail() {
+    private func fetchKakaoUserDetail() {
         UserApi.shared.me() { user, error in
             if let error {
                 self.error = error
@@ -122,7 +121,7 @@ final class AuthModel: ObservableObject {
                 return
             }
             
-            self.getUserData(email: email, type: .kakao).sink { completion in
+            self.fetchUserData(email: email, type: .kakao).sink { completion in
                     switch completion {
                     case.finished:
                         break
@@ -153,13 +152,13 @@ final class AuthModel: ObservableObject {
             }
             if let result,
                let profile = result.user.profile {
-                self.getGoogleUserDetail(profile: profile)
+                self.fetchGoogleUserDetail(profile: profile)
             }
         }
     }
     
-    private func getGoogleUserDetail(profile: GIDProfileData) {
-        getUserData(email: profile.email, type: .google).sink { completion in
+    private func fetchGoogleUserDetail(profile: GIDProfileData) {
+        fetchUserData(email: profile.email, type: .google).sink { completion in
             switch completion {
             case.finished:
                 break
@@ -186,12 +185,12 @@ final class AuthModel: ObservableObject {
         self.isLoggedIn  = false
     }
     
-    private func getUserData(email: String, type: OAuthType) -> Future<[UserDTO], MinimoError> {
+    private func fetchUserData(email: String, type: OAuthType) -> Future<[UserDTO], MinimoError> {
         let query = Filter.andFilter([
             Filter.whereField("email", isEqualTo: email),
             Filter.whereField("oAuthType", isEqualTo: type.rawValue)
         ])
-        return firebaseManager.readQeuryData(from: "users", query: query)
+        return firebaseManager.readQueryData(from: "users", query: query)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {

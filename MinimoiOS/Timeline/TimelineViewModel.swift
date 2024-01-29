@@ -6,24 +6,35 @@
 //
 
 import Foundation
+import Firebase
 import Combine
 
 final class TimelineViewModel: ObservableObject {
-    @Published var contents = [ContentsDTO]()
+    @Published var contents = [ContentDTO]()
     @Published var error: Error?
     let user: UUID
+    let firebaseManager: FirebaseManager
+    var cancellables = Set<AnyCancellable>()
     
-    init(user: UUID) {
+    init(user: UUID, firebaseManager: FirebaseManager) {
         self.user = user
+        self.firebaseManager = firebaseManager
     }
     
-    func readTimeline() {
-        do {
-            let allData: [ContentsDTO] = try DecodingManager.shared.loadFile("test_contents.json")
-            let filtered = allData.filter { $0.creator == self.user }
-            contents = filtered
-        } catch(let error) {
-            self.error = error
+    func fetchContents() {
+        let query = Filter.andFilter([
+            Filter.whereField("creator", isEqualTo: user.uuidString)
+        ])
+        firebaseManager.readQueryData(from: "contents", query: query).sink { completion in
+            switch completion {
+            case .finished:
+                break
+            case .failure(let error):
+                self.error = error
+            }
+        } receiveValue: { contents in
+            self.contents = contents
         }
+        .store(in: &cancellables)
     }
 }

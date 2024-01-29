@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ContentsDTO: Decodable, Identifiable, Hashable, Uploadable {
+struct ContentDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
     var creator: UUID
     var name: String

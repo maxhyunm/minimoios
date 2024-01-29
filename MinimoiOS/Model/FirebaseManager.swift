@@ -11,7 +11,7 @@ import FirebaseCore
 import Combine
 import FirebaseFirestoreSwift
 
-final class FirebaseManager {
+struct FirebaseManager {
     init() {
         if FirebaseApp.app() == nil {
           FirebaseApp.configure()
@@ -22,10 +22,10 @@ final class FirebaseManager {
         Firestore.firestore().collection(collection).document(data.id.uuidString).setData(data.dataIntoDictionary())
     }
 
-    func readQeuryData<T: Decodable>(from collection: String, query: Filter) -> Future<[T], MinimoError> {
+    func readQueryData<T: Decodable>(from collection: String, query: Filter) -> Future<[T], MinimoError> {
         return Future { promise in
             Firestore.firestore().collection(collection).whereFilter(query).getDocuments { snapshot, error in
-                if let error {
+                if let _ = error {
                     promise(.failure(.unknown))
                 }
                 guard let snapshot else {

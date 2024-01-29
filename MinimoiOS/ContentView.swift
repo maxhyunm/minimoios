@@ -15,10 +15,10 @@ struct ContentView: View {
     
     var body: some View {
         if let user = authModel.user {
-            let timelineViewModel = TimelineViewModel(user: user.id)
+            let timelineViewModel = TimelineViewModel(user: user.id, firebaseManager: authModel.firebaseManager)
             TimelineList()
                 .onAppear {
-                    timelineViewModel.readTimeline()
+                    timelineViewModel.fetchContents()
                 }
                 .environmentObject(authModel)
                 .environmentObject(timelineViewModel)

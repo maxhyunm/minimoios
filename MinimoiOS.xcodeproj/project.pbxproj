@@ -12,7 +12,7 @@
 		BA28F0952B661D1E00042912 /* test_contents.json in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0942B661D1E00042912 /* test_contents.json */; };
 		BA28F0972B661DE000042912 /* DecodingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0962B661DE000042912 /* DecodingManager.swift */; };
 		BA28F0992B6621FA00042912 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0982B6621FA00042912 /* Error.swift */; };
-		BA28F09B2B6632AC00042912 /* ContentsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09A2B6632AC00042912 /* ContentsDTO.swift */; };
+		BA28F09B2B6632AC00042912 /* ContentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09A2B6632AC00042912 /* ContentDTO.swift */; };
 		BA28F09E2B6648B300042912 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09D2B6648B300042912 /* TimelineViewModel.swift */; };
 		BA28F0A22B666D8E00042912 /* TimelineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A12B666D8E00042912 /* TimelineRow.swift */; };
 		BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A32B676EDA00042912 /* FirebaseManager.swift */; };
@@ -67,7 +67,7 @@
 		BA28F0942B661D1E00042912 /* test_contents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test_contents.json; sourceTree = "<group>"; };
 		BA28F0962B661DE000042912 /* DecodingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingManager.swift; sourceTree = "<group>"; };
 		BA28F0982B6621FA00042912 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		BA28F09A2B6632AC00042912 /* ContentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsDTO.swift; sourceTree = "<group>"; };
+		BA28F09A2B6632AC00042912 /* ContentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDTO.swift; sourceTree = "<group>"; };
 		BA28F09D2B6648B300042912 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		BA28F0A12B666D8E00042912 /* TimelineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRow.swift; sourceTree = "<group>"; };
 		BA28F0A32B676EDA00042912 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			children = (
 				BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */,
 				BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */,
-				BA28F09A2B6632AC00042912 /* ContentsDTO.swift */,
+				BA28F09A2B6632AC00042912 /* ContentDTO.swift */,
 				BA28F0982B6621FA00042912 /* Error.swift */,
 				BA28F0A32B676EDA00042912 /* FirebaseManager.swift */,
 				BA28F0A52B67760400042912 /* Uploadable.swift */,
@@ -330,7 +330,7 @@
 				BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */,
 				BA28F09E2B6648B300042912 /* TimelineViewModel.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
-				BA28F09B2B6632AC00042912 /* ContentsDTO.swift in Sources */,
+				BA28F09B2B6632AC00042912 /* ContentDTO.swift in Sources */,
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
 				BA28F0A22B666D8E00042912 /* TimelineRow.swift in Sources */,
