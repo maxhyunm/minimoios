@@ -190,7 +190,7 @@ final class AuthModel: ObservableObject {
             Filter.whereField("email", isEqualTo: email),
             Filter.whereField("oAuthType", isEqualTo: type.rawValue)
         ])
-        return firebaseManager.readQueryData(from: "users", query: query)
+        return firebaseManager.readQueryData(from: "users", query: query, orderBy: "createdAt", descending: false, limit: 1)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
@@ -198,6 +198,7 @@ final class AuthModel: ObservableObject {
             id: UUID(),
             name: name,
             email: email,
+            createdAt: Date(),
             oAuthType: type
         )
         firebaseManager.createData(to: "users", data: newUser)

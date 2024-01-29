@@ -2,29 +2,36 @@
 //  TimelineView.swift
 //  MinimoiOS
 //
-//  Created by Min Hyun on 2024/01/27.
+//  Created by Min Hyun on 2024/01/29.
 //
 
 import SwiftUI
 
-struct TimelineList: View {
+struct TimelineView: View {
     @EnvironmentObject var authModel: AuthModel
     @EnvironmentObject var timelineViewModel: TimelineViewModel
     
     var body: some View {
-            ScrollView {
-                ForEach(timelineViewModel.contents, id: \.self) { content in
-                    TimelineRow(name: content.name, date: "\(content.createdAt)", content: content.content)
-                }
+        NavigationStack {
+            VStack(spacing: 10) {
+                TopMenuView()
+                    .environmentObject(authModel)
+                WriteView()
+                TimelineList()
+                    .onAppear {
+                        timelineViewModel.fetchContents()
+                    }
+                    .environmentObject(authModel)
+                    .environmentObject(timelineViewModel)
             }
-        .padding()
-        Spacer()
+        }
+        .navigationTitle("My Minimo")
     }
 }
 
-struct TimelineList_Previews: PreviewProvider {
+struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        TimelineList()
+        TimelineView()
             .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
             .environmentObject(
                 TimelineViewModel(user: UserDTO(

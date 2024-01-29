@@ -22,9 +22,11 @@ struct FirebaseManager {
         Firestore.firestore().collection(collection).document(data.id.uuidString).setData(data.dataIntoDictionary())
     }
 
-    func readQueryData<T: Decodable>(from collection: String, query: Filter) -> Future<[T], MinimoError> {
+    func readQueryData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int) -> Future<[T], MinimoError> {
         return Future { promise in
-            Firestore.firestore().collection(collection).whereFilter(query).getDocuments { snapshot, error in
+            Firestore.firestore().collection(collection)
+                .whereFilter(query)
+                .getDocuments { snapshot, error in
                 if let _ = error {
                     promise(.failure(.unknown))
                 }

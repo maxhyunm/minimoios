@@ -36,12 +36,24 @@ struct ContentDTO: Decodable, Identifiable, Hashable, Uploadable {
         content = try container.decode(String.self, forKey: .content)
     }
     
+    init(id: UUID, creator: UUID, name: String, createdAt: Date, content: String) {
+        self.id = id
+        self.creator = creator
+        self.name = name
+        self.createdAt = createdAt
+        self.content = content
+    }
+    
     func dataIntoDictionary() -> [String : Any] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
         return [
             "id": self.id.uuidString,
             "creator": self.creator.uuidString,
             "name": self.name,
-            "createdAt": self.createdAt,
+            "createdAt": dateFormatter.string(from: self.createdAt),
             "content": self.content
         ]
     }
