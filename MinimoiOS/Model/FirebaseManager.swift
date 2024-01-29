@@ -48,11 +48,11 @@ struct FirebaseManager {
         }
     }
     
-    func updateData(for collection: String, uuid: UUID, data: [AnyHashable: Any]) {
+    func updateData(from collection: String, uuid: UUID, data: [AnyHashable: Any]) {
         Firestore.firestore().collection(collection).document(uuid.uuidString).updateData(data)
     }
     
-    func deleteData(for collection: String, uuid: UUID, data: [AnyHashable: Any]) {
+    func deleteData(from collection: String, uuid: UUID) {
         Firestore.firestore().collection(collection).document(uuid.uuidString).delete()
     }
     

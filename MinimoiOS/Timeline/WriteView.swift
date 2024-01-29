@@ -24,7 +24,7 @@ struct WriteView: View {
 //                .cornerRadius(15)
 
             Button {
-                timelineViewModel.createContents(content: content)
+                timelineViewModel.createContents(body: content)
                 self.content = ""
             } label: {
                 Text("MO!")

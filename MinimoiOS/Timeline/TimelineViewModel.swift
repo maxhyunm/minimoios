@@ -39,13 +39,18 @@ final class TimelineViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func createContents(content: String) {
+    func createContents(body: String) {
         let newContent = ContentDTO(id: UUID(),
                                     creator: user.id,
                                     name: user.name,
                                     createdAt: Date(),
-                                    content: content)
+                                    content: body)
         firebaseManager.createData(to: "contents", data: newContent)
+        fetchContents()
+    }
+    
+    func deleteContent(_ contentId: UUID) {
+        firebaseManager.deleteData(from: "contents", uuid: contentId)
         fetchContents()
     }
 }

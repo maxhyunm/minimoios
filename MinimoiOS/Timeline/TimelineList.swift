@@ -14,7 +14,8 @@ struct TimelineList: View {
     var body: some View {
             ScrollView {
                 ForEach(timelineViewModel.contents, id: \.self) { content in
-                    TimelineRow(name: content.name, date: "\(content.createdAt)", content: content.content)
+                    TimelineRow(content: content)
+                        .environmentObject(timelineViewModel)
                 }
             }
         .padding()

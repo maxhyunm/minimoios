@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TimelineRow: View {
-    let name: String
-    let date: String
-    let content: String
+    @EnvironmentObject var timelineViewModel: TimelineViewModel
+    
+    let content: ContentDTO
     
     var body: some View {
         HStack {
@@ -25,12 +25,21 @@ struct TimelineRow: View {
                 Spacer()
             }
             VStack(alignment: .leading, spacing: 10) {
-                Text(name)
-                    .font(.headline)
-                Text(content)
+                HStack {
+                    Text(content.name)
+                        .font(.headline)
+                    Spacer()
+                    Button {
+                        timelineViewModel.deleteContent(content.id)
+                    } label: {
+                        Image(systemName: "trash.fill")
+                    }
+                    .foregroundColor(.black)
+                }
+                Text(content.content)
                     .lineLimit(nil)
                     .font(.body)
-                Text(date)
+                Text(content.createdAt.formatted(date: .numeric, time: .omitted))
                     .font(.caption2)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,6 +53,20 @@ struct TimelineRow: View {
 
 struct TimelineRow_Previews: PreviewProvider {
     static var previews: some View {
-        TimelineRow(name: "a", date: "b", content: "cdefg")
+        TimelineRow(content: ContentDTO(
+            id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+            creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+            name: "테스트",
+            createdAt: Date(),
+            content: "얍"
+        ))
+            .environmentObject(
+                TimelineViewModel(user: UserDTO(
+                    id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                    name: "테스트",
+                    email: "aaa@aaa.com",
+                    createdAt: Date(),
+                    oAuthType: .kakao
+                ),firebaseManager: FirebaseManager()))
     }
 }
