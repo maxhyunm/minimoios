@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDTO: Decodable, Identifiable, Hashable {
+struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
     var name: String
     var email: String
@@ -37,4 +37,14 @@ struct UserDTO: Decodable, Identifiable, Hashable {
         self.email = email
         self.oAuthType = oAuthType
     }
+    
+    func dataIntoDictionary() -> [String : Any] {
+        return [
+            "id": self.id.uuidString,
+            "name": self.name,
+            "email": self.email,
+            "oAuthType": self.oAuthType.rawValue
+        ]
+    }
+    
 }

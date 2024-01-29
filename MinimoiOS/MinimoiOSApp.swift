@@ -9,21 +9,23 @@ import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import GoogleSignIn
-//import FirebaseCore
-//
-//class AppDelegate: NSObject, UIApplicationDelegate {
-//  func application(_ application: UIApplication,
-//                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-//    FirebaseApp.configure()
-//
-//    return true
-//  }
-//}
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+      if FirebaseApp.app() == nil {
+        FirebaseApp.configure()
+      }
+
+    return true
+  }
+}
 
 @main
 struct MinimoiOSApp: App {
-    @State private var authModel = AuthModel()
-//    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @State private var authModel = AuthModel(firebaseManager: FirebaseManager())
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
         guard let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String else { return }

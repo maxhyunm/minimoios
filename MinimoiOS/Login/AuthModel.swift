@@ -9,12 +9,20 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 import GoogleSignIn
+import Firebase
+import FirebaseFirestoreSwift
 import Combine
 
 final class AuthModel: ObservableObject {
     @Published var user: UserDTO?
     @Published var isLoggedIn: Bool = false
     @Published var error: Error?
+    var firebaseManager: FirebaseManager
+    var cancellables = Set<AnyCancellable>()
+    
+    init(firebaseManager: FirebaseManager) {
+        self.firebaseManager = firebaseManager
+    }
     
     func handleLogin(for type: OAuthType) {
         switch type {
@@ -47,7 +55,9 @@ final class AuthModel: ObservableObject {
         case .kakao:
             if AuthApi.hasToken() {
                 UserApi.shared.accessTokenInfo { _, error in
-                    if error == nil {
+                    if let error {
+                        self.error = error
+                    } else {
                         self.getKakaoUserDetail()
                     }
                 }
@@ -59,15 +69,8 @@ final class AuthModel: ObservableObject {
                 }
                 
                 if let user,
-                   let userEmail = user.profile?.email {
-                    do {
-                        if let userData = try self.getUserData(email: userEmail) {
-                            self.user = userData
-                            self.isLoggedIn = true
-                        }
-                    } catch(let error) {
-                        self.error = error
-                    }
+                   let profile = user.profile {
+                    self.getGoogleUserDetail(profile: profile)
                 }
             }
         default:
@@ -113,23 +116,30 @@ final class AuthModel: ObservableObject {
             if let error {
                 self.error = error
             }
-            if let name = user?.kakaoAccount?.profile?.nickname,
-               let email = user?.kakaoAccount?.email {
-                do {
-                    if let userData = try self.getUserData(email: email) {
-                        self.user = userData
-                    } else {
-                        // TODO: 새 유저 만들기
-                        self.addUser(name: name,
-                                     email: email,
-                                     type: OAuthType.kakao)
+            guard let name = user?.kakaoAccount?.profile?.nickname,
+                  let email = user?.kakaoAccount?.email else {
+                self.error = MinimoError.unknown
+                return
+            }
+            
+            self.getUserData(email: email, type: .kakao).sink { completion in
+                    switch completion {
+                    case.finished:
+                        break
+                    case .failure(let error):
+                        if error == MinimoError.dataNotFound {
+                            self.addUser(name: name, email: email, type: .kakao)
+                        } else {
+                            self.error = error
+                        }
                     }
+                } receiveValue: { user in
+                    guard let userData = user.first else { return }
+                    self.user = userData
                     UserDefaults.standard.setValue(OAuthType.kakao.rawValue, forKey: "latestOAuthType")
                     self.isLoggedIn = true
-                } catch(let error) {
-                    self.error = error
                 }
-            }
+                .store(in: &self.cancellables)
         }
     }
     
@@ -143,22 +153,30 @@ final class AuthModel: ObservableObject {
             }
             if let result,
                let profile = result.user.profile {
-                do {
-                    if let userData = try self.getUserData(email: profile.email) {
-                        self.user = userData
-                    } else {
-                        // TODO: 새 유저 만들기
-                        self.addUser(name: profile.name,
-                                     email: profile.email,
-                                     type: OAuthType.google)
-                    }
-                    UserDefaults.standard.setValue(OAuthType.google.rawValue, forKey: "latestOAuthType")
-                    self.isLoggedIn = true
-                } catch(let error) {
+                self.getGoogleUserDetail(profile: profile)
+            }
+        }
+    }
+    
+    private func getGoogleUserDetail(profile: GIDProfileData) {
+        getUserData(email: profile.email, type: .google).sink { completion in
+            switch completion {
+            case.finished:
+                break
+            case .failure(let error):
+                if error == MinimoError.dataNotFound {
+                    self.addUser(name: profile.name, email: profile.email, type: .google)
+                } else {
                     self.error = error
                 }
             }
+        } receiveValue: { user in
+            guard let userData = user.first else { return }
+            self.user = userData
+            UserDefaults.standard.setValue(OAuthType.google.rawValue, forKey: "latestOAuthType")
+            self.isLoggedIn = true
         }
+        .store(in: &cancellables)
     }
     
     private func handleGoogleLogout() {
@@ -168,20 +186,22 @@ final class AuthModel: ObservableObject {
         self.isLoggedIn  = false
     }
     
-    private func getUserData(email: String) throws -> UserDTO? {
-        let allUsers: [UserDTO] = try DecodingManager.shared.loadFile("test_user.json")
-        let filtered = allUsers.filter { $0.email == email }
-        guard let user = filtered.first else { return nil }
-        return user
+    private func getUserData(email: String, type: OAuthType) -> Future<[UserDTO], MinimoError> {
+        let query = Filter.andFilter([
+            Filter.whereField("email", isEqualTo: email),
+            Filter.whereField("oAuthType", isEqualTo: type.rawValue)
+        ])
+        return firebaseManager.readQeuryData(from: "users", query: query)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
-        // TODO: 새 유저 만들기
-        self.user = UserDTO(
+        let newUser = UserDTO(
             id: UUID(),
             name: name,
             email: email,
             oAuthType: type
         )
+        firebaseManager.createData(to: "users", data: newUser)
+        self.user = newUser
     }
 }

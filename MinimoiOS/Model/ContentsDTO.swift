@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ContentsDTO: Decodable, Identifiable, Hashable {
+struct ContentsDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
     var creator: UUID
     var name: String
@@ -35,4 +35,15 @@ struct ContentsDTO: Decodable, Identifiable, Hashable {
         createdAt = date
         content = try container.decode(String.self, forKey: .content)
     }
+    
+    func dataIntoDictionary() -> [String : Any] {
+        return [
+            "id": self.id.uuidString,
+            "creator": self.creator.uuidString,
+            "name": self.name,
+            "createdAt": self.createdAt,
+            "content": self.content
+        ]
+    }
+    
 }
