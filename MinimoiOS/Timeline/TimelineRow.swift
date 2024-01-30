@@ -26,7 +26,7 @@ struct TimelineRow: View {
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(content.name)
+                    Text(content.creator.name)
                         .font(.headline)
                     Spacer()
                     Button {
@@ -55,16 +55,15 @@ struct TimelineRow_Previews: PreviewProvider {
     static var previews: some View {
         TimelineRow(content: MinimoDTO(
             id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-            creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-            name: "테스트",
+            creator: UserDTO(id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                             name: "테스트"),
             createdAt: Date(),
             content: "얍"
         ))
             .environmentObject(
                 TimelineViewModel(user: UserDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                    name: "테스트",
-                    createdAt: Date()
+                    name: "테스트"
                 ),firebaseManager: FirebaseManager()))
     }
 }

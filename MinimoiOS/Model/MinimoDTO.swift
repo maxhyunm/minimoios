@@ -9,13 +9,12 @@ import Foundation
 
 struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
-    var creator: UUID
-    var name: String
+    var creator: UserDTO
     var createdAt: Date
     var content: String
     
     enum CodingKeys: String, CodingKey {
-        case id, creator, name, createdAt, content
+        case id, creator, createdAt, content
     }
     
     init(from decoder: Decoder) throws {
@@ -24,22 +23,19 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
         guard let uuid = UUID(uuidString: try container.decode(String.self, forKey: .id)),
-              let creatorId = UUID(uuidString: try container.decode(String.self, forKey: .creator)),
               let date = dateFormatter.date(from: try container.decode(String.self, forKey: .createdAt)) else {
             throw MinimoError.decodingError
         }
         
         id = uuid
-        creator = creatorId
-        name = try container.decode(String.self, forKey: .name)
+        creator = try container.decode(UserDTO.self, forKey: .creator)
         createdAt = date
         content = try container.decode(String.self, forKey: .content)
     }
     
-    init(id: UUID, creator: UUID, name: String, createdAt: Date, content: String) {
+    init(id: UUID, creator: UserDTO, createdAt: Date, content: String) {
         self.id = id
         self.creator = creator
-        self.name = name
         self.createdAt = createdAt
         self.content = content
     }
@@ -51,8 +47,7 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
         
         return [
             "id": self.id.uuidString,
-            "creator": self.creator.uuidString,
-            "name": self.name,
+            "creator": self.creator.dataIntoDictionary(),
             "createdAt": dateFormatter.string(from: self.createdAt),
             "content": self.content
         ]

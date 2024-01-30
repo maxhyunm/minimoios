@@ -30,8 +30,7 @@ struct TimelineList_Previews: PreviewProvider {
             .environmentObject(
                 TimelineViewModel(user: UserDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                    name: "테스트",
-                    createdAt: Date()
+                    name: "테스트"
                 ),firebaseManager: FirebaseManager()))
     }
 }

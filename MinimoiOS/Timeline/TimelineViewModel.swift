@@ -23,7 +23,7 @@ final class TimelineViewModel: ObservableObject {
     
     func fetchContents() {
         let query = Filter.andFilter([
-            Filter.whereField("creator", isEqualTo: user.id.uuidString)
+            Filter.whereField("creator", isEqualTo: user.dataIntoDictionary())
         ])
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in
@@ -41,8 +41,7 @@ final class TimelineViewModel: ObservableObject {
     
     func createContents(body: String) {
         let newContent = MinimoDTO(id: UUID(),
-                                    creator: user.id,
-                                    name: user.name,
+                                    creator: user,
                                     createdAt: Date(),
                                     content: body)
         firebaseManager.createData(to: "contents", data: newContent)

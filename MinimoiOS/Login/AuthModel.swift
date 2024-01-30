@@ -196,21 +196,21 @@ final class AuthModel: ObservableObject {
             Filter.whereField("email", isEqualTo: email),
             Filter.whereField("oAuthType", isEqualTo: type.rawValue)
         ])
-        return firebaseManager.readQueryData(from: "auth", query: query, orderBy: "id", descending: false, limit: 1)
+        return firebaseManager.readQueryData(from: "auth", query: query, orderBy: "createdAt", descending: false, limit: 1)
     }
     
     private func fetchUserData(auth: AuthDTO) -> Future<[UserDTO], MinimoError> {
         let query = Filter.whereField("id", isEqualTo: auth.user.uuidString)
-        return firebaseManager.readQueryData(from: "users", query: query, orderBy: "createdAt", descending: false, limit: 1)
+        return firebaseManager.readQueryData(from: "users", query: query, orderBy: "id", descending: false, limit: 1)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
         let newUser = UserDTO(id: UUID(),
-                              name: name,
-                              createdAt: Date())
+                              name: name)
         let newAuth = AuthDTO(id: UUID(),
                               email: email,
                               oAuthType: type,
+                              createdAt: Date(),
                               user: newUser.id)
         firebaseManager.createData(to: "auth", data: newAuth)
         firebaseManager.createData(to: "users", data: newUser)

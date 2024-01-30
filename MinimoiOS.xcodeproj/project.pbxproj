@@ -151,6 +151,15 @@
 			path = Timeline;
 			sourceTree = "<group>";
 		};
+		BA28F0AF2B68A6F800042912 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BA28F0A32B676EDA00042912 /* FirebaseManager.swift */,
+				BA28F0962B661DE000042912 /* DecodingManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		BA4C9DED2B6395F500C96C87 = {
 			isa = PBXGroup;
 			children = (
@@ -172,8 +181,9 @@
 			isa = PBXGroup;
 			children = (
 				BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */,
-				BA4C9E2C2B640ABB00C96C87 /* Model */,
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
+				BA4C9E2C2B640ABB00C96C87 /* Model */,
+				BA28F0AF2B68A6F800042912 /* Utility */,
 				BA28F09C2B66489900042912 /* Timeline */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
@@ -183,7 +193,6 @@
 				BA4C9DFF2B6395F700C96C87 /* Preview Content */,
 				BA28F0922B661C3700042912 /* test_user.json */,
 				BA28F0942B661D1E00042912 /* test_contents.json */,
-				BA28F0962B661DE000042912 /* DecodingManager.swift */,
 			);
 			path = MinimoiOS;
 			sourceTree = "<group>";
@@ -213,7 +222,6 @@
 				BA28F0AD2B68946900042912 /* AuthDTO.swift */,
 				BA28F09A2B6632AC00042912 /* MinimoDTO.swift */,
 				BA28F0982B6621FA00042912 /* Error.swift */,
-				BA28F0A32B676EDA00042912 /* FirebaseManager.swift */,
 				BA28F0A52B67760400042912 /* Uploadable.swift */,
 			);
 			path = Model;
