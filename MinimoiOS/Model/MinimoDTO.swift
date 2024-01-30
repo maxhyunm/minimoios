@@ -12,9 +12,10 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
     var creator: UUID
     var createdAt: Date
     var content: String
+    var images: [String]
     
     enum CodingKeys: String, CodingKey {
-        case id, creator, createdAt, content
+        case id, creator, createdAt, content, images
     }
     
     init(from decoder: Decoder) throws {
@@ -31,13 +32,15 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
         creator = try container.decode(UUID.self, forKey: .creator)
         createdAt = date
         content = try container.decode(String.self, forKey: .content)
+        images = try container.decode([String].self, forKey: .images)
     }
     
-    init(id: UUID, creator: UUID, createdAt: Date, content: String) {
+    init(id: UUID, creator: UUID, createdAt: Date, content: String, images: [String] = []) {
         self.id = id
         self.creator = creator
         self.createdAt = createdAt
         self.content = content
+        self.images = images
     }
     
     func dataIntoDictionary() -> [String : Any] {
@@ -49,7 +52,8 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
             "id": self.id.uuidString,
             "creator": self.creator.uuidString,
             "createdAt": dateFormatter.string(from: self.createdAt),
-            "content": self.content
+            "content": self.content,
+            "images": self.images
         ]
     }
 }

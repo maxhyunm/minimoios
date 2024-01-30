@@ -11,16 +11,17 @@ struct MinimoList: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     
     var body: some View {
-        ForEach(minimoViewModel.contents) { content in
+        List(minimoViewModel.contents) { content in
             let minimoRowViewModel = MinimoRowViewModel(
                 content: content,
                 firebaseManager: minimoViewModel.firebaseManager
             )
             MinimoRow()
+                .listRowSeparator(.hidden)
                 .environmentObject(minimoViewModel)
                 .environmentObject(minimoRowViewModel)
         }
-        .padding()
+        .listStyle(.plain)
         .refreshable {
             minimoViewModel.fetchContents()
         }

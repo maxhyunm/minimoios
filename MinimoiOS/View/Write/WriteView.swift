@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct WriteView: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
-    @State private var content: String = ""
+    @State private var content = ""
+    @State private var selectedItem = [PhotosPickerItem]()
+    @State private var selectedImages = [UIImage]()
     @Binding var isWriting: Bool
     
     private var isEmpty: Bool {
-        return content == ""
+        return content == "" && selectedItem.isEmpty
     }
     
     var body: some View {
@@ -30,8 +33,10 @@ struct WriteView: View {
                 Spacer()
                 
                 Button {
-                    minimoViewModel.createContents(body: content)
+                    minimoViewModel.createContents(body: content, images: selectedImages)
                     content = ""
+                    selectedItem = []
+                    selectedImages = []
                     isWriting.toggle()
                 } label: {
                     Text("MO!")
@@ -48,6 +53,63 @@ struct WriteView: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .border(Color(white: 0.8), width: 1)
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    PhotosPicker(
+                        selection: $selectedItem,
+                        maxSelectionCount: 4,
+                        matching: .images,
+                        photoLibrary: .shared()) {
+                            Image(systemName: "camera.viewfinder")
+                                .resizable()
+                        }
+                        .frame(width: 50, height: 50)
+                        .padding()
+                        .foregroundColor(.cyan)
+                        .onChange(of: selectedItem) { item in
+                            selectedImages = []
+                            item.forEach { item in
+                                item.loadTransferable(type: Data.self) { result in
+                                    switch result {
+                                    case .success(let data):
+                                        guard let data,
+                                              let image = UIImage(data: data) else { return }
+                                        selectedImages.append(image)
+                                    case .failure:
+                                        return
+                                    }
+                                }
+                            }
+                        }
+
+                        ForEach($selectedImages, id: \.self) { $image in
+                            ZStack(alignment: .topTrailing) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(width: 80, height: 80)
+                                    .scaledToFill()
+                                    .border(.cyan)
+                                
+                                Button {
+                                    guard let index = selectedImages.firstIndex(of: image) else { return }
+                                    selectedImages.remove(at: index)
+                                    selectedItem.remove(at: index)
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .resizable()
+                                }
+                                .padding(2)
+                                .frame(width: 15, height: 15)
+                                .background(.cyan)
+                                .foregroundColor(.white)
+                            }
+                        }
+                    
+                }
+                .padding()
+            }
+            
         }
         .padding()
     }

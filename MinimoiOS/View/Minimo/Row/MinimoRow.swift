@@ -22,12 +22,17 @@ struct MinimoRow: View {
                 HStack {
                     Text(minimoRowViewModel.userName)
                         .font(.headline)
+                    
                     Spacer()
+                    
                     Button {
                         isAlertVisible.toggle()
                     } label: {
                         Image(systemName: "trash.fill")
+                            .resizable()
                     }
+                    .frame(width: 15, height: 15)
+                    .scaledToFit()
                     .foregroundColor(.black)
                     .alert(isPresented: $isAlertVisible) {
                         let okButton = Alert.Button.default(Text("네")) {
@@ -42,11 +47,33 @@ struct MinimoRow: View {
                                      secondaryButton: okButton)
                     }
                 }
+                
                 Text(minimoRowViewModel.content.content)
                     .lineLimit(nil)
                     .font(.body)
                 Text(minimoRowViewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
                     .font(.caption2)
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(minimoRowViewModel.content.images, id: \.self) { url in
+                            Button {
+                                
+                            } label: {
+//                                AsyncImage(url: URL(string: url)) { image in
+//                                    image.resizable()
+//                                } placeholder: {
+//                                    Image(uiImage: UIImage())
+//                                        .resizable()
+//                                }
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                            }
+                            .frame(width: 100, height: 100)
+                            .scaledToFit()
+                        }
+                    }
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.trailing)

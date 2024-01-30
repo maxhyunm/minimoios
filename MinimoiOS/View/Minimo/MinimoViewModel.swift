@@ -39,12 +39,32 @@ final class MinimoViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func createContents(body: String) {
-        let newContent = MinimoDTO(id: UUID(),
+    func createContents(body: String, images: [UIImage]) {
+        let newId = UUID()
+        
+        var newContent = MinimoDTO(id: newId,
                                    creator: userId,
                                    createdAt: Date(),
-                                   content: body)
+                                   content: body,
+                                   images: [])
+        
         firebaseManager.createData(to: "contents", data: newContent)
+
+        images.forEach { image in
+            firebaseManager.saveJpegImage(image: image, collection: "contents", uuid: newId).sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { imageString in
+                newContent.images.append(imageString.url)
+                self.firebaseManager.updateData(from: "contents", uuid: newId, data: ["images": newContent.images])
+            }
+            .store(in: &cancellables)
+        }
+        
         fetchContents()
     }
 }

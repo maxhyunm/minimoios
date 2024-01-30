@@ -19,20 +19,18 @@ struct TimelineView: View {
             VStack(spacing: 5) {
                 TopMenuView(isProfileVisible: $isProfileVisible)
                     .environmentObject(authModel)
-                ScrollView {
-                    MinimoList()
-                        .onAppear {
-                            minimoViewModel.fetchContents()
-                        }
-                        .environmentObject(minimoViewModel)
-                }
-                .sheet(isPresented: $isProfileVisible) {
-                    ProfileView(isProfileVisible: $isProfileVisible)
-                        .environmentObject(profileViewModel)
-                        .onDisappear {
-                            minimoViewModel.fetchContents()
-                        }
-                }
+                    .sheet(isPresented: $isProfileVisible) {
+                        ProfileView(isProfileVisible: $isProfileVisible)
+                            .environmentObject(profileViewModel)
+                            .onDisappear {
+                                minimoViewModel.fetchContents()
+                            }
+                    }
+                MinimoList()
+                    .onAppear {
+                        minimoViewModel.fetchContents()
+                    }
+                    .environmentObject(minimoViewModel)
             }
             Button {
                 isWriting.toggle()
