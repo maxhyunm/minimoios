@@ -12,10 +12,10 @@ struct TimelineView: View {
     @EnvironmentObject var timelineViewModel: TimelineViewModel
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 10) {
-                TopMenuView()
-                    .environmentObject(authModel)
+        VStack(spacing: 5) {
+            TopMenuView()
+                .environmentObject(authModel)
+            ScrollView {
                 WriteView()
                 TimelineList()
                     .onAppear {
@@ -25,7 +25,6 @@ struct TimelineView: View {
                     .environmentObject(timelineViewModel)
             }
         }
-        .navigationTitle("My Minimo")
     }
 }
 
@@ -37,9 +36,7 @@ struct TimelineView_Previews: PreviewProvider {
                 TimelineViewModel(user: UserDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                     name: "테스트",
-                    email: "aaa@aaa.com",
-                    createdAt: Date(),
-                    oAuthType: .kakao
+                    createdAt: Date()
                 ),firebaseManager: FirebaseManager()))
     }
 }

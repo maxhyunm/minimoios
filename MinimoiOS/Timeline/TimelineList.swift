@@ -12,7 +12,7 @@ struct TimelineList: View {
     @EnvironmentObject var timelineViewModel: TimelineViewModel
     
     var body: some View {
-            ScrollView {
+            VStack {
                 ForEach(timelineViewModel.contents, id: \.self) { content in
                     TimelineRow(content: content)
                         .environmentObject(timelineViewModel)
@@ -31,9 +31,7 @@ struct TimelineList_Previews: PreviewProvider {
                 TimelineViewModel(user: UserDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                     name: "테스트",
-                    email: "aaa@aaa.com",
-                    createdAt: Date(),
-                    oAuthType: .kakao
+                    createdAt: Date()
                 ),firebaseManager: FirebaseManager()))
     }
 }

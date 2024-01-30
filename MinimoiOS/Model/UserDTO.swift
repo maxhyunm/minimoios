@@ -10,12 +10,11 @@ import Foundation
 struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
     var name: String
-    var email: String
     var createdAt: Date
-    var oAuthType: OAuthType
+    var image: String
     
     enum CodingKeys: String, CodingKey {
-        case id, name, email, createdAt, oAuthType
+        case id, name, image, createdAt
     }
     
     init(from decoder: Decoder) throws {
@@ -24,24 +23,21 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
         guard let uuid = UUID(uuidString: try container.decode(String.self, forKey: .id)),
-              let date = dateFormatter.date(from: try container.decode(String.self, forKey: .createdAt)),
-              let oAuth = OAuthType(rawValue: try container.decode(String.self, forKey: .oAuthType)) else {
+              let date = dateFormatter.date(from: try container.decode(String.self, forKey: .createdAt)) else {
             throw MinimoError.decodingError
         }
         
         id = uuid
         name = try container.decode(String.self, forKey: .name)
-        email = try container.decode(String.self, forKey: .email)
+        image = try container.decode(String.self, forKey: .image)
         createdAt = date
-        oAuthType = oAuth
     }
     
-    init(id: UUID, name: String, email: String, createdAt: Date, oAuthType: OAuthType) {
+    init(id: UUID, name: String, createdAt: Date, image: String = "") {
         self.id = id
         self.name = name
-        self.email = email
+        self.image = image
         self.createdAt = createdAt
-        self.oAuthType = oAuthType
     }
     
     func dataIntoDictionary() -> [String : Any] {
@@ -52,9 +48,8 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
         return [
             "id": self.id.uuidString,
             "name": self.name,
-            "email": self.email,
-            "createdAt": dateFormatter.string(from: self.createdAt),
-            "oAuthType": self.oAuthType.rawValue
+            "image": image,
+            "createdAt": dateFormatter.string(from: self.createdAt)
         ]
     }
     

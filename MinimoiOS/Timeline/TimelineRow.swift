@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TimelineRow: View {
     @EnvironmentObject var timelineViewModel: TimelineViewModel
-    
-    let content: ContentDTO
+
+    let content: MinimoDTO
     
     var body: some View {
         HStack {
@@ -39,7 +39,7 @@ struct TimelineRow: View {
                 Text(content.content)
                     .lineLimit(nil)
                     .font(.body)
-                Text(content.createdAt.formatted(date: .numeric, time: .omitted))
+                Text(content.createdAt.formatted(date: .numeric, time: .shortened))
                     .font(.caption2)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -53,7 +53,7 @@ struct TimelineRow: View {
 
 struct TimelineRow_Previews: PreviewProvider {
     static var previews: some View {
-        TimelineRow(content: ContentDTO(
+        TimelineRow(content: MinimoDTO(
             id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
             creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
             name: "테스트",
@@ -64,9 +64,7 @@ struct TimelineRow_Previews: PreviewProvider {
                 TimelineViewModel(user: UserDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                     name: "테스트",
-                    email: "aaa@aaa.com",
-                    createdAt: Date(),
-                    oAuthType: .kakao
+                    createdAt: Date()
                 ),firebaseManager: FirebaseManager()))
     }
 }

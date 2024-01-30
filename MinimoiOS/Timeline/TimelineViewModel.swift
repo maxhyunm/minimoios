@@ -10,7 +10,7 @@ import Firebase
 import Combine
 
 final class TimelineViewModel: ObservableObject {
-    @Published var contents = [ContentDTO]()
+    @Published var contents = [MinimoDTO]()
     @Published var error: Error?
     let user: UserDTO
     let firebaseManager: FirebaseManager
@@ -40,7 +40,7 @@ final class TimelineViewModel: ObservableObject {
     }
     
     func createContents(body: String) {
-        let newContent = ContentDTO(id: UUID(),
+        let newContent = MinimoDTO(id: UUID(),
                                     creator: user.id,
                                     name: user.name,
                                     createdAt: Date(),

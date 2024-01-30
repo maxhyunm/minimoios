@@ -12,16 +12,25 @@ struct TopMenuView: View {
     
     var body: some View {
         HStack {
-            Spacer()
-            Button {
-                authModel.handleLogout()
-            } label: {
-                if let latestOAuthType = UserDefaults.standard.object(forKey: "latestOAuthType") as? String {
-                    Text("\(latestOAuthType) LogOut")
-                } else {
-                    Text("LogOut")
-                }
+            if let latestOAuthType = UserDefaults.standard.object(forKey: "latestOAuthType") as? String {
+                Text("\(latestOAuthType) Logged In")
+            } else {
+                Text("Logged In")
             }
+            Spacer()
+            Menu {
+                Text("정보 수정")
+                
+                Button {
+                    authModel.handleLogout()
+                } label: {
+                    Text("로그아웃")
+                        .font(.headline)
+                }
+            } label: {
+                Image(systemName: "person.crop.circle")
+            }
+            
         }
         .padding()
     }
