@@ -9,37 +9,31 @@ import SwiftUI
 
 struct TimelineRow: View {
     @EnvironmentObject var timelineViewModel: TimelineViewModel
-
-    let content: MinimoDTO
+    @EnvironmentObject var timelineRowViewModel: TimelineRowViewModel
     
     var body: some View {
         HStack {
             VStack {
-                Image(systemName: "teddybear.fill")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .background(.white)
-                    .foregroundColor(.pink)
-                    .cornerRadius(45)
-                    .frame(maxWidth: 50)
+                ProfileImageView(userImage: $timelineRowViewModel.userImage)
                 Spacer()
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(content.creator.name)
+                    Text(timelineRowViewModel.userName)
                         .font(.headline)
                     Spacer()
                     Button {
-                        timelineViewModel.deleteContent(content.id)
+                        timelineRowViewModel.deleteContent()
+                        timelineViewModel.fetchContents()
                     } label: {
                         Image(systemName: "trash.fill")
                     }
                     .foregroundColor(.black)
                 }
-                Text(content.content)
+                Text(timelineRowViewModel.content.content)
                     .lineLimit(nil)
                     .font(.body)
-                Text(content.createdAt.formatted(date: .numeric, time: .shortened))
+                Text(timelineRowViewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
                     .font(.caption2)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -53,17 +47,17 @@ struct TimelineRow: View {
 
 struct TimelineRow_Previews: PreviewProvider {
     static var previews: some View {
-        TimelineRow(content: MinimoDTO(
-            id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-            creator: UserDTO(id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                             name: "테스트"),
-            createdAt: Date(),
-            content: "얍"
-        ))
+        TimelineRow()
             .environmentObject(
                 TimelineViewModel(user: UserDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                     name: "테스트"
                 ),firebaseManager: FirebaseManager()))
+            .environmentObject(TimelineRowViewModel(content: MinimoDTO(
+                id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                createdAt: Date(),
+                content: "얍"
+            ), firebaseManager: FirebaseManager()))
     }
 }

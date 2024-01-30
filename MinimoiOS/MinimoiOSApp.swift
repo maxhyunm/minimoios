@@ -41,6 +41,9 @@ struct MinimoiOSApp: App {
                         _ = AuthController.handleOpenUrl(url: url)
                     }
                 }
+                .onAppear {
+                    authModel.checkLogin()
+                }
                 .environmentObject(authModel)
         }
     }

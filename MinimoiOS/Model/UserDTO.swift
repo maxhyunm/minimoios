@@ -19,7 +19,7 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        guard let uuid = UUID(uuidString: try container.decode(String.self, forKey: .id))else {
+        guard let uuid = UUID(uuidString: try container.decode(String.self, forKey: .id)) else {
             throw MinimoError.decodingError
         }
         

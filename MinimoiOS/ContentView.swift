@@ -21,9 +21,6 @@ struct ContentView: View {
                 .environmentObject(timelineViewModel)
         } else {
             LoginView()
-                .onAppear {
-                    authModel.checkLogin()
-                }
                 .environmentObject(authModel)
         }
     }

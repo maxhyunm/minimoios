@@ -17,6 +17,7 @@ final class AuthModel: ObservableObject {
     @Published var user: UserDTO?
     @Published var isLoggedIn: Bool = false
     @Published var error: Error?
+    @Published var isLoading: Bool = true
     var auth: AuthDTO?
     var firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
@@ -146,8 +147,7 @@ final class AuthModel: ObservableObject {
                     self.error = error
                 }
             } receiveValue: { user in
-                guard let userData = user.first else { return }
-                self.user = userData
+                self.user = user
                 UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
                 self.isLoggedIn = true
             }
@@ -199,9 +199,9 @@ final class AuthModel: ObservableObject {
         return firebaseManager.readQueryData(from: "auth", query: query, orderBy: "createdAt", descending: false, limit: 1)
     }
     
-    private func fetchUserData(auth: AuthDTO) -> Future<[UserDTO], MinimoError> {
+    private func fetchUserData(auth: AuthDTO) -> Future<UserDTO, MinimoError> {
         let query = Filter.whereField("id", isEqualTo: auth.user.uuidString)
-        return firebaseManager.readQueryData(from: "users", query: query, orderBy: "id", descending: false, limit: 1)
+        return firebaseManager.readUserData(for: auth.user)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
@@ -216,5 +216,7 @@ final class AuthModel: ObservableObject {
         firebaseManager.createData(to: "users", data: newUser)
         self.auth = newAuth
         self.user = newUser
+        UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
+        self.isLoggedIn = true
     }
 }

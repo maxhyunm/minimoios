@@ -9,7 +9,7 @@ import Foundation
 
 struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
-    var creator: UserDTO
+    var creator: UUID
     var createdAt: Date
     var content: String
     
@@ -26,14 +26,14 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
               let date = dateFormatter.date(from: try container.decode(String.self, forKey: .createdAt)) else {
             throw MinimoError.decodingError
         }
-        
+
         id = uuid
-        creator = try container.decode(UserDTO.self, forKey: .creator)
+        creator = try container.decode(UUID.self, forKey: .creator)
         createdAt = date
         content = try container.decode(String.self, forKey: .content)
     }
     
-    init(id: UUID, creator: UserDTO, createdAt: Date, content: String) {
+    init(id: UUID, creator: UUID, createdAt: Date, content: String) {
         self.id = id
         self.creator = creator
         self.createdAt = createdAt
@@ -47,10 +47,9 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
         
         return [
             "id": self.id.uuidString,
-            "creator": self.creator.dataIntoDictionary(),
+            "creator": self.creator.uuidString,
             "createdAt": dateFormatter.string(from: self.createdAt),
             "content": self.content
         ]
     }
-    
 }

@@ -21,10 +21,39 @@ struct FirebaseManager {
     func createData<T: Uploadable>(to collection: String, data: T) {
         Firestore.firestore().collection(collection).document(data.id.uuidString).setData(data.dataIntoDictionary())
     }
+    
+    func readUserData(for id: UUID) -> Future<UserDTO, MinimoError> {
+        let query = Filter.whereField("id", isEqualTo: id.uuidString)
+        return Future { promise in
+            Firestore.firestore()
+                .collection("users")
+                .whereFilter(query)
+                .getDocuments { snapshot, error in
+                    if let _ = error {
+                        promise(.failure(.unknown))
+                    }
+                    guard let snapshot else {
+                        promise(.failure(.dataNotFound))
+                        return
+                    }
+                    do {
+                        let dataArray = try snapshot.documents.reduce(into: []) { $0.append(try $1.data(as: UserDTO.self)) }
+                        guard let userData = dataArray.first else {
+                            promise(.failure(.dataNotFound))
+                            return
+                        }
+                        promise(.success(userData))
+                    } catch {
+                        promise(.failure(.decodingError))
+                    }
+            }
+        }
+    }
 
     func readQueryData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int) -> Future<[T], MinimoError> {
         return Future { promise in
-            Firestore.firestore().collection(collection)
+            Firestore.firestore()
+                .collection(collection)
                 .whereFilter(query)
                 .getDocuments { snapshot, error in
                 if let _ = error {

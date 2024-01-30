@@ -14,8 +14,13 @@ struct TimelineList: View {
     var body: some View {
             VStack {
                 ForEach(timelineViewModel.contents, id: \.self) { content in
-                    TimelineRow(content: content)
+                    let timelineRowViewModel = TimelineRowViewModel(
+                        content: content,
+                        firebaseManager: timelineViewModel.firebaseManager
+                    )
+                    TimelineRow()
                         .environmentObject(timelineViewModel)
+                        .environmentObject(timelineRowViewModel)
                 }
             }
         .padding()
