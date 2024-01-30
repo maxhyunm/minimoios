@@ -125,7 +125,7 @@ final class AuthModel: ObservableObject {
     }
     
     private func fetchUserDetail(name: String, email: String, type: OAuthType) {
-        fetchAuthData(email: email, type: type).sink { completion in
+        fetchUserData(email: email, type: type).sink { completion in
             switch completion {
             case.finished:
                 break
@@ -139,7 +139,7 @@ final class AuthModel: ObservableObject {
         } receiveValue: { auth in
             guard let authData = auth.first else { return }
             self.auth = authData
-            self.fetchUserData(auth: authData).sink { completion in
+            self.firebaseManager.readUserData(for: authData.user).sink { completion in
                 switch completion {
                 case.finished:
                     break
@@ -191,17 +191,12 @@ final class AuthModel: ObservableObject {
         self.isLoggedIn  = false
     }
     
-    private func fetchAuthData(email: String, type: OAuthType) -> Future<[AuthDTO], MinimoError> {
+    private func fetchUserData(email: String, type: OAuthType) -> Future<[AuthDTO], MinimoError> {
         let query = Filter.andFilter([
             Filter.whereField("email", isEqualTo: email),
             Filter.whereField("oAuthType", isEqualTo: type.rawValue)
         ])
         return firebaseManager.readQueryData(from: "auth", query: query, orderBy: "createdAt", descending: false, limit: 1)
-    }
-    
-    private func fetchUserData(auth: AuthDTO) -> Future<UserDTO, MinimoError> {
-        let query = Filter.whereField("id", isEqualTo: auth.user.uuidString)
-        return firebaseManager.readUserData(for: auth.user)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {

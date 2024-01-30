@@ -9,17 +9,20 @@ import SwiftUI
 
 struct TopMenuView: View {
     @EnvironmentObject var authModel: AuthModel
+    @Binding var isProfileVisible: Bool
     
     var body: some View {
         HStack {
-            if let latestOAuthType = UserDefaults.standard.object(forKey: "latestOAuthType") as? String {
-                Text("\(latestOAuthType) Logged In")
-            } else {
-                Text("Logged In")
-            }
+            
             Spacer()
+            
             Menu {
-                Text("정보 수정")
+                Button {
+                    self.isProfileVisible = true
+                } label: {
+                    Text("정보 수정")
+                        .font(.body)
+                }
                 
                 Button {
                     authModel.handleLogout()
@@ -38,6 +41,7 @@ struct TopMenuView: View {
 
 struct TopMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        TopMenuView()
+        TopMenuView(isProfileVisible: .constant(false))
+            .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
     }
 }

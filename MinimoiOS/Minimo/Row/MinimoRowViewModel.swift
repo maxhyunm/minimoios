@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class TimelineRowViewModel: ObservableObject {
+final class MinimoRowViewModel: ObservableObject {
     @Published var content: MinimoDTO
     @Published var userName: String = ""
     @Published var userImage: String = ""
@@ -21,7 +21,7 @@ final class TimelineRowViewModel: ObservableObject {
         self.firebaseManager = firebaseManager
         fetchUserDetail()
     }
- 
+    
     func fetchUserDetail() {
         firebaseManager.readUserData(for: content.creator).sink { _ in
         } receiveValue: { user in

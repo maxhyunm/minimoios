@@ -9,21 +9,21 @@ import Foundation
 import Firebase
 import Combine
 
-final class TimelineViewModel: ObservableObject {
+final class MinimoViewModel: ObservableObject {
     @Published var contents = [MinimoDTO]()
     @Published var error: Error?
-    let user: UserDTO
+    let userId: UUID
     let firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(user: UserDTO, firebaseManager: FirebaseManager) {
-        self.user = user
+    init(userId: UUID, firebaseManager: FirebaseManager) {
+        self.userId = userId
         self.firebaseManager = firebaseManager
     }
     
     func fetchContents() {
         let query = Filter.andFilter([
-            Filter.whereField("creator", isEqualTo: user.id.uuidString)
+            Filter.whereField("creator", isEqualTo: userId.uuidString)
         ])
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in
@@ -41,7 +41,7 @@ final class TimelineViewModel: ObservableObject {
     
     func createContents(body: String) {
         let newContent = MinimoDTO(id: UUID(),
-                                   creator: user.id,
+                                   creator: userId,
                                    createdAt: Date(),
                                    content: body)
         firebaseManager.createData(to: "contents", data: newContent)

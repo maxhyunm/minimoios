@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Combine
 import Firebase
 import FirebaseCore
-import Combine
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct FirebaseManager {
+    typealias ImageString = (url: String, path: String)
+    
     init() {
         if FirebaseApp.app() == nil {
           FirebaseApp.configure()
@@ -83,6 +86,37 @@ struct FirebaseManager {
     
     func deleteData(from collection: String, uuid: UUID) {
         Firestore.firestore().collection(collection).document(uuid.uuidString).delete()
+    }
+    
+    func saveJpegImage(image: UIImage, collection: String, uuid: UUID) -> Future<ImageString, MinimoError> {
+        return Future { promise in
+            guard let data = image.jpegData(compressionQuality: 0.8) else {
+                promise(.failure(.invalidImage))
+                return
+            }
+            let storage = Storage.storage()
+            let meta = StorageMetadata()
+            meta.contentType = "image/jpeg"
+            let path = "\(collection)/\(uuid)/\(UUID().uuidString)"
+            let imageReference = storage.reference().child(path)
+            imageReference.putData(data, metadata: meta) { _, error in
+                if error != nil {
+                    promise(.failure(.invalidImage))
+                    return
+                }
+                imageReference.downloadURL { url, _ in
+                    guard let url else {
+                        promise(.failure(.invalidImage))
+                        return
+                    }
+                    promise(.success((url: "\(url)", path: "\(path).jpeg")))
+                }
+            }
+        }
+    }
+    
+    func deleteImage(path: String) {
+        Storage.storage().reference().child(path).delete { _ in }
     }
     
 }

@@ -15,10 +15,12 @@ struct ContentView: View {
     
     var body: some View {
         if let user = authModel.user {
-            let timelineViewModel = TimelineViewModel(user: user, firebaseManager: authModel.firebaseManager)
+            let minimoViewModel = MinimoViewModel(userId: user.id, firebaseManager: authModel.firebaseManager)
+            let profileViewModel = ProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
             TimelineView()
                 .environmentObject(authModel)
-                .environmentObject(timelineViewModel)
+                .environmentObject(minimoViewModel)
+                .environmentObject(profileViewModel)
         } else {
             LoginView()
                 .environmentObject(authModel)

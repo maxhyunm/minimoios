@@ -7,33 +7,33 @@
 
 import SwiftUI
 
-struct TimelineRow: View {
-    @EnvironmentObject var timelineViewModel: TimelineViewModel
-    @EnvironmentObject var timelineRowViewModel: TimelineRowViewModel
+struct MinimoRow: View {
+    @EnvironmentObject var minimoViewModel: MinimoViewModel
+    @EnvironmentObject var minimoRowViewModel: MinimoRowViewModel
     
     var body: some View {
         HStack {
             VStack {
-                ProfileImageView(userImage: $timelineRowViewModel.userImage)
+                MinimoUserImageView(userImage: $minimoRowViewModel.userImage)
                 Spacer()
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(timelineRowViewModel.userName)
+                    Text(minimoRowViewModel.userName)
                         .font(.headline)
                     Spacer()
                     Button {
-                        timelineRowViewModel.deleteContent()
-                        timelineViewModel.fetchContents()
+                        minimoRowViewModel.deleteContent()
+                        minimoViewModel.fetchContents()
                     } label: {
                         Image(systemName: "trash.fill")
                     }
                     .foregroundColor(.black)
                 }
-                Text(timelineRowViewModel.content.content)
+                Text(minimoRowViewModel.content.content)
                     .lineLimit(nil)
                     .font(.body)
-                Text(timelineRowViewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
+                Text(minimoRowViewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
                     .font(.caption2)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -45,15 +45,13 @@ struct TimelineRow: View {
     }
 }
 
-struct TimelineRow_Previews: PreviewProvider {
+struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
-        TimelineRow()
+        MinimoRow()
             .environmentObject(
-                TimelineViewModel(user: UserDTO(
-                    id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                    name: "테스트"
-                ),firebaseManager: FirebaseManager()))
-            .environmentObject(TimelineRowViewModel(content: MinimoDTO(
+                MinimoViewModel(userId: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                                firebaseManager: FirebaseManager()))
+            .environmentObject(MinimoRowViewModel(content: MinimoDTO(
                 id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                 creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                 createdAt: Date(),

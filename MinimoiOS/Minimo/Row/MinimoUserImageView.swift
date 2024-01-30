@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileImageView: View {
+struct MinimoUserImageView: View {
     @Binding var userImage: String
     var image = UIImage()
     
@@ -18,7 +18,8 @@ struct ProfileImageView: View {
                 .frame(width: 50, height: 50)
                 .background(.white)
                 .foregroundColor(.pink)
-                .cornerRadius(45)
+                .scaledToFit()
+                .clipShape(Circle())
                 .frame(maxWidth: 50)
         } else {
             AsyncImage(url: URL(string: userImage)) { image in
@@ -27,18 +28,19 @@ struct ProfileImageView: View {
                 Image(uiImage: UIImage())
                     .resizable()
             }
-                .frame(width: 50, height: 50)
-                .background(.white)
-                .foregroundColor(.pink)
-                .cornerRadius(45)
-                .frame(maxWidth: 50)
-                
+            .frame(width: 50, height: 50)
+            .background(.white)
+            .foregroundColor(.pink)
+            .scaledToFit()
+            .clipShape(Circle())
+            .frame(maxWidth: 50)
+            
         }
     }
 }
 
-struct TimelineProfileImageView_Previews: PreviewProvider {
+struct MinimoUserImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileImageView(userImage: .constant(""))
+        MinimoUserImageView(userImage: .constant(""))
     }
 }

@@ -13,16 +13,19 @@
 		BA28F0972B661DE000042912 /* DecodingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0962B661DE000042912 /* DecodingManager.swift */; };
 		BA28F0992B6621FA00042912 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0982B6621FA00042912 /* Error.swift */; };
 		BA28F09B2B6632AC00042912 /* MinimoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09A2B6632AC00042912 /* MinimoDTO.swift */; };
-		BA28F09E2B6648B300042912 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09D2B6648B300042912 /* TimelineViewModel.swift */; };
-		BA28F0A22B666D8E00042912 /* TimelineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A12B666D8E00042912 /* TimelineRow.swift */; };
+		BA28F09E2B6648B300042912 /* MinimoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F09D2B6648B300042912 /* MinimoViewModel.swift */; };
+		BA28F0A22B666D8E00042912 /* MinimoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A12B666D8E00042912 /* MinimoRow.swift */; };
 		BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A32B676EDA00042912 /* FirebaseManager.swift */; };
 		BA28F0A62B67760400042912 /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A52B67760400042912 /* Uploadable.swift */; };
 		BA28F0A82B67EAD900042912 /* WriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A72B67EAD900042912 /* WriteView.swift */; };
 		BA28F0AA2B67EB0600042912 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0A92B67EB0600042912 /* TimelineView.swift */; };
 		BA28F0AC2B67EBD400042912 /* TopMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0AB2B67EBD400042912 /* TopMenuView.swift */; };
 		BA28F0AE2B68946900042912 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0AD2B68946900042912 /* AuthDTO.swift */; };
-		BA28F0B12B68AD1700042912 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B02B68AD1700042912 /* ProfileImageView.swift */; };
-		BA28F0B32B68C80200042912 /* TimelineRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B22B68C80200042912 /* TimelineRowViewModel.swift */; };
+		BA28F0B12B68AD1700042912 /* MinimoUserImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B02B68AD1700042912 /* MinimoUserImageView.swift */; };
+		BA28F0B32B68C80200042912 /* MinimoRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B22B68C80200042912 /* MinimoRowViewModel.swift */; };
+		BA28F0B72B68CF9500042912 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B62B68CF9500042912 /* ProfileView.swift */; };
+		BA28F0B92B68D66B00042912 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B82B68D66B00042912 /* ProfileViewModel.swift */; };
+		BA28F0BB2B68EE2800042912 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0BA2B68EE2800042912 /* ImagePicker.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -37,7 +40,7 @@
 		BA4C9E252B63ECB100C96C87 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E242B63ECB100C96C87 /* GoogleSignInSwift */; };
 		BA4C9E292B63F0CC00C96C87 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */; };
 		BA4C9E2B2B63FC2C00C96C87 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2A2B63FC2C00C96C87 /* AuthModel.swift */; };
-		BA4C9E2E2B640B7000C96C87 /* TimelineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2D2B640B7000C96C87 /* TimelineList.swift */; };
+		BA4C9E2E2B640B7000C96C87 /* MinimoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9E2D2B640B7000C96C87 /* MinimoList.swift */; };
 		BA4C9E312B66158C00C96C87 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E302B66158C00C96C87 /* FirebaseAnalytics */; };
 		BA4C9E332B66158C00C96C87 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E322B66158C00C96C87 /* FirebaseAnalyticsOnDeviceConversion */; };
 		BA4C9E352B66158C00C96C87 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA4C9E342B66158C00C96C87 /* FirebaseAnalyticsSwift */; };
@@ -74,16 +77,19 @@
 		BA28F0962B661DE000042912 /* DecodingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingManager.swift; sourceTree = "<group>"; };
 		BA28F0982B6621FA00042912 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		BA28F09A2B6632AC00042912 /* MinimoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoDTO.swift; sourceTree = "<group>"; };
-		BA28F09D2B6648B300042912 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
-		BA28F0A12B666D8E00042912 /* TimelineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRow.swift; sourceTree = "<group>"; };
+		BA28F09D2B6648B300042912 /* MinimoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoViewModel.swift; sourceTree = "<group>"; };
+		BA28F0A12B666D8E00042912 /* MinimoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoRow.swift; sourceTree = "<group>"; };
 		BA28F0A32B676EDA00042912 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		BA28F0A52B67760400042912 /* Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		BA28F0A72B67EAD900042912 /* WriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteView.swift; sourceTree = "<group>"; };
 		BA28F0A92B67EB0600042912 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		BA28F0AB2B67EBD400042912 /* TopMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuView.swift; sourceTree = "<group>"; };
 		BA28F0AD2B68946900042912 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
-		BA28F0B02B68AD1700042912 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
-		BA28F0B22B68C80200042912 /* TimelineRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRowViewModel.swift; sourceTree = "<group>"; };
+		BA28F0B02B68AD1700042912 /* MinimoUserImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoUserImageView.swift; sourceTree = "<group>"; };
+		BA28F0B22B68C80200042912 /* MinimoRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoRowViewModel.swift; sourceTree = "<group>"; };
+		BA28F0B62B68CF9500042912 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		BA28F0B82B68D66B00042912 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		BA28F0BA2B68EE2800042912 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,7 +102,7 @@
 		BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthType.swift; sourceTree = "<group>"; };
 		BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		BA4C9E2A2B63FC2C00C96C87 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
-		BA4C9E2D2B640B7000C96C87 /* TimelineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineList.swift; sourceTree = "<group>"; };
+		BA4C9E2D2B640B7000C96C87 /* MinimoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,43 +148,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BA28F09C2B66489900042912 /* Timeline */ = {
+		BA28F09C2B66489900042912 /* Minimo */ = {
 			isa = PBXGroup;
 			children = (
 				BA28F0B52B68CC9C00042912 /* Row */,
-				BA28F0B42B68CC9800042912 /* List */,
+				BA28F09D2B6648B300042912 /* MinimoViewModel.swift */,
+				BA4C9E2D2B640B7000C96C87 /* MinimoList.swift */,
+				BA28F0A72B67EAD900042912 /* WriteView.swift */,
 			);
-			path = Timeline;
+			path = Minimo;
 			sourceTree = "<group>";
 		};
 		BA28F0AF2B68A6F800042912 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				BA28F0A52B67760400042912 /* Uploadable.swift */,
+				BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */,
+				BA28F0982B6621FA00042912 /* Error.swift */,
 				BA28F0A32B676EDA00042912 /* FirebaseManager.swift */,
 				BA28F0962B661DE000042912 /* DecodingManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		BA28F0B42B68CC9800042912 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				BA28F09D2B6648B300042912 /* TimelineViewModel.swift */,
-				BA4C9E2D2B640B7000C96C87 /* TimelineList.swift */,
-				BA28F0A72B67EAD900042912 /* WriteView.swift */,
-				BA28F0A92B67EB0600042912 /* TimelineView.swift */,
-			);
-			path = List;
-			sourceTree = "<group>";
-		};
 		BA28F0B52B68CC9C00042912 /* Row */ = {
 			isa = PBXGroup;
 			children = (
-				BA28F0B22B68C80200042912 /* TimelineRowViewModel.swift */,
-				BA28F0A12B666D8E00042912 /* TimelineRow.swift */,
-				BA28F0B02B68AD1700042912 /* ProfileImageView.swift */,
+				BA28F0B22B68C80200042912 /* MinimoRowViewModel.swift */,
+				BA28F0A12B666D8E00042912 /* MinimoRow.swift */,
+				BA28F0B02B68AD1700042912 /* MinimoUserImageView.swift */,
 			);
 			path = Row;
+			sourceTree = "<group>";
+		};
+		BA28F0BC2B68F3A400042912 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				BA28F0B82B68D66B00042912 /* ProfileViewModel.swift */,
+				BA28F0B62B68CF9500042912 /* ProfileView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		BA4C9DED2B6395F500C96C87 = {
@@ -204,10 +213,12 @@
 				BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */,
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
 				BA28F0AB2B67EBD400042912 /* TopMenuView.swift */,
+				BA28F0A92B67EB0600042912 /* TimelineView.swift */,
 				BA4C9E2C2B640ABB00C96C87 /* Model */,
 				BA28F0AF2B68A6F800042912 /* Utility */,
-				BA28F09C2B66489900042912 /* Timeline */,
+				BA28F09C2B66489900042912 /* Minimo */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
+				BA28F0BC2B68F3A400042912 /* Profile */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
 				BA4C9E152B63A23400C96C87 /* Config.xcconfig */,
 				BA4C9E0E2B63984600C96C87 /* Info.plist */,
@@ -215,6 +226,7 @@
 				BA4C9DFF2B6395F700C96C87 /* Preview Content */,
 				BA28F0922B661C3700042912 /* test_user.json */,
 				BA28F0942B661D1E00042912 /* test_contents.json */,
+				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 			);
 			path = MinimoiOS;
 			sourceTree = "<group>";
@@ -239,12 +251,9 @@
 		BA4C9E2C2B640ABB00C96C87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */,
 				BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */,
 				BA28F0AD2B68946900042912 /* AuthDTO.swift */,
 				BA28F09A2B6632AC00042912 /* MinimoDTO.swift */,
-				BA28F0982B6621FA00042912 /* Error.swift */,
-				BA28F0A52B67760400042912 /* Uploadable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -362,25 +371,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA28F0B32B68C80200042912 /* TimelineRowViewModel.swift in Sources */,
+				BA28F0B32B68C80200042912 /* MinimoRowViewModel.swift in Sources */,
 				BA28F0AC2B67EBD400042912 /* TopMenuView.swift in Sources */,
 				BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */,
 				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
 				BA28F0AE2B68946900042912 /* AuthDTO.swift in Sources */,
 				BA28F0A82B67EAD900042912 /* WriteView.swift in Sources */,
-				BA28F0B12B68AD1700042912 /* ProfileImageView.swift in Sources */,
-				BA4C9E2E2B640B7000C96C87 /* TimelineList.swift in Sources */,
+				BA28F0B12B68AD1700042912 /* MinimoUserImageView.swift in Sources */,
+				BA4C9E2E2B640B7000C96C87 /* MinimoList.swift in Sources */,
 				BA4C9E2B2B63FC2C00C96C87 /* AuthModel.swift in Sources */,
 				BA4C9E292B63F0CC00C96C87 /* UserDTO.swift in Sources */,
 				BA28F0972B661DE000042912 /* DecodingManager.swift in Sources */,
 				BA28F0A62B67760400042912 /* Uploadable.swift in Sources */,
 				BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */,
-				BA28F09E2B6648B300042912 /* TimelineViewModel.swift in Sources */,
+				BA28F0BB2B68EE2800042912 /* ImagePicker.swift in Sources */,
+				BA28F09E2B6648B300042912 /* MinimoViewModel.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
 				BA28F09B2B6632AC00042912 /* MinimoDTO.swift in Sources */,
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
-				BA28F0A22B666D8E00042912 /* TimelineRow.swift in Sources */,
+				BA28F0B92B68D66B00042912 /* ProfileViewModel.swift in Sources */,
+				BA28F0A22B666D8E00042912 /* MinimoRow.swift in Sources */,
+				BA28F0B72B68CF9500042912 /* ProfileView.swift in Sources */,
 				BA28F0AA2B67EB0600042912 /* TimelineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
