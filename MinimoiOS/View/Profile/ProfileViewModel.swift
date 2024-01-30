@@ -41,6 +41,8 @@ final class ProfileViewModel: ObservableObject {
             self.firebaseManager.updateData(from: "users",
                                             uuid: self.user.id,
                                             data: ["image": imageString.url, "imagePath": imageString.path])
+            self.user.image = imageString.url
+            self.user.imagePath = imageString.path
         }
         .store(in: &cancellables)
     }

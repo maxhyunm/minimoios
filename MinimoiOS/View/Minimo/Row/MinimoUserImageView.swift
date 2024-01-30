@@ -13,7 +13,7 @@ struct MinimoUserImageView: View {
     
     var body: some View {
         if userImage == "" {
-            Image(systemName: "teddybear.fill")
+            Image(uiImage: image)
                 .resizable()
                 .frame(width: 50, height: 50)
                 .background(.white)
@@ -25,7 +25,7 @@ struct MinimoUserImageView: View {
             AsyncImage(url: URL(string: userImage)) { image in
                 image.resizable()
             } placeholder: {
-                Image(uiImage: UIImage())
+                Image(uiImage: image)
                     .resizable()
             }
             .frame(width: 50, height: 50)

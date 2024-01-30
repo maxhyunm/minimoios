@@ -11,19 +11,19 @@ struct MinimoList: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     
     var body: some View {
-        VStack {
-            ForEach(minimoViewModel.contents, id: \.self) { content in
-                let minimoRowViewModel = MinimoRowViewModel(
-                    content: content,
-                    firebaseManager: minimoViewModel.firebaseManager
-                )
-                MinimoRow()
-                    .environmentObject(minimoViewModel)
-                    .environmentObject(minimoRowViewModel)
-            }
+        ForEach(minimoViewModel.contents) { content in
+            let minimoRowViewModel = MinimoRowViewModel(
+                content: content,
+                firebaseManager: minimoViewModel.firebaseManager
+            )
+            MinimoRow()
+                .environmentObject(minimoViewModel)
+                .environmentObject(minimoRowViewModel)
         }
         .padding()
-        Spacer()
+        .refreshable {
+            minimoViewModel.fetchContents()
+        }
     }
 }
 

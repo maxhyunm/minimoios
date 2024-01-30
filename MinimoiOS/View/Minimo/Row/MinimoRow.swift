@@ -10,6 +10,7 @@ import SwiftUI
 struct MinimoRow: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @EnvironmentObject var minimoRowViewModel: MinimoRowViewModel
+    @State var isAlertVisible: Bool = false
     
     var body: some View {
         HStack {
@@ -23,12 +24,23 @@ struct MinimoRow: View {
                         .font(.headline)
                     Spacer()
                     Button {
-                        minimoRowViewModel.deleteContent()
-                        minimoViewModel.fetchContents()
+                        isAlertVisible.toggle()
                     } label: {
                         Image(systemName: "trash.fill")
                     }
                     .foregroundColor(.black)
+                    .alert(isPresented: $isAlertVisible) {
+                        let okButton = Alert.Button.default(Text("네")) {
+                            minimoRowViewModel.deleteContent()
+                            minimoViewModel.fetchContents()
+                        }
+                        let cancelButton = Alert.Button.cancel(Text("취소"))
+                        
+                        return Alert(title: Text("삭제하기"),
+                                     message: Text("삭제하시겠습니까?"),
+                                     primaryButton: cancelButton,
+                                     secondaryButton: okButton)
+                    }
                 }
                 Text(minimoRowViewModel.content.content)
                     .lineLimit(nil)

@@ -14,16 +14,20 @@ struct ContentView: View {
     @EnvironmentObject var authModel: AuthModel
     
     var body: some View {
-        if let user = authModel.user {
-            let minimoViewModel = MinimoViewModel(userId: user.id, firebaseManager: authModel.firebaseManager)
-            let profileViewModel = ProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
-            TimelineView()
-                .environmentObject(authModel)
-                .environmentObject(minimoViewModel)
-                .environmentObject(profileViewModel)
+        if authModel.isLoading {
+            Text("M I N I M O")
         } else {
-            LoginView()
-                .environmentObject(authModel)
+            if let user = authModel.user {
+                let minimoViewModel = MinimoViewModel(userId: user.id, firebaseManager: authModel.firebaseManager)
+                let profileViewModel = ProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
+                TimelineView()
+                    .environmentObject(authModel)
+                    .environmentObject(minimoViewModel)
+                    .environmentObject(profileViewModel)
+            } else {
+                LoginView()
+                    .environmentObject(authModel)
+            }
         }
     }
 }

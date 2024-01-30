@@ -18,7 +18,7 @@ struct TopMenuView: View {
             
             Menu {
                 Button {
-                    self.isProfileVisible = true
+                    isProfileVisible = true
                 } label: {
                     Text("정보 수정")
                         .font(.body)
@@ -30,12 +30,15 @@ struct TopMenuView: View {
                     Text("로그아웃")
                         .font(.headline)
                 }
+                
             } label: {
-                Image(systemName: "person.crop.circle")
+                Image(systemName: "person.circle")
+                    .resizable()
             }
-            
+            .foregroundColor(.cyan)
+            .frame(width: 25, height: 25)
         }
-        .padding()
+        .padding(.trailing)
     }
 }
 

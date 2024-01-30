@@ -60,7 +60,7 @@ struct ProfileView: View {
                     Image(systemName: "camera.fill.badge.ellipsis")
                         .frame(width:50, height:50)
                         .scaledToFit()
-                        .background(.blue)
+                        .background(.cyan)
                         .foregroundColor(.white)
                         .clipShape(Circle())
                 }
@@ -103,6 +103,7 @@ struct ProfileView: View {
                     } label: {
                         Image(systemName: "pencil.line")
                     }
+                    .foregroundColor(.cyan)
                 }
             }
             .padding()
@@ -126,7 +127,7 @@ struct ProfileView: View {
                 Text("변경사항 저장")
             }
             .padding()
-            .background(isChanged ? .blue : .gray)
+            .background(isChanged ? .cyan : .gray)
             .foregroundColor(.white)
             .cornerRadius(15)
             .disabled(!isChanged)

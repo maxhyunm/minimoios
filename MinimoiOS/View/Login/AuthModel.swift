@@ -15,7 +15,6 @@ import Combine
 
 final class AuthModel: ObservableObject {
     @Published var user: UserDTO?
-    @Published var isLoggedIn: Bool = false
     @Published var error: Error?
     @Published var isLoading: Bool = true
     var auth: AuthDTO?
@@ -45,10 +44,13 @@ final class AuthModel: ObservableObject {
             UserApi.shared.accessTokenInfo { _, error in
                 if let error {
                     self.error = error
+                    self.isLoading = false
                 } else {
                     self.fetchKakaoUserDetail()
                 }
             }
+        } else {
+            self.isLoading = false
         }
     }
     
@@ -56,6 +58,7 @@ final class AuthModel: ObservableObject {
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if let error {
                 self.error = error
+                self.isLoading = false
             }
             if let user,
                let profile = user.profile {
@@ -128,12 +131,14 @@ final class AuthModel: ObservableObject {
         fetchUserData(email: email, type: type).sink { completion in
             switch completion {
             case.finished:
+                self.isLoading = false
                 break
             case .failure(let error):
                 if error == MinimoError.dataNotFound {
                     self.addUser(name: name, email: email, type: type)
                 } else {
                     self.error = error
+                    self.isLoading = false
                 }
             }
         } receiveValue: { auth in
@@ -149,7 +154,7 @@ final class AuthModel: ObservableObject {
             } receiveValue: { user in
                 self.user = user
                 UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
-                self.isLoggedIn = true
+                self.isLoading = false
             }
             .store(in: &self.cancellables)
         }
@@ -178,7 +183,6 @@ final class AuthModel: ObservableObject {
                 self.auth = nil
                 self.user = nil
                 self.error = nil
-                self.isLoggedIn  = false
             }
         }
     }
@@ -188,7 +192,6 @@ final class AuthModel: ObservableObject {
         self.auth = nil
         self.user = nil
         self.error = nil
-        self.isLoggedIn  = false
     }
     
     private func fetchUserData(email: String, type: OAuthType) -> Future<[AuthDTO], MinimoError> {
@@ -212,6 +215,6 @@ final class AuthModel: ObservableObject {
         self.auth = newAuth
         self.user = newUser
         UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
-        self.isLoggedIn = true
+        self.isLoading = false
     }
 }
