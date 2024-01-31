@@ -1,5 +1,5 @@
 //
-//  TimelineProfileImageView.swift
+//  MinimoUserImageView.swift
 //  MinimoiOS
 //
 //  Created by Min Hyun on 2024/01/30.

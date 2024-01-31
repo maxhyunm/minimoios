@@ -1,5 +1,5 @@
 //
-//  TimelineRow.swift
+//  MinimoRow.swift
 //  MinimoiOS
 //
 //  Created by Min Hyun on 2024/01/28.
@@ -10,9 +10,9 @@ import SwiftUI
 struct MinimoRow: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @EnvironmentObject var minimoRowViewModel: MinimoRowViewModel
-    @State var isAlertVisible: Bool = false
-    @Binding var isPopUpVisible: Bool
-    @Binding var popUpImageURL: URL?
+    @State private var isAlertVisible: Bool = false
+    @State private var isPopUpVisible: Bool = false
+    @State private var popUpImageURL: URL? = nil
     
     var body: some View {
         HStack {
@@ -87,15 +87,21 @@ struct MinimoRow: View {
         .padding()
         .background(Color(white: 0.9))
         .cornerRadius(10)
+        .fullScreenCover(isPresented: $isPopUpVisible, content: {
+            PopUpView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)
+        })
     }
 }
 
 struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow(isPopUpVisible: .constant(true), popUpImageURL: .constant(nil))
-            .environmentObject(
-                MinimoViewModel(userId: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                                firebaseManager: FirebaseManager()))
+        MinimoRow()
+            .environmentObject(MinimoViewModel(
+                    user: UserDTO(
+                        id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                        name: "테스트"
+                    ),
+                    firebaseManager: FirebaseManager()))
             .environmentObject(MinimoRowViewModel(content: MinimoDTO(
                 id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                 creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,

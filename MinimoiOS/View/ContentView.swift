@@ -18,7 +18,7 @@ struct ContentView: View {
             Text("M I N I M O")
         } else {
             if let user = authModel.user {
-                let minimoViewModel = MinimoViewModel(userId: user.id, firebaseManager: authModel.firebaseManager)
+                let minimoViewModel = MinimoViewModel(user: user, firebaseManager: authModel.firebaseManager)
                 let editProfileViewModel = EditProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
                 
                 TabMainView()

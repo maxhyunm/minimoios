@@ -1,5 +1,5 @@
 //
-//  TimelineViewModel.swift
+//  MinimoViewModel.swift
 //  MinimoiOS
 //
 //  Created by Min Hyun on 2024/01/28.
@@ -12,18 +12,18 @@ import Combine
 final class MinimoViewModel: ObservableObject {
     @Published var contents = [MinimoDTO]()
     @Published var error: Error?
-    let userId: UUID
+    let user: UserDTO
     let firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(userId: UUID, firebaseManager: FirebaseManager) {
-        self.userId = userId
+    init(user: UserDTO, firebaseManager: FirebaseManager) {
+        self.user = user
         self.firebaseManager = firebaseManager
     }
     
     func fetchContents() {
         let query = Filter.andFilter([
-            Filter.whereField("creator", isEqualTo: userId.uuidString)
+            Filter.whereField("creator", isEqualTo: user.id.uuidString)
         ])
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in
@@ -43,7 +43,7 @@ final class MinimoViewModel: ObservableObject {
         let newId = UUID()
         
         var newContent = MinimoDTO(id: newId,
-                                   creator: userId,
+                                   creator: user.id,
                                    createdAt: Date(),
                                    content: body,
                                    images: [])

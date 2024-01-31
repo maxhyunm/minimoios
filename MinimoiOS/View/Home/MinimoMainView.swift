@@ -9,14 +9,12 @@ import SwiftUI
 
 struct MinimoMainView: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
-    @Binding var isPopUpVisible: Bool
-    @Binding var popUpImageURL: URL?
     @State private var isWriting: Bool = false
     var tabType: TabType
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            MinimoList(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)
+            MinimoList(tabType: tabType)
                 .onAppear {
                     minimoViewModel.fetchContents()
                 }
@@ -49,9 +47,12 @@ struct MinimoMainView: View {
 
 struct MinimoMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoMainView(isPopUpVisible: .constant(false), popUpImageURL: .constant(nil), tabType: .home)
+        MinimoMainView(tabType: .home)
             .environmentObject(MinimoViewModel(
-                userId: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                firebaseManager: FirebaseManager()))
+                    user: UserDTO(
+                        id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                        name: "테스트"
+                    ),
+                    firebaseManager: FirebaseManager()))
     }
 }

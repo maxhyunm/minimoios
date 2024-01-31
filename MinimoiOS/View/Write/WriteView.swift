@@ -118,8 +118,11 @@ struct WriteView: View {
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
         WriteView(isWriting: .constant(true))
-            .environmentObject(
-                MinimoViewModel(userId: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                                firebaseManager: FirebaseManager()))
+            .environmentObject(MinimoViewModel(
+                user: UserDTO(
+                    id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                    name: "테스트"
+                ),
+                firebaseManager: FirebaseManager()))
     }
 }

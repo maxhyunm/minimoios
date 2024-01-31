@@ -1,5 +1,5 @@
 //
-//  TimelineView.swift
+//  TabMainView.swift
 //  MinimoiOS
 //
 //  Created by Min Hyun on 2024/01/29.
@@ -12,15 +12,13 @@ struct TabMainView: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @EnvironmentObject var editProfileViewModel: EditProfileViewModel
     @State private var isProfileVisible: Bool = false
-    @State private var isPopUpVisible: Bool = false
-    @State private var popUpImageURL: URL? = nil
     @State private var tabType: TabType = .home
     
     var body: some View {
         NavigationView {
             
             TabView {
-                MinimoMainView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL, tabType: .home)
+                MinimoMainView(tabType: .home)
                     .environmentObject(minimoViewModel)
                     .tabItem {
                         Label("Home", systemImage: "house.fill")
@@ -28,7 +26,7 @@ struct TabMainView: View {
                     .onAppear {
                         tabType = .home
                     }
-                ProfileView(tabType: .profile)
+                MinimoMainView(tabType: .profile)
                     .tabItem {
                         Label("Profile", systemImage: "person.fill")
                     }
@@ -44,9 +42,7 @@ struct TabMainView: View {
                     }
             }
             .labelStyle(.iconOnly)
-            
-            .navigationTitle(tabType.title)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(tabType == .search ? tabType.title : "")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -78,9 +74,6 @@ struct TabMainView: View {
                     minimoViewModel.fetchContents()
                 }
         }
-        .fullScreenCover(isPresented: $isPopUpVisible, content: {
-            PopUpView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)
-        })
     }
 }
 
@@ -90,7 +83,10 @@ struct TimelineView_Previews: PreviewProvider {
             .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
             .environmentObject(
                 MinimoViewModel(
-                    userId: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                    user: UserDTO(
+                        id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                        name: "테스트"
+                    ),
                     firebaseManager: FirebaseManager()))
     }
 }
