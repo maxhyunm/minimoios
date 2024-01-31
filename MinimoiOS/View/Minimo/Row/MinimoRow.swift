@@ -77,30 +77,6 @@ struct MinimoRow: View {
                                         .frame(width: 100, height: 100)
                                 }
                             }
-                            
-//                            Button {
-//                                isPopUpVisible.toggle()
-//                                popUpImage = Image("max")
-//                            } label: {
-//                                Image("max")
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .scaledToFill()
-//                                    .frame(width: 100, height: 100)
-//                                    .clipped()
-//                            }
-//
-//                            Button {
-//                                isPopUpVisible.toggle()
-//                                popUpImage = Image("cat_turtle")
-//                            } label: {
-//                                Image("cat_turtle")
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .scaledToFill()
-//                                    .frame(width: 100, height: 100)
-//                                    .clipped()
-//                            }
                         }
                     }
                 }
