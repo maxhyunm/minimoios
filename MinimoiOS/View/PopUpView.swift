@@ -36,6 +36,7 @@ struct PopUpView: View {
             }
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        .ignoresSafeArea(.all)
         .background(Color(white: 0.5))
         .onTapGesture {
             isPopUpVisible.toggle()

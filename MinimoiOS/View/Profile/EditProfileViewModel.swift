@@ -1,5 +1,5 @@
 //
-//  ProfileViewModel.swift
+//  EditProfileViewModel.swift
 //  MinimoiOS
 //
 //  Created by Min Hyun on 2024/01/30.
@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import Combine
 
-final class ProfileViewModel: ObservableObject {
+final class EditProfileViewModel: ObservableObject {
     @Published var user: UserDTO
     @Published var error: Error?
     var firebaseManager: FirebaseManager

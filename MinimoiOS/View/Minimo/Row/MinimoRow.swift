@@ -60,7 +60,7 @@ struct MinimoRow: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(minimoRowViewModel.content.images, id: \.self) { url in
-
+                            
                             Button {
                                 isPopUpVisible.toggle()
                                 popUpImageURL = URL(string: url)

@@ -94,6 +94,7 @@ struct FirebaseManager {
                 promise(.failure(.invalidImage))
                 return
             }
+
             let storage = Storage.storage()
             let meta = StorageMetadata()
             meta.contentType = "image/jpeg"
@@ -115,41 +116,9 @@ struct FirebaseManager {
         }
     }
     
-    func saveMultipleImage(images: [UIImage], collection: String, uuid: UUID) -> Future<[String], MinimoError> {
-        return Future { promise in
-            var urls = [String]()
-            images.forEach { image in
-                guard let data = image.pngData() else {
-                    promise(.failure(.invalidImage))
-                    return
-                }
-                let storage = Storage.storage()
-                let meta = StorageMetadata()
-                meta.contentType = "image/png"
-                let path = "\(collection)/\(uuid)/\(UUID().uuidString)"
-                let imageReference = storage.reference().child(path)
-                imageReference.putData(data, metadata: meta) { _, error in
-                    if error != nil {
-                        promise(.failure(.invalidImage))
-                        return
-                    }
-                    imageReference.downloadURL { url, _ in
-                        guard let url else {
-                            promise(.failure(.invalidImage))
-                            return
-                        }
-                        urls.append("\(url)")
-                    }
-                }
-            }
-            promise(.success(urls))
-        }
-    }
-    
     func deleteImage(path: String) {
         Storage.storage().reference().child(path).delete { _ in }
     }
     
 }
-
 

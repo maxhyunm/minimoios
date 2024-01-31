@@ -39,7 +39,7 @@ final class MinimoViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func createContents(body: String, images: [UIImage]) {
+    func createContent(body: String, images: [UIImage]) {
         let newId = UUID()
         
         var newContent = MinimoDTO(id: newId,
@@ -60,7 +60,11 @@ final class MinimoViewModel: ObservableObject {
                 }
             } receiveValue: { imageString in
                 newContent.images.append(imageString.url)
-                self.firebaseManager.updateData(from: "contents", uuid: newId, data: ["images": newContent.images])
+                newContent.imagePaths.append(imageString.path)
+                self.firebaseManager.updateData(from: "contents",
+                                                uuid: newId,
+                                                data: ["images": newContent.images,
+                                                       "imagePaths": newContent.imagePaths])
             }
             .store(in: &cancellables)
         }

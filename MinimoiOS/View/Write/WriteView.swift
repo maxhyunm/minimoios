@@ -33,7 +33,7 @@ struct WriteView: View {
                 Spacer()
                 
                 Button {
-                    minimoViewModel.createContents(body: content, images: selectedImages)
+                    minimoViewModel.createContent(body: content, images: selectedImages)
                     content = ""
                     selectedItem = []
                     selectedImages = []

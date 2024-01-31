@@ -19,11 +19,12 @@ struct ContentView: View {
         } else {
             if let user = authModel.user {
                 let minimoViewModel = MinimoViewModel(userId: user.id, firebaseManager: authModel.firebaseManager)
-                let profileViewModel = ProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
-                TimelineView()
+                let editProfileViewModel = EditProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
+                
+                TabMainView()
                     .environmentObject(authModel)
                     .environmentObject(minimoViewModel)
-                    .environmentObject(profileViewModel)
+                    .environmentObject(editProfileViewModel)
             } else {
                 LoginView()
                     .environmentObject(authModel)
