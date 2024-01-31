@@ -72,8 +72,8 @@ struct MinimoRow: View {
                                         .frame(width: 100, height: 100)
                                         .clipped()
                                 } placeholder: {
-                                    Image(uiImage: UIImage())
-                                        .resizable()
+                                    ProgressView()
+                                        .padding()
                                         .frame(width: 100, height: 100)
                                 }
                             }

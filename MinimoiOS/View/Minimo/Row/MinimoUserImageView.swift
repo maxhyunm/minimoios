@@ -26,8 +26,8 @@ struct MinimoUserImageView: View {
                 image.resizable()
                     .aspectRatio(contentMode: .fit)
             } placeholder: {
-                Image(uiImage: image)
-                    .resizable()
+                ProgressView()
+                    .padding()
             }
             .frame(width: 50, height: 50)
             .background(.white)
@@ -35,7 +35,6 @@ struct MinimoUserImageView: View {
             .scaledToFit()
             .clipShape(Circle())
             .frame(maxWidth: 50)
-            
         }
     }
 }

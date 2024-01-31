@@ -38,8 +38,8 @@ struct ProfileView: View {
                     AsyncImage(url: URL(string: profileViewModel.user.image)) { image in
                         image.resizable()
                     } placeholder: {
-                        Image(uiImage: UIImage())
-                            .resizable()
+                        ProgressView()
+                            .padding()
                     }
                     .frame(width: 200, height: 200)
                     .scaledToFit()

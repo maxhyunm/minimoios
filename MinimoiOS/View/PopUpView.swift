@@ -21,20 +21,19 @@ struct PopUpView: View {
                         .frame(maxWidth: UIScreen.main.bounds.width - 50)
                         .clipped()
                 } placeholder: {
-                    Image(uiImage: UIImage())
+                    ProgressView()
+                        .padding()
                 }
                 .shadow(radius: 20)
-            } else {
-                Image(uiImage: UIImage())
+                
+                Image(systemName: "xmark")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .padding(3)
+                    .background(.gray)
+                    .foregroundColor(.white)
+                    .offset(x: 0, y: -26)
             }
-            
-            Image(systemName: "xmark")
-                .resizable()
-                .frame(width: 20, height: 20)
-                .padding(3)
-                .background(.gray)
-                .foregroundColor(.white)
-//                .offset(x: 0, y: -26)
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(Color(white: 0.5))
