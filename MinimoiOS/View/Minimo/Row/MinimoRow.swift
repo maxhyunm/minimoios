@@ -11,6 +11,8 @@ struct MinimoRow: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @EnvironmentObject var minimoRowViewModel: MinimoRowViewModel
     @State var isAlertVisible: Bool = false
+    @Binding var isPopUpVisible: Bool
+    @Binding var popUpImage: Image
     
     var body: some View {
         HStack {
@@ -30,9 +32,10 @@ struct MinimoRow: View {
                     } label: {
                         Image(systemName: "trash.fill")
                             .resizable()
+                            .scaledToFit()
                     }
+                    .buttonStyle(.plain)
                     .frame(width: 15, height: 15)
-                    .scaledToFit()
                     .foregroundColor(.black)
                     .alert(isPresented: $isAlertVisible) {
                         let okButton = Alert.Button.default(Text("네")) {
@@ -57,20 +60,47 @@ struct MinimoRow: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(minimoRowViewModel.content.images, id: \.self) { url in
-                            Button {
-                                
-                            } label: {
+                            
+                            // TODO: 사용량 초과 건 확인
+//                            Button {
+//                                isPopUpVisible.toggle()
+//                            } label: {
 //                                AsyncImage(url: URL(string: url)) { image in
 //                                    image.resizable()
+//                                        .aspectRatio(contentMode: .fit)
+//                                        .scaledToFill()
+//                                        .frame(width: 100, height: 100)
+//                                        .clipped()
 //                                } placeholder: {
 //                                    Image(uiImage: UIImage())
 //                                        .resizable()
+//                                        .frame(width: 100, height: 100)
 //                                }
-                                Image(systemName: "person.fill")
+//                            }
+                            
+                            Button {
+                                isPopUpVisible.toggle()
+                                popUpImage = Image("t8m9")
+                            } label: {
+                                Image("t8m9")
                                     .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .clipped()
                             }
-                            .frame(width: 100, height: 100)
-                            .scaledToFit()
+                            
+                            Button {
+                                isPopUpVisible.toggle()
+                                popUpImage = Image("cat_turtle")
+                            } label: {
+                                Image("cat_turtle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .clipped()
+                            }
                         }
                     }
                 }
@@ -86,7 +116,7 @@ struct MinimoRow: View {
 
 struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow()
+        MinimoRow(isPopUpVisible: .constant(true), popUpImage: .constant(Image(uiImage: UIImage())))
             .environmentObject(
                 MinimoViewModel(userId: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                                 firebaseManager: FirebaseManager()))

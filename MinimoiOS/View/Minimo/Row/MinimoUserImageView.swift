@@ -24,6 +24,7 @@ struct MinimoUserImageView: View {
         } else {
             AsyncImage(url: URL(string: userImage)) { image in
                 image.resizable()
+                    .aspectRatio(contentMode: .fit)
             } placeholder: {
                 Image(uiImage: image)
                     .resizable()

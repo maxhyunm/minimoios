@@ -27,6 +27,7 @@
 		BA28F0B92B68D66B00042912 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0B82B68D66B00042912 /* ProfileViewModel.swift */; };
 		BA28F0BB2B68EE2800042912 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0BA2B68EE2800042912 /* ImagePicker.swift */; };
 		BA28F0C22B695B8D00042912 /* GridSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0C12B695B8D00042912 /* GridSettings.swift */; };
+		BA28F0C42B6A09FF00042912 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0C32B6A09FF00042912 /* PopUpView.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -92,6 +93,7 @@
 		BA28F0B82B68D66B00042912 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		BA28F0BA2B68EE2800042912 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BA28F0C12B695B8D00042912 /* GridSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSettings.swift; sourceTree = "<group>"; };
+		BA28F0C32B6A09FF00042912 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA28F0A92B67EB0600042912 /* TimelineView.swift */,
 				BA28F0C12B695B8D00042912 /* GridSettings.swift */,
+				BA28F0C32B6A09FF00042912 /* PopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				BA28F0C22B695B8D00042912 /* GridSettings.swift in Sources */,
 				BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */,
 				BA28F0BB2B68EE2800042912 /* ImagePicker.swift in Sources */,
+				BA28F0C42B6A09FF00042912 /* PopUpView.swift in Sources */,
 				BA28F09E2B6648B300042912 /* MinimoViewModel.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
 				BA28F09B2B6632AC00042912 /* MinimoDTO.swift in Sources */,
