@@ -13,29 +13,31 @@ struct TabMainView: View {
     @EnvironmentObject var editProfileViewModel: EditProfileViewModel
     @State private var isProfileVisible: Bool = false
     @State private var tabType: TabType = .home
+    private var isScrollOnTop: Bool {
+        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
+    }
     
     var body: some View {
         NavigationView {
-            
             TabView {
                 MinimoMainView(tabType: .home)
                     .environmentObject(minimoViewModel)
                     .tabItem {
-                        Label("Home", systemImage: "house.fill")
+                        Label(tabType.title, systemImage: "house.fill")
                     }
                     .onAppear {
                         tabType = .home
                     }
                 MinimoMainView(tabType: .profile)
                     .tabItem {
-                        Label("Profile", systemImage: "person.fill")
+                        Label(tabType.title, systemImage: "person.fill")
                     }
                     .onAppear {
                         tabType = .profile
                     }
                 SearchView(tabType: .search)
                     .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
+                        Label(tabType.title, systemImage: "magnifyingglass")
                     }
                     .onAppear {
                         tabType = .search
@@ -66,6 +68,10 @@ struct TabMainView: View {
                     .foregroundColor(.cyan)
                 }
             }
+            .tint(.cyan)
+            .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
+            .navigationBarHidden(tabType == .profile)
+//            .navigationBarHidden(!isScrollOnTop)
         }
         .sheet(isPresented: $isProfileVisible) {
             EditProfileView(isProfileVisible: $isProfileVisible)

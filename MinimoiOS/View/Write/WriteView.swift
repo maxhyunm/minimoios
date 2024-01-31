@@ -105,11 +105,9 @@ struct WriteView: View {
                                 .foregroundColor(.white)
                             }
                         }
-                    
                 }
                 .padding()
             }
-            
         }
         .padding()
     }

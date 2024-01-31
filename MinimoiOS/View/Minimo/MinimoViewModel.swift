@@ -12,6 +12,9 @@ import Combine
 final class MinimoViewModel: ObservableObject {
     @Published var contents = [MinimoDTO]()
     @Published var error: Error?
+    @Published var originScrollOffset: CGFloat
+    @Published var newScrollOffset: CGFloat
+    
     let user: UserDTO
     let firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
@@ -19,6 +22,8 @@ final class MinimoViewModel: ObservableObject {
     init(user: UserDTO, firebaseManager: FirebaseManager) {
         self.user = user
         self.firebaseManager = firebaseManager
+        self.originScrollOffset = 0.0
+        self.newScrollOffset = 0.0
     }
     
     func fetchContents() {

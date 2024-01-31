@@ -10,6 +10,7 @@ import SwiftUI
 struct MinimoMainView: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @State private var isWriting: Bool = false
+
     var tabType: TabType
     
     var body: some View {

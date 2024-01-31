@@ -15,9 +15,13 @@ struct ProfileHeaderView: View {
     var body: some View {
         if tabType == .profile {
             ZStack(alignment: .leading) {
-                backgroundColor
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.white, Color.cyan, Color.cyan]),
+                    startPoint: .top,
+                    endPoint: .bottom)
+                .frame(height: 100)
                 
-                HStack(alignment: .center, spacing: 10) {
+                HStack(alignment: .bottom, spacing: 10) {
                     AsyncImage(url: URL(string: user.image)) { image in
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
@@ -30,15 +34,23 @@ struct ProfileHeaderView: View {
                     .foregroundColor(.pink)
                     .scaledToFit()
                     .clipShape(Circle())
-                    .frame(maxWidth: 100)
+                    .overlay {
+                        Circle().stroke(.white, lineWidth: 2)
+                    }
+                    .shadow(radius: 5)
+                    .padding(.leading, 5)
                     
                     Text(user.name)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .font(.title3)
+                        .bold()
+                        .offset(x: 0, y: -15)
                 }
                 .padding(10)
+                .offset(x: 0, y: 50)
             }
-            .frame(height: 150)
+            .frame(height: 160)
+            .offset(x: 0, y: -30)
         }
     }
 }

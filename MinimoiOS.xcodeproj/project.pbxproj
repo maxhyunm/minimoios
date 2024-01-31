@@ -30,6 +30,8 @@
 		BA28F0C82B6A631E00042912 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0C72B6A631E00042912 /* SearchView.swift */; };
 		BA28F0CC2B6A731F00042912 /* TabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0CB2B6A731E00042912 /* TabType.swift */; };
 		BA28F0D02B6A7EB100042912 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0CF2B6A7EB100042912 /* ProfileHeaderView.swift */; };
+		BA28F0D22B6A969100042912 /* ScrollOffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0D12B6A969100042912 /* ScrollOffsetKey.swift */; };
+		BA28F0D82B6AA8AD00042912 /* ColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0D72B6AA8AD00042912 /* ColorType.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -98,6 +100,8 @@
 		BA28F0C72B6A631E00042912 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		BA28F0CB2B6A731E00042912 /* TabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabType.swift; sourceTree = "<group>"; };
 		BA28F0CF2B6A7EB100042912 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		BA28F0D12B6A969100042912 /* ScrollOffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetKey.swift; sourceTree = "<group>"; };
+		BA28F0D72B6AA8AD00042912 /* ColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorType.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				BA28F0B52B68CC9C00042912 /* Row */,
 				BA28F09D2B6648B300042912 /* MinimoViewModel.swift */,
 				BA4C9E2D2B640B7000C96C87 /* MinimoList.swift */,
+				BA28F0C52B6A58CD00042912 /* MinimoMainView.swift */,
 			);
 			path = Minimo;
 			sourceTree = "<group>";
@@ -175,6 +180,8 @@
 				BA28F0A32B676EDA00042912 /* FirebaseManager.swift */,
 				BA28F0962B661DE000042912 /* DecodingManager.swift */,
 				BA28F0CB2B6A731E00042912 /* TabType.swift */,
+				BA28F0D12B6A969100042912 /* ScrollOffsetKey.swift */,
+				BA28F0D72B6AA8AD00042912 /* ColorType.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -202,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				BA28F09C2B66489900042912 /* Minimo */,
-				BA28F0CE2B6A7E6500042912 /* Home */,
 				BA28F0BE2B69166B00042912 /* Write */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditProfile */,
@@ -230,14 +236,6 @@
 				BA28F0CF2B6A7EB100042912 /* ProfileHeaderView.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		BA28F0CE2B6A7E6500042912 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				BA28F0C52B6A58CD00042912 /* MinimoMainView.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		BA4C9DED2B6395F500C96C87 = {
@@ -418,6 +416,7 @@
 				BA28F0B32B68C80200042912 /* MinimoRowViewModel.swift in Sources */,
 				BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */,
 				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
+				BA28F0D22B6A969100042912 /* ScrollOffsetKey.swift in Sources */,
 				BA28F0AE2B68946900042912 /* AuthDTO.swift in Sources */,
 				BA28F0A82B67EAD900042912 /* WriteView.swift in Sources */,
 				BA28F0B12B68AD1700042912 /* MinimoUserImageView.swift in Sources */,
@@ -435,6 +434,7 @@
 				BA28F0C42B6A09FF00042912 /* PopUpView.swift in Sources */,
 				BA28F09E2B6648B300042912 /* MinimoViewModel.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
+				BA28F0D82B6AA8AD00042912 /* ColorType.swift in Sources */,
 				BA28F09B2B6632AC00042912 /* MinimoDTO.swift in Sources */,
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
