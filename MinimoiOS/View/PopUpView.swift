@@ -9,16 +9,24 @@ import SwiftUI
 
 struct PopUpView: View {
     @Binding var isPopUpVisible: Bool
-    @Binding var image: Image
+    @Binding var popUpImageURL: URL?
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: UIScreen.main.bounds.width - 50)
-                .background(.white)
+            if let popUpImageURL {
+                AsyncImage(url: popUpImageURL) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: UIScreen.main.bounds.width - 50)
+                        .clipped()
+                } placeholder: {
+                    Image(uiImage: UIImage())
+                }
                 .shadow(radius: 20)
+            } else {
+                Image(uiImage: UIImage())
+            }
             
             Image(systemName: "xmark")
                 .resizable()
@@ -38,6 +46,6 @@ struct PopUpView: View {
 
 struct PopUpView_Previews: PreviewProvider {
     static var previews: some View {
-        PopUpView(isPopUpVisible: .constant(true), image: .constant(Image(uiImage: UIImage())))
+        PopUpView(isPopUpVisible: .constant(true), popUpImageURL: .constant(nil))
     }
 }

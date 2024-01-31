@@ -14,7 +14,7 @@ struct TimelineView: View {
     @State private var isProfileVisible: Bool = false
     @State private var isWriting: Bool = false
     @State private var isPopUpVisible: Bool = false
-    @State private var popUpImage: Image = Image(uiImage: UIImage())
+    @State private var popUpImageURL: URL? = nil
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -28,7 +28,7 @@ struct TimelineView: View {
                                 minimoViewModel.fetchContents()
                             }
                     }
-                MinimoList(isPopUpVisible: $isPopUpVisible, popUpImage: $popUpImage)
+                MinimoList(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)
                     .onAppear {
                         minimoViewModel.fetchContents()
                     }
@@ -54,7 +54,7 @@ struct TimelineView: View {
             }
             
             if isPopUpVisible {
-                PopUpView(isPopUpVisible: $isPopUpVisible, image: $popUpImage)
+                PopUpView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)
             }
         }
     }
