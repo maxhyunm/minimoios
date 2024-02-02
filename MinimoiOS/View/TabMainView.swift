@@ -10,6 +10,7 @@ import SwiftUI
 struct TabMainView: View {
     @State private var isEditProfileVisible: Bool = false
     @State private var tabType: TabType = .home
+    @State private var fetchTrigger: Bool = true
     @Binding var logOutTrigger: Bool
     let user: UserDTO
     let minimoViewModel: MinimoViewModel
@@ -22,21 +23,23 @@ struct TabMainView: View {
     var body: some View {
         NavigationView {
             TabView {
-                MinimoMainView(tabType: $tabType)
+                MinimoMainView(fetchTrigger: $fetchTrigger, tabType: $tabType)
                     .environmentObject(minimoViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "house.fill")
                     }
                     .onAppear {
                         tabType = .home
+                        fetchTrigger.toggle()
                     }
-                MinimoMainView(tabType: $tabType)
+                MinimoMainView(fetchTrigger: $fetchTrigger, tabType: $tabType)
                     .environmentObject(minimoViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "person.fill")
                     }
                     .onAppear {
                         tabType = .profile
+                        fetchTrigger.toggle()
                     }
                 SearchView(tabType: $tabType)
                     .tabItem {
@@ -72,16 +75,19 @@ struct TabMainView: View {
                 }
             }
             .tint(.cyan)
-            .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
-            .navigationBarHidden(tabType == .profile)
+//            .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
+//            .navigationBarHidden(tabType == .profile)
 //            .navigationBarHidden(!isScrollOnTop)
         }
         .sheet(isPresented: $isEditProfileVisible) {
-            EditProfileView(isProfileVisible: $isEditProfileVisible)
+            EditProfileView(isProfileVisible: $isEditProfileVisible, fetchTrigger: $fetchTrigger)
                 .environmentObject(editProfileViewModel)
-                .onDisappear {
-                    minimoViewModel.fetchContents(for: tabType)
-                }
+//                .onDisappear {
+//                    minimoViewModel.fetchContents(for: tabType)
+//                }
+        }
+        .onChange(of: fetchTrigger) { status in
+            minimoViewModel.fetchContents(for: tabType)
         }
     }
 }

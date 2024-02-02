@@ -176,6 +176,7 @@
 		BA28F0AF2B68A6F800042912 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				BA4C9E2A2B63FC2C00C96C87 /* AuthManager.swift */,
 				BA4C9E1A2B63CB2700C96C87 /* OAuthType.swift */,
 				BA28F0982B6621FA00042912 /* Error.swift */,
 				BA28F0A52B67760400042912 /* Uploadable.swift */,
@@ -287,7 +288,6 @@
 		BA4C9E192B63C7B300C96C87 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				BA4C9E2A2B63FC2C00C96C87 /* AuthManager.swift */,
 				BA4C9E132B639FD300C96C87 /* LoginView.swift */,
 			);
 			path = Login;

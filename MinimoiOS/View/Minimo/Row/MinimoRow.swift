@@ -12,7 +12,7 @@ struct MinimoRow: View {
     @State private var isAlertVisible: Bool = false
     @State private var isPopUpVisible: Bool = false
     @State private var popUpImageURL: URL? = nil
-    @Binding var isFetchNeeded: Bool
+    @Binding var fetchTrigger: Bool
     
     var body: some View {
         HStack {
@@ -40,7 +40,7 @@ struct MinimoRow: View {
                     .alert(isPresented: $isAlertVisible) {
                         let okButton = Alert.Button.default(Text("네")) {
                             minimoRowViewModel.deleteContent()
-                            isFetchNeeded.toggle()
+                            fetchTrigger.toggle()
                         }
                         let cancelButton = Alert.Button.cancel(Text("취소"))
                         
@@ -96,7 +96,7 @@ struct MinimoRow: View {
 
 struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow(isFetchNeeded: .constant(false))
+        MinimoRow(fetchTrigger: .constant(false))
             .environmentObject(MinimoRowViewModel(
                 content: MinimoDTO(
                     id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,

@@ -9,13 +9,14 @@ import SwiftUI
 
 struct EditProfileView: View {
     @EnvironmentObject var editProfileViewModel: EditProfileViewModel
+    @State private var isImagePickerVisible: Bool = false
+    @State private var editedName: String = ""
+    @State private var editable: Bool = false
+    @State private var selectedImage: UIImage = UIImage()
+    @State private var isNameChanged: Bool = false
+    @State private var isImageChanged: Bool = false
     @Binding var isProfileVisible: Bool
-    @State var isImagePickerVisible: Bool = false
-    @State var editedName: String = ""
-    @State var editable: Bool = false
-    @State var selectedImage: UIImage = UIImage()
-    @State var isNameChanged: Bool = false
-    @State var isImageChanged: Bool = false
+    @Binding var fetchTrigger: Bool
     var isChanged: Bool {
         return isNameChanged || isImageChanged
     }
@@ -123,6 +124,7 @@ struct EditProfileView: View {
                     editProfileViewModel.updateImage(selectedImage)
                 }
                 self.isProfileVisible = false
+                self.fetchTrigger.toggle()
             } label: {
                 Text("변경사항 저장")
             }
@@ -140,7 +142,7 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(isProfileVisible: .constant(true))
+        EditProfileView(isProfileVisible: .constant(true), fetchTrigger: .constant(false))
             .environmentObject(EditProfileViewModel(user: UserDTO(
                 id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                 name: "테스트"

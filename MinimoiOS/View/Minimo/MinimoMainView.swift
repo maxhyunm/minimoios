@@ -10,16 +10,13 @@ import SwiftUI
 struct MinimoMainView: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @State private var isWriting: Bool = false
-    @State private var isFetchNeeded: Bool = true
+    @Binding var fetchTrigger: Bool
     @Binding var tabType: TabType
     
     var body: some View {
         let writeViewModel = WriteViewModel(user: minimoViewModel.user, firebaseManager: minimoViewModel.firebaseManager)
         ZStack(alignment: .bottomTrailing) {
-            MinimoList(isFetchNeeded: $isFetchNeeded, tabType: tabType)
-                .onAppear {
-                    minimoViewModel.fetchContents(for: tabType)
-                }
+            MinimoList(fetchTrigger: $fetchTrigger, tabType: tabType)
                 .environmentObject(minimoViewModel)
             
             Button {
@@ -36,7 +33,7 @@ struct MinimoMainView: View {
             .offset(x: -30, y: -20)
             .sheet(isPresented: $isWriting) {
                 WriteView(isWriting: $isWriting,
-                          isFetchNeeded: $isFetchNeeded,
+                          fetchTrigger: $fetchTrigger,
                           writeViewModel: writeViewModel)
             }
         }
@@ -48,7 +45,7 @@ struct MinimoMainView: View {
 
 struct MinimoMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoMainView(tabType: .constant(.home))
+        MinimoMainView(fetchTrigger: .constant(false), tabType: .constant(.home))
             .environmentObject(MinimoViewModel(
                     user: UserDTO(
                         id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,

@@ -13,7 +13,7 @@ import Combine
 struct ContentView: View {
     @EnvironmentObject var authManager: AuthManager
     @State private var logOutTrigger: Bool = false
-    
+
     var body: some View {
         if authManager.isLoading {
             Text("M I N I M O")
@@ -21,7 +21,7 @@ struct ContentView: View {
             if let user = authManager.user {
                 let minimoViewModel = MinimoViewModel(user: user,
                                                       firebaseManager: authManager.firebaseManager)
-                
+
                 let editProfileViewModel = EditProfileViewModel(user: user,
                                                                 firebaseManager: authManager.firebaseManager)
                 TabMainView(logOutTrigger: $logOutTrigger,

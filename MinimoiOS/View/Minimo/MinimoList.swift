@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MinimoList: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
-    @Binding var isFetchNeeded: Bool
+    @Binding var fetchTrigger: Bool
     var tabType: TabType
     
 //    private var scrollOffsetObserver: some View {
@@ -35,7 +35,7 @@ struct MinimoList: View {
                             firebaseManager: minimoViewModel.firebaseManager,
                             userId: minimoViewModel.user.id.uuidString
                         )
-                        MinimoRow(isFetchNeeded: $isFetchNeeded)
+                        MinimoRow(fetchTrigger: $fetchTrigger)
                             .listRowSeparator(.hidden)
                             .environmentObject(minimoRowViewModel)
                     }
@@ -47,17 +47,14 @@ struct MinimoList: View {
             minimoViewModel.newScrollOffset = $0
         }
         .refreshable {
-            minimoViewModel.fetchContents(for: tabType)
-        }
-        .onChange(of: isFetchNeeded) { status in
-            minimoViewModel.fetchContents(for: tabType)
+            fetchTrigger.toggle()
         }
     }
 }
 
 struct TimelineList_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoList(isFetchNeeded: .constant(false), tabType: .home)
+        MinimoList(fetchTrigger: .constant(false), tabType: .home)
         
             .environmentObject(
                 MinimoViewModel(

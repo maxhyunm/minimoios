@@ -13,7 +13,7 @@ struct WriteView: View {
     @State private var selectedItem = [PhotosPickerItem]()
     @State private var selectedImages = [UIImage]()
     @Binding var isWriting: Bool
-    @Binding var isFetchNeeded: Bool
+    @Binding var fetchTrigger: Bool
     let writeViewModel: WriteViewModel
     
     private var isEmpty: Bool {
@@ -39,7 +39,7 @@ struct WriteView: View {
                     selectedItem = []
                     selectedImages = []
                     isWriting.toggle()
-                    isFetchNeeded.toggle()
+                    fetchTrigger.toggle()
                 } label: {
                     Text("MO!")
                         .font(.headline)
@@ -117,7 +117,7 @@ struct WriteView: View {
 
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
-        WriteView(isWriting: .constant(true), isFetchNeeded: .constant(false), writeViewModel: WriteViewModel(
+        WriteView(isWriting: .constant(true), fetchTrigger: .constant(false), writeViewModel: WriteViewModel(
             user: UserDTO(
                 id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                 name: "테스트"
