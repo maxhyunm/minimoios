@@ -1,36 +1,35 @@
 //
-//  MinimoViewModel.swift
+//  ProfileViewModel.swift
 //  MinimoiOS
 //
-//  Created by Min Hyun on 2024/01/28.
+//  Created by Min Hyun on 2024/02/02.
 //
 
 import Foundation
 import Firebase
 import Combine
 
-final class MinimoViewModel: ObservableObject {
+final class ProfileViewModel: ObservableObject {
     @Published var contents = [MinimoDTO]()
     @Published var error: Error?
     @Published var originScrollOffset: CGFloat
     @Published var newScrollOffset: CGFloat
     
-    let user: UserDTO
-    let firebaseManager: FirebaseManager
+    var user: UserDTO
+    var profileOwnerId: UUID
+    var firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(user: UserDTO, firebaseManager: FirebaseManager) {
+    init(user: UserDTO, profileOwnerId: UUID, firebaseManager: FirebaseManager) {
         self.user = user
+        self.profileOwnerId = profileOwnerId
         self.firebaseManager = firebaseManager
         self.originScrollOffset = 0.0
         self.newScrollOffset = 0.0
     }
     
-    func fetchContents(for tabType: TabType) {
-        // TODO: Tabtype에 따른 작성자 필터 추가
-        let query = Filter.andFilter([
-            Filter.whereField("creator", isEqualTo: user.id.uuidString)
-        ])
+    func fetchContents() {
+        let query = Filter.whereField("creator", isEqualTo: user.id.uuidString)
         
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in

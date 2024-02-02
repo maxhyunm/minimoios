@@ -19,18 +19,17 @@ struct ContentView: View {
             Text("M I N I M O")
         } else {
             if let user = authManager.user {
-                let minimoViewModel = MinimoViewModel(user: user,
-                                                      firebaseManager: authManager.firebaseManager)
-
-                let editProfileViewModel = EditProfileViewModel(user: user,
-                                                                firebaseManager: authManager.firebaseManager)
-                TabMainView(logOutTrigger: $logOutTrigger,
-                            user: user,
-                            minimoViewModel: minimoViewModel,
-                            editProfileViewModel: editProfileViewModel)
-                .onChange(of: logOutTrigger) { state in
-                    authManager.handleLogout()
-                }
+                let homeViewModel = HomeViewModel(user: user, firebaseManager: authManager.firebaseManager)
+                let profileViewModel = ProfileViewModel(user: user,
+                                                        profileOwnerId: user.id,
+                                                        firebaseManager: authManager.firebaseManager)
+                
+                TabMainView(logOutTrigger: $logOutTrigger)
+                    .environmentObject(homeViewModel)
+                    .environmentObject(profileViewModel)
+                    .onChange(of: logOutTrigger) { state in
+                        authManager.handleLogout()
+                    }
             } else {
                 LoginView()
                     .environmentObject(authManager)

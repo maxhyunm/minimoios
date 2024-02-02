@@ -1,14 +1,14 @@
 //
-//  MinimoList.swift
+//  ProfileList.swift
 //  MinimoiOS
 //
-//  Created by Min Hyun on 2024/01/27.
+//  Created by Min Hyun on 2024/02/02.
 //
 
 import SwiftUI
 
-struct MinimoList: View {
-    @EnvironmentObject var minimoViewModel: MinimoViewModel
+struct ProfileList: View {
+    @EnvironmentObject var viewModel: ProfileViewModel
     @Binding var fetchTrigger: Bool
     var tabType: TabType
     
@@ -28,12 +28,12 @@ struct MinimoList: View {
         ScrollView {
 //            scrollOffsetObserver
             LazyVStack  {
-                Section(header: ProfileHeaderView(user: minimoViewModel.user, tabType: tabType)) {
-                    ForEach(minimoViewModel.contents) { content in
+                Section(header: ProfileHeaderView(user: viewModel.user, tabType: tabType)) {
+                    ForEach($viewModel.contents) { $content in
                         let minimoRowViewModel = MinimoRowViewModel(
                             content: content,
-                            firebaseManager: minimoViewModel.firebaseManager,
-                            userId: minimoViewModel.user.id.uuidString
+                            firebaseManager: viewModel.firebaseManager,
+                            userId: viewModel.user.id.uuidString
                         )
                         MinimoRow(fetchTrigger: $fetchTrigger)
                             .listRowSeparator(.hidden)
@@ -43,24 +43,18 @@ struct MinimoList: View {
                 }
             }
         }
-        .onPreferenceChange(ScrollOffsetKey.self) {
-            minimoViewModel.newScrollOffset = $0
-        }
+//        .onPreferenceChange(ScrollOffsetKey.self) {
+//            viewModel.newScrollOffset = $0
+//        }
         .refreshable {
             fetchTrigger.toggle()
         }
     }
 }
 
-struct TimelineList_Previews: PreviewProvider {
+struct ProfileList_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoList(fetchTrigger: .constant(false), tabType: .home)
-        
-            .environmentObject(
-                MinimoViewModel(
-                    user: UserDTO(
-                        id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                        name: "테스트"),
-                    firebaseManager: FirebaseManager()))
+        ProfileList(fetchTrigger: .constant(false), tabType: .home)
+            .environmentObject(PreviewStatics.profileViewModel)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import Combine
 
-final class EditProfileViewModel: ObservableObject {
+final class EditInformationViewModel: ObservableObject {
     @Published var user: UserDTO
     @Published var error: Error?
     var firebaseManager: FirebaseManager

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct EditProfileView: View {
-    @EnvironmentObject var editProfileViewModel: EditProfileViewModel
+struct EditInformationView: View {
+    @EnvironmentObject var viewModel: EditInformationViewModel
     @State private var isImagePickerVisible: Bool = false
     @State private var editedName: String = ""
     @State private var editable: Bool = false
@@ -36,7 +36,7 @@ struct EditProfileView: View {
             
             VStack {
                 if !isImageChanged {
-                    AsyncImage(url: URL(string: editProfileViewModel.user.image)) { image in
+                    AsyncImage(url: URL(string: viewModel.user.image)) { image in
                         image.resizable()
                     } placeholder: {
                         ProgressView()
@@ -97,7 +97,7 @@ struct EditProfileView: View {
                     }
                     .foregroundColor(.red)
                 } else {
-                    Text(editedName == "" ? editProfileViewModel.user.name : editedName)
+                    Text(editedName == "" ? viewModel.user.name : editedName)
                         .font(.title3)
                     Button {
                         self.editable.toggle()
@@ -118,10 +118,10 @@ struct EditProfileView: View {
             
             Button {
                 if isNameChanged {
-                    editProfileViewModel.updateName(self.editedName)
+                    viewModel.updateName(self.editedName)
                 }
                 if isImageChanged {
-                    editProfileViewModel.updateImage(selectedImage)
+                    viewModel.updateImage(selectedImage)
                 }
                 self.isProfileVisible = false
                 self.fetchTrigger.toggle()
@@ -140,10 +140,10 @@ struct EditProfileView: View {
     }
 }
 
-struct EditProfileView_Previews: PreviewProvider {
+struct EditInformationView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(isProfileVisible: .constant(true), fetchTrigger: .constant(false))
-            .environmentObject(EditProfileViewModel(user: UserDTO(
+        EditInformationView(isProfileVisible: .constant(true), fetchTrigger: .constant(false))
+            .environmentObject(EditInformationViewModel(user: UserDTO(
                 id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
                 name: "테스트"
             ), firebaseManager: FirebaseManager()))

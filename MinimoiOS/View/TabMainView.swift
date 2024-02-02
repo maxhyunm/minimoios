@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct TabMainView: View {
+    @EnvironmentObject var homeViewModel: HomeViewModel
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     @State private var isEditProfileVisible: Bool = false
     @State private var tabType: TabType = .home
     @State private var fetchTrigger: Bool = true
     @Binding var logOutTrigger: Bool
-    let user: UserDTO
-    let minimoViewModel: MinimoViewModel
-    let editProfileViewModel: EditProfileViewModel
     
-    private var isScrollOnTop: Bool {
-        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
-    }
+//    private var isScrollOnTop: Bool {
+//        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
+//    }
     
     var body: some View {
         NavigationView {
             TabView {
-                MinimoMainView(fetchTrigger: $fetchTrigger, tabType: $tabType)
-                    .environmentObject(minimoViewModel)
+                HomeMainView(fetchTrigger: $fetchTrigger, tabType: $tabType)
+                    .environmentObject(homeViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "house.fill")
                     }
@@ -32,8 +31,10 @@ struct TabMainView: View {
                         tabType = .home
                         fetchTrigger.toggle()
                     }
-                MinimoMainView(fetchTrigger: $fetchTrigger, tabType: $tabType)
-                    .environmentObject(minimoViewModel)
+                ProfileMainView(fetchTrigger: $fetchTrigger,
+                                tabType: $tabType,
+                                userId: profileViewModel.user.id.uuidString)
+                    .environmentObject(profileViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "person.fill")
                     }
@@ -75,34 +76,32 @@ struct TabMainView: View {
                 }
             }
             .tint(.cyan)
-//            .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
+            .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
 //            .navigationBarHidden(tabType == .profile)
 //            .navigationBarHidden(!isScrollOnTop)
         }
         .sheet(isPresented: $isEditProfileVisible) {
-            EditProfileView(isProfileVisible: $isEditProfileVisible, fetchTrigger: $fetchTrigger)
+            let editProfileViewModel = EditInformationViewModel(user: homeViewModel.user, firebaseManager: homeViewModel.firebaseManager)
+            EditInformationView(isProfileVisible: $isEditProfileVisible, fetchTrigger: $fetchTrigger)
                 .environmentObject(editProfileViewModel)
-//                .onDisappear {
-//                    minimoViewModel.fetchContents(for: tabType)
-//                }
         }
-        .onChange(of: fetchTrigger) { status in
-            minimoViewModel.fetchContents(for: tabType)
+        .onChange(of: fetchTrigger) { _ in
+            switch tabType {
+            case .home:
+                homeViewModel.fetchContents()
+            case .profile:
+                profileViewModel.fetchContents()
+            case .search:
+                return
+            }
         }
     }
 }
 
 struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        let user = UserDTO(
-            id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-            name: "테스트"
-        )
-        let firebaseManager = FirebaseManager()
-        TabMainView(logOutTrigger: .constant(false),
-                    user: user,
-                    minimoViewModel:  MinimoViewModel(user: user, firebaseManager: firebaseManager),
-                    editProfileViewModel: EditProfileViewModel(user: user, firebaseManager: firebaseManager)
-        )
+        TabMainView(logOutTrigger: .constant(false))
+            .environmentObject(PreviewStatics.homeViewModel)
+            .environmentObject(PreviewStatics.profileViewModel)
     }
 }

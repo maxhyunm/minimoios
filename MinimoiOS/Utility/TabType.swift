@@ -28,7 +28,7 @@ enum TabType {
         case .home:
             return .white
         case .profile:
-            return .clear
+            return .white
         case .search:
             return .white
         }
