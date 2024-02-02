@@ -45,9 +45,9 @@
 |<img src="https://hackmd.io/_uploads/Hk5HYKO9p.gif" width="250">|<img src="https://hackmd.io/_uploads/H14BYtO9T.gif" width="250">|<img src="https://hackmd.io/_uploads/BJUStY_5T.gif" width="250">|
 
 
-| 타임라인 탭 | 프로필 탭 |
-|:-:|:-:|
-|<img src="https://hackmd.io/_uploads/SkJWqKO9a.gif" width="250">|<img src="https://hackmd.io/_uploads/r1-WqFd96.gif" width="250">|
+| 타임라인 탭 | 프로필 탭 | 사진 보기 |
+|:-:|:-:|:-:|
+|<img src="https://hackmd.io/_uploads/SkJWqKO9a.gif" width="250">|<img src="https://hackmd.io/_uploads/r1-WqFd96.gif" width="250">|<img src="https://hackmd.io/_uploads/SJIlR0Fqa.gif" width="250">|
 
 
 | 메모 쓰기 | 사진 선택 |
