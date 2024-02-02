@@ -10,14 +10,15 @@ import SwiftUI
 struct MinimoMainView: View {
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @State private var isWriting: Bool = false
-
-    var tabType: TabType
+    @State private var isFetchNeeded: Bool = true
+    @Binding var tabType: TabType
     
     var body: some View {
+        let writeViewModel = WriteViewModel(user: minimoViewModel.user, firebaseManager: minimoViewModel.firebaseManager)
         ZStack(alignment: .bottomTrailing) {
-            MinimoList(tabType: tabType)
+            MinimoList(isFetchNeeded: $isFetchNeeded, tabType: tabType)
                 .onAppear {
-                    minimoViewModel.fetchContents()
+                    minimoViewModel.fetchContents(for: tabType)
                 }
                 .environmentObject(minimoViewModel)
             
@@ -34,10 +35,9 @@ struct MinimoMainView: View {
             .clipShape(Circle())
             .offset(x: -30, y: -20)
             .sheet(isPresented: $isWriting) {
-                WriteView(isWriting: $isWriting)
-                    .onDisappear {
-                        minimoViewModel.fetchContents()
-                    }
+                WriteView(isWriting: $isWriting,
+                          isFetchNeeded: $isFetchNeeded,
+                          writeViewModel: writeViewModel)
             }
         }
         .navigationTitle(tabType.title)
@@ -48,7 +48,7 @@ struct MinimoMainView: View {
 
 struct MinimoMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoMainView(tabType: .home)
+        MinimoMainView(tabType: .constant(.home))
             .environmentObject(MinimoViewModel(
                     user: UserDTO(
                         id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,

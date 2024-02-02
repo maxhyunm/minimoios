@@ -9,24 +9,28 @@ import Foundation
 import Combine
 
 final class MinimoRowViewModel: ObservableObject {
-    @Published var content: MinimoDTO
-    @Published var userName: String = ""
-    @Published var userImage: String = ""
+    @Published var creatorId: String = ""
+    @Published var creatorName: String = ""
+    @Published var creatorImage: String = ""
     @Published var error: Error?
     let firebaseManager: FirebaseManager
+    let userId: String
+    let content: MinimoDTO
     var cancellables = Set<AnyCancellable>()
     
-    init(content: MinimoDTO, firebaseManager: FirebaseManager) {
+    init(content: MinimoDTO, firebaseManager: FirebaseManager, userId: String) {
         self.content = content
         self.firebaseManager = firebaseManager
-        fetchUserDetail()
+        self.userId = userId
+        fetchCreatorDetail()
     }
     
-    func fetchUserDetail() {
+    func fetchCreatorDetail() {
         firebaseManager.readUserData(for: content.creator).sink { _ in
         } receiveValue: { user in
-            self.userName = user.name
-            self.userImage = user.image
+            self.creatorId = user.id.uuidString
+            self.creatorName = user.name
+            self.creatorImage = user.image
         }
         .store(in: &cancellables)
     }

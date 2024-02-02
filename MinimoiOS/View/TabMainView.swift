@@ -11,7 +11,7 @@ struct TabMainView: View {
     @EnvironmentObject var authModel: AuthModel
     @EnvironmentObject var minimoViewModel: MinimoViewModel
     @EnvironmentObject var editProfileViewModel: EditProfileViewModel
-    @State private var isProfileVisible: Bool = false
+    @State private var isEditProfileVisible: Bool = false
     @State private var tabType: TabType = .home
     private var isScrollOnTop: Bool {
         minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
@@ -20,7 +20,7 @@ struct TabMainView: View {
     var body: some View {
         NavigationView {
             TabView {
-                MinimoMainView(tabType: .home)
+                MinimoMainView(tabType: $tabType)
                     .environmentObject(minimoViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "house.fill")
@@ -28,14 +28,15 @@ struct TabMainView: View {
                     .onAppear {
                         tabType = .home
                     }
-                MinimoMainView(tabType: .profile)
+                MinimoMainView(tabType: $tabType)
+                    .environmentObject(minimoViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "person.fill")
                     }
                     .onAppear {
                         tabType = .profile
                     }
-                SearchView(tabType: .search)
+                SearchView(tabType: $tabType)
                     .tabItem {
                         Label(tabType.title, systemImage: "magnifyingglass")
                     }
@@ -49,7 +50,7 @@ struct TabMainView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
-                            isProfileVisible = true
+                            isEditProfileVisible = true
                         } label: {
                             Text("정보 수정")
                                 .font(.body)
@@ -73,11 +74,11 @@ struct TabMainView: View {
             .navigationBarHidden(tabType == .profile)
 //            .navigationBarHidden(!isScrollOnTop)
         }
-        .sheet(isPresented: $isProfileVisible) {
-            EditProfileView(isProfileVisible: $isProfileVisible)
+        .sheet(isPresented: $isEditProfileVisible) {
+            EditProfileView(isProfileVisible: $isEditProfileVisible)
                 .environmentObject(editProfileViewModel)
                 .onDisappear {
-                    minimoViewModel.fetchContents()
+                    minimoViewModel.fetchContents(for: tabType)
                 }
         }
     }

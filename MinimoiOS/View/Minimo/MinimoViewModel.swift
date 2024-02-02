@@ -26,7 +26,8 @@ final class MinimoViewModel: ObservableObject {
         self.newScrollOffset = 0.0
     }
     
-    func fetchContents() {
+    func fetchContents(for tabType: TabType) {
+        // TODO: Tabtype에 따른 작성자 필터 추가
         let query = Filter.andFilter([
             Filter.whereField("creator", isEqualTo: user.id.uuidString)
         ])
@@ -42,38 +43,5 @@ final class MinimoViewModel: ObservableObject {
                 self.contents = contents.sorted { $0.createdAt > $1.createdAt }
             }
             .store(in: &cancellables)
-    }
-    
-    func createContent(body: String, images: [UIImage]) {
-        let newId = UUID()
-        
-        var newContent = MinimoDTO(id: newId,
-                                   creator: user.id,
-                                   createdAt: Date(),
-                                   content: body,
-                                   images: [])
-        
-        firebaseManager.createData(to: "contents", data: newContent)
-
-        images.forEach { image in
-            firebaseManager.saveJpegImage(image: image, collection: "contents", uuid: newId).sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { imageString in
-                newContent.images.append(imageString.url)
-                newContent.imagePaths.append(imageString.path)
-                self.firebaseManager.updateData(from: "contents",
-                                                uuid: newId,
-                                                data: ["images": newContent.images,
-                                                       "imagePaths": newContent.imagePaths])
-            }
-            .store(in: &cancellables)
-        }
-        
-        fetchContents()
     }
 }

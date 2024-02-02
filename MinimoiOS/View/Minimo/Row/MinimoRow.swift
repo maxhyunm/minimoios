@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct MinimoRow: View {
-    @EnvironmentObject var minimoViewModel: MinimoViewModel
     @EnvironmentObject var minimoRowViewModel: MinimoRowViewModel
     @State private var isAlertVisible: Bool = false
     @State private var isPopUpVisible: Bool = false
     @State private var popUpImageURL: URL? = nil
+    @Binding var isFetchNeeded: Bool
     
     var body: some View {
         HStack {
             VStack {
-                MinimoUserImageView(userImage: $minimoRowViewModel.userImage)
+                MinimoUserImageView(userImage: $minimoRowViewModel.creatorImage)
                 Spacer()
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(minimoRowViewModel.userName)
+                    Text(minimoRowViewModel.creatorName)
                         .font(.headline)
                     
                     Spacer()
@@ -40,7 +40,8 @@ struct MinimoRow: View {
                     .alert(isPresented: $isAlertVisible) {
                         let okButton = Alert.Button.default(Text("네")) {
                             minimoRowViewModel.deleteContent()
-                            minimoViewModel.fetchContents()
+                            isFetchNeeded.toggle()
+//                            minimoViewModel.fetchContents()
                         }
                         let cancelButton = Alert.Button.cancel(Text("취소"))
                         
@@ -49,6 +50,7 @@ struct MinimoRow: View {
                                      primaryButton: cancelButton,
                                      secondaryButton: okButton)
                     }
+                    .disabled(minimoRowViewModel.userId != minimoRowViewModel.creatorId)
                 }
                 
                 Text(minimoRowViewModel.content.content)
@@ -95,18 +97,15 @@ struct MinimoRow: View {
 
 struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow()
-            .environmentObject(MinimoViewModel(
-                    user: UserDTO(
-                        id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                        name: "테스트"
-                    ),
-                    firebaseManager: FirebaseManager()))
-            .environmentObject(MinimoRowViewModel(content: MinimoDTO(
-                id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                createdAt: Date(),
-                content: "얍"
-            ), firebaseManager: FirebaseManager()))
+        MinimoRow(isFetchNeeded: .constant(false))
+            .environmentObject(MinimoRowViewModel(
+                content: MinimoDTO(
+                    id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                    creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+                    createdAt: Date(),
+                    content: "얍"
+                ),
+                firebaseManager: FirebaseManager(),
+                userId: "c8ad784e-a52a-4914-9aec-e115a2143b87"))
     }
 }
