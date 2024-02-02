@@ -41,7 +41,6 @@ struct MinimoRow: View {
                         let okButton = Alert.Button.default(Text("네")) {
                             minimoRowViewModel.deleteContent()
                             isFetchNeeded.toggle()
-//                            minimoViewModel.fetchContents()
                         }
                         let cancelButton = Alert.Button.cancel(Text("취소"))
                         

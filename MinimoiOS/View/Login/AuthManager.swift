@@ -13,10 +13,11 @@ import Firebase
 import FirebaseFirestoreSwift
 import Combine
 
-final class AuthModel: ObservableObject {
+final class AuthManager: ObservableObject {
     @Published var user: UserDTO?
     @Published var error: Error?
     @Published var isLoading: Bool = true
+    @Published var isLoggedIn: Bool = false
     var auth: AuthDTO?
     var firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
@@ -155,6 +156,7 @@ final class AuthModel: ObservableObject {
                 self.user = user
                 UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
                 self.isLoading = false
+                self.isLoggedIn = true
             }
             .store(in: &self.cancellables)
         }
@@ -216,5 +218,6 @@ final class AuthModel: ObservableObject {
         self.user = newUser
         UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
         self.isLoading = false
+        self.isLoggedIn = true
     }
 }

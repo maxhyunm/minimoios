@@ -31,6 +31,7 @@ final class MinimoViewModel: ObservableObject {
         let query = Filter.andFilter([
             Filter.whereField("creator", isEqualTo: user.id.uuidString)
         ])
+        
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in
                 switch completion {

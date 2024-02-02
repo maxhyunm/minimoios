@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct TabMainView: View {
-    @EnvironmentObject var authModel: AuthModel
-    @EnvironmentObject var minimoViewModel: MinimoViewModel
-    @EnvironmentObject var editProfileViewModel: EditProfileViewModel
     @State private var isEditProfileVisible: Bool = false
     @State private var tabType: TabType = .home
+    @Binding var logOutTrigger: Bool
+    let user: UserDTO
+    let minimoViewModel: MinimoViewModel
+    let editProfileViewModel: EditProfileViewModel
+    
     private var isScrollOnTop: Bool {
         minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
     }
@@ -57,7 +59,7 @@ struct TabMainView: View {
                         }
                         
                         Button {
-                            authModel.handleLogout()
+                            logOutTrigger.toggle()
                         } label: {
                             Text("로그아웃")
                                 .font(.headline)
@@ -86,14 +88,15 @@ struct TabMainView: View {
 
 struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        TabMainView()
-            .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
-            .environmentObject(
-                MinimoViewModel(
-                    user: UserDTO(
-                        id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                        name: "테스트"
-                    ),
-                    firebaseManager: FirebaseManager()))
+        let user = UserDTO(
+            id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
+            name: "테스트"
+        )
+        let firebaseManager = FirebaseManager()
+        TabMainView(logOutTrigger: .constant(false),
+                    user: user,
+                    minimoViewModel:  MinimoViewModel(user: user, firebaseManager: firebaseManager),
+                    editProfileViewModel: EditProfileViewModel(user: user, firebaseManager: firebaseManager)
+        )
     }
 }

@@ -25,7 +25,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct MinimoiOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State private var authModel = AuthModel(firebaseManager: FirebaseManager())
+    @State private var authManager = AuthManager(firebaseManager: FirebaseManager())
     
     init() {
         guard let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String else { return }
@@ -42,9 +42,9 @@ struct MinimoiOSApp: App {
                     }
                 }
                 .onAppear {
-                    authModel.checkLogin()
+                    authManager.checkLogin()
                 }
-                .environmentObject(authModel)
+                .environmentObject(authManager)
         }
     }
 }

@@ -14,7 +14,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct LoginView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var authModel: AuthManager
     
     var body: some View {
         VStack(spacing: 20) {
@@ -39,6 +39,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
+            .environmentObject(AuthManager(firebaseManager: FirebaseManager()))
     }
 }

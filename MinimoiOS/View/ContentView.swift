@@ -11,23 +11,29 @@ import KakaoSDKAuth
 import Combine
 
 struct ContentView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var authManager: AuthManager
+    @State private var logOutTrigger: Bool = false
     
     var body: some View {
-        if authModel.isLoading {
+        if authManager.isLoading {
             Text("M I N I M O")
         } else {
-            if let user = authModel.user {
-                let minimoViewModel = MinimoViewModel(user: user, firebaseManager: authModel.firebaseManager)
-                let editProfileViewModel = EditProfileViewModel(user: user, firebaseManager: authModel.firebaseManager)
+            if let user = authManager.user {
+                let minimoViewModel = MinimoViewModel(user: user,
+                                                      firebaseManager: authManager.firebaseManager)
                 
-                TabMainView()
-                    .environmentObject(authModel)
-                    .environmentObject(minimoViewModel)
-                    .environmentObject(editProfileViewModel)
+                let editProfileViewModel = EditProfileViewModel(user: user,
+                                                                firebaseManager: authManager.firebaseManager)
+                TabMainView(logOutTrigger: $logOutTrigger,
+                            user: user,
+                            minimoViewModel: minimoViewModel,
+                            editProfileViewModel: editProfileViewModel)
+                .onChange(of: logOutTrigger) { state in
+                    authManager.handleLogout()
+                }
             } else {
                 LoginView()
-                    .environmentObject(authModel)
+                    .environmentObject(authManager)
             }
         }
     }
@@ -36,6 +42,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(AuthModel(firebaseManager: FirebaseManager()))
+            .environmentObject(AuthManager(firebaseManager: FirebaseManager()))
     }
 }
