@@ -11,7 +11,6 @@ struct ProfileList: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: ProfileViewModel
     @Binding var fetchTrigger: Bool
-    var tabType: TabType
     
 //    private var scrollOffsetObserver: some View {
 //        GeometryReader { geo in
@@ -29,7 +28,7 @@ struct ProfileList: View {
         ScrollView {
 //            scrollOffsetObserver
             LazyVStack  {
-                let headerView = ProfileHeaderView(tabType: tabType)
+                let headerView = ProfileHeaderView(ownerModel: $viewModel.ownerModel)
                     .environmentObject(userModel)
                 Section(header: headerView) {
                     ForEach($viewModel.contents) { $content in
@@ -57,7 +56,7 @@ struct ProfileList: View {
 
 struct ProfileList_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileList(fetchTrigger: .constant(false), tabType: .home)
+        ProfileList(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.userModel)
             .environmentObject(PreviewStatics.profileViewModel)
     }

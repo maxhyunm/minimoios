@@ -11,10 +11,9 @@ struct TabMainView: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var homeViewModel: HomeViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
-    @EnvironmentObject var editInformationViewModel: EditInformationViewModel
     @State private var isEditProfileVisible: Bool = false
-    @State private var tabType: TabType = .home
     @State private var fetchTrigger: Bool = true
+    @State private var tabType: TabType = .home
     @Binding var logOutTrigger: Bool
     
 //    private var isScrollOnTop: Bool {
@@ -26,82 +25,47 @@ struct TabMainView: View {
     }
     
     var body: some View {
-        NavigationView {
-            TabView {
-                HomeMainView(fetchTrigger: $fetchTrigger,
-                             tabType: $tabType)
-                    .environmentObject(homeViewModel)
-                    .tabItem {
-                        Label(tabType.title, systemImage: "house.fill")
+        VStack {
+            NavigationStack() {
+                ZStack {
+                    switch tabType {
+                    case .home:
+                        HomeMainView(fetchTrigger: $fetchTrigger)
+                            .environmentObject(userModel)
+                            .environmentObject(homeViewModel)
+                    case .profile:
+                        ProfileMainView(fetchTrigger: $fetchTrigger)
+                            .environmentObject(userModel)
+                            .environmentObject(profileViewModel)
+                    case .search:
+                        SearchView()
                     }
-                    .onAppear {
-                        tabType = .home
-                        fetchTrigger.toggle()
+                }
+                .onChange(of: fetchTrigger) { _ in
+                    switch tabType {
+                    case .home:
+                        homeViewModel.fetchContents(followings: userModel.followings)
+                    case .profile:
+                        profileViewModel.fetchContents()
+                    case .search:
+                        break
                     }
-                ProfileMainView(fetchTrigger: $fetchTrigger,
-                                tabType: $tabType)
+                }
+                .toolbar {
+                    ToolbarItemView(isEditProfileVisible: $isEditProfileVisible, logOutTrigger: $logOutTrigger)
+                }
+                .tint(.cyan)
+                .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
+                .navigationTitle(tabType == .search ? tabType.title : "")
+                .sheet(isPresented: $isEditProfileVisible) {
+                    EditInformationView(name: $userModel.user.name,
+                                        isProfileVisible: $isEditProfileVisible,
+                                        fetchTrigger: $fetchTrigger)
                     .environmentObject(userModel)
-                    .environmentObject(profileViewModel)
-                    .tabItem {
-                        Label(tabType.title, systemImage: "person.fill")
-                    }
-                    .onAppear {
-                        tabType = .profile
-                        fetchTrigger.toggle()
-                    }
-                SearchView(tabType: $tabType)
-                    .tabItem {
-                        Label(tabType.title, systemImage: "magnifyingglass")
-                    }
-                    .onAppear {
-                        tabType = .search
-                    }
-            }
-            .labelStyle(.iconOnly)
-            .navigationTitle(tabType == .search ? tabType.title : "")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button {
-                            isEditProfileVisible = true
-                        } label: {
-                            Text("정보 수정")
-                                .font(.body)
-                        }
-                        
-                        Button {
-                            logOutTrigger.toggle()
-                        } label: {
-                            Text("로그아웃")
-                                .font(.headline)
-                        }
-                        
-                    } label: {
-                        Image(systemName: "person.circle")
-                    }
-                    .foregroundColor(.cyan)
                 }
             }
-            .tint(.cyan)
-            .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
-//            .navigationBarHidden(tabType == .profile)
-//            .navigationBarHidden(!isScrollOnTop)
-        }
-        .sheet(isPresented: $isEditProfileVisible) {
-            EditInformationView(name: $userModel.user.name,
-                                isProfileVisible: $isEditProfileVisible,
-                                fetchTrigger: $fetchTrigger)
-            .environmentObject(userModel)
-        }
-        .onChange(of: fetchTrigger) { _ in
-            switch tabType {
-            case .home:
-                homeViewModel.fetchContents(followings: userModel.followings)
-            case .profile:
-                profileViewModel.fetchContents()
-            case .search:
-                return
-            }
+            TabItemsView(tabType: $tabType)
+                .frame(height: 30)
         }
     }
 }

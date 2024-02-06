@@ -42,6 +42,9 @@
 		BA28F0ED2B72295B00042912 /* FollowDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0EC2B72295B00042912 /* FollowDTO.swift */; };
 		BA28F0EF2B72296200042912 /* ClapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0EE2B72296200042912 /* ClapDTO.swift */; };
 		BA28F0F22B72323900042912 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F12B72323900042912 /* UserModel.swift */; };
+		BA28F0F42B726A6D00042912 /* ToolbarWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */; };
+		BA28F0F62B728E2C00042912 /* TabItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F52B728E2C00042912 /* TabItemsView.swift */; };
+		BA28F0F82B7296C200042912 /* ToolbarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F72B7296C200042912 /* ToolbarItemView.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -122,6 +125,9 @@
 		BA28F0EC2B72295B00042912 /* FollowDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
 		BA28F0EE2B72296200042912 /* ClapDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClapDTO.swift; sourceTree = "<group>"; };
 		BA28F0F12B72323900042912 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarWrapperView.swift; sourceTree = "<group>"; };
+		BA28F0F52B728E2C00042912 /* TabItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemsView.swift; sourceTree = "<group>"; };
+		BA28F0F72B7296C200042912 /* ToolbarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemView.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -230,16 +236,19 @@
 			children = (
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
 				BA28F0A92B67EB0600042912 /* TabMainView.swift */,
+				BA28F0F52B728E2C00042912 /* TabItemsView.swift */,
 				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA28F0C32B6A09FF00042912 /* PopUpView.swift */,
 				BA28F0C72B6A631E00042912 /* SearchView.swift */,
 				BA28F0E62B6CF7E700042912 /* WriteButton.swift */,
+				BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */,
 				BA28F09C2B66489900042912 /* Minimo */,
 				BA28F0E32B6CDE6400042912 /* Home */,
 				BA28F0CD2B6A7E1D00042912 /* Profile */,
 				BA28F0BE2B69166B00042912 /* Write */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditInformation */,
+				BA28F0F72B7296C200042912 /* ToolbarItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -467,16 +476,19 @@
 				BA28F0A82B67EAD900042912 /* WriteView.swift in Sources */,
 				BA28F0DA2B6CAD1C00042912 /* WriteViewModel.swift in Sources */,
 				BA28F0DC2B6CD28E00042912 /* ProfileMainView.swift in Sources */,
+				BA28F0F62B728E2C00042912 /* TabItemsView.swift in Sources */,
 				BA28F0B12B68AD1700042912 /* MinimoUserImageView.swift in Sources */,
 				BA4C9E2E2B640B7000C96C87 /* HomeList.swift in Sources */,
 				BA28F0C82B6A631E00042912 /* SearchView.swift in Sources */,
 				BA28F0C62B6A58CD00042912 /* HomeMainView.swift in Sources */,
+				BA28F0F82B7296C200042912 /* ToolbarItemView.swift in Sources */,
 				BA4C9E2B2B63FC2C00C96C87 /* AuthManager.swift in Sources */,
 				BA28F0D02B6A7EB100042912 /* ProfileHeaderView.swift in Sources */,
 				BA28F0E72B6CF7E700042912 /* WriteButton.swift in Sources */,
 				BA28F0E02B6CDB9B00042912 /* ProfileViewModel.swift in Sources */,
 				BA28F0E92B6CF85100042912 /* PreviewStatics.swift in Sources */,
 				BA4C9E292B63F0CC00C96C87 /* UserDTO.swift in Sources */,
+				BA28F0F42B726A6D00042912 /* ToolbarWrapperView.swift in Sources */,
 				BA28F0CC2B6A731F00042912 /* TabType.swift in Sources */,
 				BA28F0E52B6CDE8400042912 /* MinimoViewModelType.swift in Sources */,
 				BA28F0972B661DE000042912 /* DecodingManager.swift in Sources */,

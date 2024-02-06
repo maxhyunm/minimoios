@@ -14,7 +14,7 @@ import FirebaseFirestoreSwift
 import Combine
 
 final class AuthManager: ObservableObject {
-    @Published var user: UserDTO?
+    @Published var userModel: UserModel?
     @Published var error: Error?
     @Published var isLoading: Bool = true
     @Published var isLoggedIn: Bool = false
@@ -153,7 +153,7 @@ final class AuthManager: ObservableObject {
                     self.error = error
                 }
             } receiveValue: { user in
-                self.user = user
+                self.userModel = UserModel(user: user, firebaseManager: self.firebaseManager)
                 UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
                 self.isLoading = false
                 self.isLoggedIn = true
@@ -183,7 +183,7 @@ final class AuthManager: ObservableObject {
             }
             else {
                 self.auth = nil
-                self.user = nil
+                self.userModel = nil
                 self.error = nil
             }
         }
@@ -192,7 +192,7 @@ final class AuthManager: ObservableObject {
     private func handleGoogleLogout() {
         GIDSignIn.sharedInstance.signOut()
         self.auth = nil
-        self.user = nil
+        self.userModel = nil
         self.error = nil
     }
     
@@ -215,7 +215,7 @@ final class AuthManager: ObservableObject {
         firebaseManager.createData(to: "auth", data: newAuth)
         firebaseManager.createData(to: "users", data: newUser)
         self.auth = newAuth
-        self.user = newUser
+        self.userModel = UserModel(user: newUser, firebaseManager: self.firebaseManager)
         UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
         self.isLoading = false
         self.isLoggedIn = true

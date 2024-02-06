@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum TabType {
+enum TabType: CaseIterable {
     case home
     case profile
     case search
@@ -31,6 +31,17 @@ enum TabType {
             return .white
         case .search:
             return .white
+        }
+    }
+    
+    var labelName: String {
+        switch self {
+        case .home:
+            return "house.fill"
+        case .profile:
+            return "person.fill"
+        case .search:
+            return "magnifyingglass"
         }
     }
 }

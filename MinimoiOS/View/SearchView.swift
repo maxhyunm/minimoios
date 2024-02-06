@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Binding var tabType: TabType
     
     var body: some View {
         Text("Empty")
-            .navigationTitle(tabType.title)
             .navigationBarTitleDisplayMode(.large)
+        
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(tabType: .constant(.search))
+        SearchView()
     }
 }

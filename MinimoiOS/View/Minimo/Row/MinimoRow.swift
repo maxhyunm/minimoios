@@ -8,59 +8,78 @@
 import SwiftUI
 
 struct MinimoRow: View {
-    @EnvironmentObject var minimoRowViewModel: MinimoRowViewModel
-    @State private var isAlertVisible: Bool = false
+    @EnvironmentObject var viewModel: MinimoRowViewModel
+    @State private var removeAlertTrigger: Bool = false
     @State private var isPopUpVisible: Bool = false
     @State private var popUpImageURL: URL? = nil
     @Binding var fetchTrigger: Bool
+
     
     var body: some View {
         HStack {
             VStack {
-                MinimoUserImageView(userImage: $minimoRowViewModel.creatorImage)
+                MinimoUserImageView(userImage: $viewModel.creatorImage)
                 Spacer()
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(minimoRowViewModel.creatorName)
-                        .font(.headline)
+                    if let ownerModel = viewModel.creatorModel {
+                        NavigationLink {
+                            let profileViewModel = ProfileViewModel(
+                                ownerModel: ownerModel,
+                                firebaseManager: viewModel.firebaseManager
+                            )
+                            ProfileMainView(fetchTrigger: $fetchTrigger)
+                                .environmentObject(profileViewModel)
+                        } label: {
+                            Text(viewModel.creatorName)
+                                .font(.headline)
+                                .tint(.black)
+                        }
+                    } else {
+                        Text(viewModel.creatorName)
+                            .font(.headline)
+                            .tint(.black)
+                    }
                     
                     Spacer()
                     
-                    Button {
-                        isAlertVisible.toggle()
-                    } label: {
-                        Image(systemName: "trash.fill")
-                            .resizable()
-                            .scaledToFit()
-                    }
-                    .buttonStyle(.plain)
-                    .frame(width: 15, height: 15)
-                    .foregroundColor(.black)
-                    .alert(isPresented: $isAlertVisible) {
-                        let okButton = Alert.Button.default(Text("네")) {
-                            minimoRowViewModel.deleteContent()
-                            fetchTrigger.toggle()
+                    if viewModel.userId == viewModel.creatorId {
+                        Button {
+                            removeAlertTrigger.toggle()
+                        } label: {
+                            Image(systemName: "trash.fill")
+                                .resizable()
+                                .scaledToFit()
                         }
-                        let cancelButton = Alert.Button.cancel(Text("취소"))
-                        
-                        return Alert(title: Text("삭제하기"),
-                                     message: Text("삭제하시겠습니까?"),
-                                     primaryButton: cancelButton,
-                                     secondaryButton: okButton)
+                        .buttonStyle(.plain)
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(.black)
+                        .alert(isPresented: $removeAlertTrigger) {
+                            let okButton = Alert.Button.default(Text("네")) {
+                                viewModel.deleteContent()
+                                fetchTrigger.toggle()
+                            }
+                            let cancelButton = Alert.Button.cancel(Text("취소"))
+                            
+                            return Alert(title: Text("삭제하기"),
+                                         message: Text("삭제하시겠습니까?"),
+                                         primaryButton: cancelButton,
+                                         secondaryButton: okButton)
+                        }
+                        .disabled(viewModel.userId != viewModel.creatorId)
                     }
-                    .disabled(minimoRowViewModel.userId != minimoRowViewModel.creatorId)
                 }
                 
-                Text(minimoRowViewModel.content.content)
+                Text(viewModel.content.content)
                     .lineLimit(nil)
                     .font(.body)
-                Text(minimoRowViewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
+                Text(viewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
                     .font(.caption2)
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(minimoRowViewModel.content.images, id: \.self) { url in
+                        ForEach(viewModel.content.images, id: \.self) { url in
                             
                             Button {
                                 isPopUpVisible.toggle()

@@ -12,29 +12,30 @@ struct ProfileMainView: View {
     @EnvironmentObject var viewModel: ProfileViewModel
     @State private var isWriting: Bool = false
     @Binding var fetchTrigger: Bool
-    @Binding var tabType: TabType
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            ProfileList(fetchTrigger: $fetchTrigger, tabType: tabType)
+            ProfileList(fetchTrigger: $fetchTrigger)
                 .environmentObject(userModel)
                 .environmentObject(viewModel)
             
-            if viewModel.profileOwnerId == userModel.user.id {
+            if viewModel.ownerModel.user.id == userModel.user.id {
                 let writeViewModel = WriteViewModel(userId: userModel.user.id, firebaseManager: viewModel.firebaseManager)
                 WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
             }
         }
-        .navigationTitle(tabType.title)
-        .navigationBarTitleDisplayMode(.large)
+        .onAppear {
+            viewModel.ownerModel.fetchFollowers()
+            viewModel.ownerModel.fetchFollowings()
+            fetchTrigger.toggle()
+        }
     }
 }
 
 struct ProfileMainView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileMainView(fetchTrigger: .constant(false),
-                        tabType: .constant(.home))
-        .environmentObject(PreviewStatics.userModel)
-        .environmentObject(PreviewStatics.profileViewModel)
+        ProfileMainView(fetchTrigger: .constant(false))
+            .environmentObject(PreviewStatics.userModel)
+            .environmentObject(PreviewStatics.profileViewModel)
     }
 }

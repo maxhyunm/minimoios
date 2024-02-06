@@ -12,6 +12,7 @@ final class MinimoRowViewModel: ObservableObject {
     @Published var creatorId: String = ""
     @Published var creatorName: String = ""
     @Published var creatorImage: String = ""
+    @Published var creatorModel: UserModel?
     @Published var error: Error?
     let firebaseManager: FirebaseManager
     let userId: String
@@ -28,6 +29,7 @@ final class MinimoRowViewModel: ObservableObject {
     func fetchCreatorDetail() {
         firebaseManager.readUserData(for: content.creator).sink { _ in
         } receiveValue: { user in
+            self.creatorModel = UserModel(user: user, firebaseManager: self.firebaseManager)
             self.creatorId = user.id.uuidString
             self.creatorName = user.name
             self.creatorImage = user.image

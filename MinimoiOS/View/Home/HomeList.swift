@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeList: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @Binding var fetchTrigger: Bool
-    var tabType: TabType
     
 //    private var scrollOffsetObserver: some View {
 //        GeometryReader { geo in
@@ -47,13 +46,13 @@ struct HomeList: View {
         .refreshable {
             fetchTrigger.toggle()
         }
+        
     }
 }
 
 struct HomeList_Previews: PreviewProvider {
     static var previews: some View {
-        HomeList(fetchTrigger: .constant(false),
-                 tabType: .home)
+        HomeList(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.homeViewModel)
     }
 }

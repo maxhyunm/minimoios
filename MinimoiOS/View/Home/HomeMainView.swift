@@ -8,27 +8,32 @@
 import SwiftUI
 
 struct HomeMainView: View {
+    @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: HomeViewModel
     @State private var isWriting: Bool = false
     @Binding var fetchTrigger: Bool
-    @Binding var tabType: TabType
     
     var body: some View {
         let writeViewModel = WriteViewModel(userId: viewModel.userId, firebaseManager: viewModel.firebaseManager)
         ZStack(alignment: .bottomTrailing) {
-            HomeList(fetchTrigger: $fetchTrigger, tabType: tabType)
+            HomeList(fetchTrigger: $fetchTrigger)
                 .environmentObject(viewModel)
             WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
         }
-        .navigationTitle(tabType.title)
-        .navigationBarTitleDisplayMode(.large)
+        .onAppear {
+            userModel.fetchFollowers()
+            userModel.fetchFollowings()
+            fetchTrigger.toggle()
+        }
+        .onChange(of: userModel.followings) { followings in
+            viewModel.fetchContents(followings: followings)
+        }
     }
 }
 
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeMainView(fetchTrigger: .constant(false),
-                     tabType: .constant(.home))
-            .environmentObject(PreviewStatics.homeViewModel)
+        HomeMainView(fetchTrigger: .constant(false))
+        .environmentObject(PreviewStatics.homeViewModel)
     }
 }
