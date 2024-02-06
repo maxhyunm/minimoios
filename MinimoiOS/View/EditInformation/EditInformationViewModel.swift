@@ -26,8 +26,8 @@ final class EditInformationViewModel: ObservableObject {
     }
     
     func updateImage(_ image: UIImage) {
-        if userModel.user.imagePath != "" {
-            firebaseManager.deleteImage(path: userModel.user.imagePath)
+        if userModel.user.image != "" {
+            firebaseManager.deleteImage(url: userModel.user.imagePath)
         }
         
         firebaseManager.saveJpegImage(image: image, collection: "users", uuid: userModel.user.id).sink { completion in

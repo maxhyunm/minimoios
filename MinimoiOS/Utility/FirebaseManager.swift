@@ -149,8 +149,8 @@ struct FirebaseManager {
         }
     }
     
-    func deleteImage(path: String) {
-        Storage.storage().reference().child(path).delete { _ in }
+    func deleteImage(url: String) {
+        Storage.storage().reference(forURL: url).delete { _ in }
     }
     
 }

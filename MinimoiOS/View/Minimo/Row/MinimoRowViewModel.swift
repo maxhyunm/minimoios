@@ -38,7 +38,7 @@ final class MinimoRowViewModel: ObservableObject {
     }
     
     func deleteContent() {
-        content.imagePaths.forEach { firebaseManager.deleteImage(path: $0) }
+        content.images.forEach { firebaseManager.deleteImage(url: $0) }
         firebaseManager.deleteData(from: "contents", uuid: content.id)
     }
 }
