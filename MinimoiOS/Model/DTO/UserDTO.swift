@@ -12,9 +12,10 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
     var name: String
     var image: String
     var imagePath: String
+    var biography: String
     
     enum CodingKeys: String, CodingKey {
-        case id, name, image, imagePath
+        case id, name, image, imagePath, biography
     }
     
     init(from decoder: Decoder) throws {
@@ -28,13 +29,15 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
         name = try container.decode(String.self, forKey: .name)
         image = try container.decode(String.self, forKey: .image)
         imagePath = try container.decode(String.self, forKey: .imagePath)
+        biography = try container.decode(String.self, forKey: .biography)
     }
     
-    init(id: UUID, name: String, image: String = "", imagePath: String = "") {
+    init(id: UUID, name: String, image: String = "", imagePath: String = "", biography: String = "") {
         self.id = id
         self.name = name
         self.image = image
         self.imagePath = imagePath
+        self.biography = biography
     }
     
     func dataIntoDictionary() -> [String : Any] {
@@ -42,7 +45,8 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
             "id": self.id.uuidString,
             "name": self.name,
             "image": image,
-            "imagePath": imagePath
+            "imagePath": imagePath,
+            "biography": biography
         ]
     }
     

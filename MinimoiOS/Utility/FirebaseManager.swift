@@ -34,6 +34,7 @@ struct FirebaseManager {
                 .getDocuments { snapshot, error in
                     if let _ = error {
                         promise(.failure(.unknown))
+                        return
                     }
                     guard let snapshot else {
                         promise(.failure(.dataNotFound))
@@ -52,8 +53,36 @@ struct FirebaseManager {
             }
         }
     }
+    
+    func readSingleData<T: Decodable>(from collection: String, query: Filter) -> Future<T, MinimoError> {
+        return Future { promise in
+            Firestore.firestore()
+                .collection(collection)
+                .whereFilter(query)
+                .getDocuments { snapshot, error in
+                    if let _ = error {
+                        promise(.failure(.unknown))
+                        return
+                    }
+                    guard let snapshot else {
+                        promise(.failure(.dataNotFound))
+                        return
+                    }
+                    do {
+                        let dataArray = try snapshot.documents.reduce(into: []) { $0.append(try $1.data(as: T.self)) }
+                        guard let data = dataArray.first else {
+                            promise(.failure(.dataNotFound))
+                            return
+                        }
+                        promise(.success(data))
+                    } catch {
+                        promise(.failure(.decodingError))
+                    }
+                }
+        }
+    }
 
-    func readQueryData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int) -> Future<[T], MinimoError> {
+    func readMultipleData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int) -> Future<[T], MinimoError> {
         return Future { promise in
             Firestore.firestore()
                 .collection(collection)

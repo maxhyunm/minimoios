@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct ProfileMainView: View {
+    @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: ProfileViewModel
     @State private var isWriting: Bool = false
-    @Binding var user: UserDTO
     @Binding var fetchTrigger: Bool
     @Binding var tabType: TabType
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            ProfileList(user: $user, fetchTrigger: $fetchTrigger, tabType: tabType)
+            ProfileList(fetchTrigger: $fetchTrigger, tabType: tabType)
+                .environmentObject(userModel)
                 .environmentObject(viewModel)
             
-            if viewModel.profileOwnerId == user.id {
-                let writeViewModel = WriteViewModel(userId: user.id, firebaseManager: viewModel.firebaseManager)
+            if viewModel.profileOwnerId == userModel.user.id {
+                let writeViewModel = WriteViewModel(userId: userModel.user.id, firebaseManager: viewModel.firebaseManager)
                 WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
             }
         }
@@ -31,9 +32,9 @@ struct ProfileMainView: View {
 
 struct ProfileMainView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileMainView(user: .constant(PreviewStatics.user),
-                        fetchTrigger: .constant(false),
+        ProfileMainView(fetchTrigger: .constant(false),
                         tabType: .constant(.home))
+        .environmentObject(PreviewStatics.userModel)
         .environmentObject(PreviewStatics.profileViewModel)
     }
 }

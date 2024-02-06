@@ -18,15 +18,17 @@ struct ContentView: View {
         if authManager.isLoading {
             Text("M I N I M O")
         } else {
-            if let user = authManager.user {
+            if let user = authManager.user,
+               let follow = authManager.follow {
+                let userModel = UserModel(user: user, follow: follow)
                 let homeViewModel = HomeViewModel(userId: user.id,
                                                   firebaseManager: authManager.firebaseManager)
                 let profileViewModel = ProfileViewModel(profileOwnerId: user.id,
                                                         firebaseManager: authManager.firebaseManager)
-                let editInformationViewModel = EditInformationViewModel(user: user,
+                let editInformationViewModel = EditInformationViewModel(userModel: userModel,
                                                                         firebaseManager: homeViewModel.firebaseManager)
-                
                 TabMainView(logOutTrigger: $logOutTrigger)
+                    .environmentObject(userModel)
                     .environmentObject(homeViewModel)
                     .environmentObject(profileViewModel)
                     .environmentObject(editInformationViewModel)

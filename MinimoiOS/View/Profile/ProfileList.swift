@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ProfileList: View {
+    @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: ProfileViewModel
-    @Binding var user: UserDTO
     @Binding var fetchTrigger: Bool
     var tabType: TabType
     
@@ -29,12 +29,14 @@ struct ProfileList: View {
         ScrollView {
 //            scrollOffsetObserver
             LazyVStack  {
-                Section(header: ProfileHeaderView(user: $user, tabType: tabType)) {
+                let headerView = ProfileHeaderView(tabType: tabType)
+                    .environmentObject(userModel)
+                Section(header: headerView) {
                     ForEach($viewModel.contents) { $content in
                         let minimoRowViewModel = MinimoRowViewModel(
                             content: content,
                             firebaseManager: viewModel.firebaseManager,
-                            userId: user.id.uuidString
+                            userId: userModel.user.id.uuidString
                         )
                         MinimoRow(fetchTrigger: $fetchTrigger)
                             .listRowSeparator(.hidden)
@@ -55,7 +57,8 @@ struct ProfileList: View {
 
 struct ProfileList_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileList(user: .constant(PreviewStatics.user), fetchTrigger: .constant(false), tabType: .home)
+        ProfileList(fetchTrigger: .constant(false), tabType: .home)
+            .environmentObject(PreviewStatics.userModel)
             .environmentObject(PreviewStatics.profileViewModel)
     }
 }

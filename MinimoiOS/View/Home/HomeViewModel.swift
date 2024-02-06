@@ -30,7 +30,7 @@ final class HomeViewModel: ObservableObject {
         // TODO: 유저가 팔로우중인 사람들 모두 필터
         let query = Filter.andFilter([Filter.whereField("creator", isEqualTo: userId.uuidString)])
         
-        firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
+        firebaseManager.readMultipleData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in
                 switch completion {
                 case .finished:

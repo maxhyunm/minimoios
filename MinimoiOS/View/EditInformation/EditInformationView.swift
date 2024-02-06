@@ -37,7 +37,7 @@ struct EditInformationView: View {
             
             VStack {
                 if !isImageChanged {
-                    AsyncImage(url: URL(string: viewModel.user.image)) { image in
+                    AsyncImage(url: URL(string: viewModel.userModel.user.image)) { image in
                         image.resizable()
                     } placeholder: {
                         ProgressView()

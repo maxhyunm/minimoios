@@ -39,6 +39,9 @@
 		BA28F0E52B6CDE8400042912 /* MinimoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0E42B6CDE8400042912 /* MinimoViewModelType.swift */; };
 		BA28F0E72B6CF7E700042912 /* WriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0E62B6CF7E700042912 /* WriteButton.swift */; };
 		BA28F0E92B6CF85100042912 /* PreviewStatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0E82B6CF85100042912 /* PreviewStatics.swift */; };
+		BA28F0ED2B72295B00042912 /* FollowDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0EC2B72295B00042912 /* FollowDTO.swift */; };
+		BA28F0EF2B72296200042912 /* ClapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0EE2B72296200042912 /* ClapDTO.swift */; };
+		BA28F0F22B72323900042912 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F12B72323900042912 /* UserModel.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -116,6 +119,9 @@
 		BA28F0E42B6CDE8400042912 /* MinimoViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoViewModelType.swift; sourceTree = "<group>"; };
 		BA28F0E62B6CF7E700042912 /* WriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteButton.swift; sourceTree = "<group>"; };
 		BA28F0E82B6CF85100042912 /* PreviewStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStatics.swift; sourceTree = "<group>"; };
+		BA28F0EC2B72295B00042912 /* FollowDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
+		BA28F0EE2B72296200042912 /* ClapDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClapDTO.swift; sourceTree = "<group>"; };
+		BA28F0F12B72323900042912 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -268,6 +274,18 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		BA28F0F02B72322D00042912 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */,
+				BA28F0AD2B68946900042912 /* AuthDTO.swift */,
+				BA28F09A2B6632AC00042912 /* MinimoDTO.swift */,
+				BA28F0EC2B72295B00042912 /* FollowDTO.swift */,
+				BA28F0EE2B72296200042912 /* ClapDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		BA4C9DED2B6395F500C96C87 = {
 			isa = PBXGroup;
 			children = (
@@ -322,9 +340,8 @@
 		BA4C9E2C2B640ABB00C96C87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BA4C9E282B63F0CC00C96C87 /* UserDTO.swift */,
-				BA28F0AD2B68946900042912 /* AuthDTO.swift */,
-				BA28F09A2B6632AC00042912 /* MinimoDTO.swift */,
+				BA28F0F02B72322D00042912 /* DTO */,
+				BA28F0F12B72323900042912 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -469,14 +486,17 @@
 				BA28F0E22B6CDCC000042912 /* ProfileList.swift in Sources */,
 				BA28F0C42B6A09FF00042912 /* PopUpView.swift in Sources */,
 				BA28F09E2B6648B300042912 /* HomeViewModel.swift in Sources */,
+				BA28F0EF2B72296200042912 /* ClapDTO.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
 				BA28F0D82B6AA8AD00042912 /* ColorType.swift in Sources */,
 				BA28F09B2B6632AC00042912 /* MinimoDTO.swift in Sources */,
+				BA28F0F22B72323900042912 /* UserModel.swift in Sources */,
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
 				BA28F0B92B68D66B00042912 /* EditInformationViewModel.swift in Sources */,
 				BA28F0A22B666D8E00042912 /* MinimoRow.swift in Sources */,
 				BA28F0B72B68CF9500042912 /* EditInformationView.swift in Sources */,
+				BA28F0ED2B72295B00042912 /* FollowDTO.swift in Sources */,
 				BA28F0AA2B67EB0600042912 /* TabMainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

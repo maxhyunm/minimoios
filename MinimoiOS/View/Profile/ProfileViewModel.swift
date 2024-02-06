@@ -15,8 +15,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var originScrollOffset: CGFloat
     @Published var newScrollOffset: CGFloat
     
-    var profileOwnerId: UUID
-    var firebaseManager: FirebaseManager
+    let profileOwnerId: UUID
+    let firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
     init(profileOwnerId: UUID, firebaseManager: FirebaseManager) {
@@ -29,7 +29,7 @@ final class ProfileViewModel: ObservableObject {
     func fetchContents() {
         let query = Filter.whereField("creator", isEqualTo: profileOwnerId.uuidString)
         
-        firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
+        firebaseManager.readMultipleData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in
                 switch completion {
                 case .finished:

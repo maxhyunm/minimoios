@@ -81,6 +81,13 @@ struct MinimoRow: View {
                         }
                     }
                 }
+                HStack(alignment: .center) {
+                    Spacer()
+                    Image(systemName: "hands.clap.fill")
+                    // TODO: Clap 변경
+                    Text("0")
+                        .font(.callout)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.trailing)

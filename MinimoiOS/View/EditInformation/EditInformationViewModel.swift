@@ -10,27 +10,27 @@ import Firebase
 import Combine
 
 final class EditInformationViewModel: ObservableObject {
-    @Published var user: UserDTO
+    let userModel: UserModel
     @Published var error: Error?
     var firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(user: UserDTO, firebaseManager: FirebaseManager) {
-        self.user = user
+    init(userModel: UserModel, firebaseManager: FirebaseManager) {
+        self.userModel = userModel
         self.firebaseManager = firebaseManager
     }
     
     func updateName(_ name: String) {
-        user.name = name
-        firebaseManager.updateData(from: "users", uuid: user.id, data: ["name": name])
+        userModel.user.name = name
+        firebaseManager.updateData(from: "users", uuid: userModel.user.id, data: ["name": name])
     }
     
     func updateImage(_ image: UIImage) {
-        if user.imagePath != "" {
-            firebaseManager.deleteImage(path: user.imagePath)
+        if userModel.user.imagePath != "" {
+            firebaseManager.deleteImage(path: userModel.user.imagePath)
         }
         
-        firebaseManager.saveJpegImage(image: image, collection: "users", uuid: user.id).sink { completion in
+        firebaseManager.saveJpegImage(image: image, collection: "users", uuid: userModel.user.id).sink { completion in
             switch completion {
             case .finished:
                 break
@@ -39,10 +39,10 @@ final class EditInformationViewModel: ObservableObject {
             }
         } receiveValue: { imageString in
             self.firebaseManager.updateData(from: "users",
-                                            uuid: self.user.id,
+                                            uuid: self.userModel.user.id,
                                             data: ["image": imageString.url, "imagePath": imageString.path])
-            self.user.image = imageString.url
-            self.user.imagePath = imageString.path
+            self.userModel.user.image = imageString.url
+            self.userModel.user.imagePath = imageString.path
         }
         .store(in: &cancellables)
     }

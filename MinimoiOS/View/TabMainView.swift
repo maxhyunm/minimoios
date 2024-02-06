@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabMainView: View {
+    @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var homeViewModel: HomeViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var editInformationViewModel: EditInformationViewModel
@@ -37,9 +38,9 @@ struct TabMainView: View {
                         tabType = .home
                         fetchTrigger.toggle()
                     }
-                ProfileMainView(user: $editInformationViewModel.user,
-                                fetchTrigger: $fetchTrigger,
+                ProfileMainView(fetchTrigger: $fetchTrigger,
                                 tabType: $tabType)
+                    .environmentObject(userModel)
                     .environmentObject(profileViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "person.fill")
@@ -87,7 +88,7 @@ struct TabMainView: View {
 //            .navigationBarHidden(!isScrollOnTop)
         }
         .sheet(isPresented: $isEditProfileVisible) {
-            EditInformationView(name: $editInformationViewModel.user.name,
+            EditInformationView(name: $userModel.user.name,
                                 isProfileVisible: $isEditProfileVisible,
                                 fetchTrigger: $fetchTrigger)
             .environmentObject(editInformationViewModel)

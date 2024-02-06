@@ -15,6 +15,7 @@ import Combine
 
 final class AuthManager: ObservableObject {
     @Published var user: UserDTO?
+    @Published var follow: FollowDTO?
     @Published var error: Error?
     @Published var isLoading: Bool = true
     @Published var isLoggedIn: Bool = false
@@ -145,7 +146,20 @@ final class AuthManager: ObservableObject {
         } receiveValue: { auth in
             guard let authData = auth.first else { return }
             self.auth = authData
-            self.firebaseManager.readUserData(for: authData.user).sink { completion in
+            let userQuery = Filter.whereField("id", isEqualTo: authData.user.uuidString)
+            let followQuery = Filter.whereField("userId", isEqualTo: authData.user.uuidString)
+            self.firebaseManager.readSingleData(from: "follows", query: followQuery).sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            } receiveValue: { follow in
+                self.follow = follow
+            }
+            .store(in: &self.cancellables)
+            self.firebaseManager.readSingleData(from: "users", query: userQuery).sink { completion in
                 switch completion {
                 case.finished:
                     break
@@ -201,7 +215,7 @@ final class AuthManager: ObservableObject {
             Filter.whereField("email", isEqualTo: email),
             Filter.whereField("oAuthType", isEqualTo: type.rawValue)
         ])
-        return firebaseManager.readQueryData(from: "auth", query: query, orderBy: "createdAt", descending: false, limit: 1)
+        return firebaseManager.readMultipleData(from: "auth", query: query, orderBy: "createdAt", descending: false, limit: 1)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
@@ -212,10 +226,14 @@ final class AuthManager: ObservableObject {
                               oAuthType: type,
                               createdAt: Date(),
                               user: newUser.id)
+        let newFollow = FollowDTO(id: UUID(),
+                                  userId: newUser.id)
         firebaseManager.createData(to: "auth", data: newAuth)
         firebaseManager.createData(to: "users", data: newUser)
+        firebaseManager.createData(to: "follows", data: newFollow)
         self.auth = newAuth
         self.user = newUser
+        self.follow = newFollow
         UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
         self.isLoading = false
         self.isLoggedIn = true
