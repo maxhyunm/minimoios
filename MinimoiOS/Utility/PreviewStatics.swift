@@ -14,8 +14,8 @@ struct PreviewStatics {
     )
     static let firebaseManager = FirebaseManager()
     static let authManager = AuthManager(firebaseManager: firebaseManager)
-    static let homeViewModel = HomeViewModel(user: user, firebaseManager: firebaseManager)
-    static let profileViewModel = ProfileViewModel(user: user, profileOwnerId: user.id, firebaseManager: firebaseManager)
+    static let homeViewModel = HomeViewModel(userId: user.id, firebaseManager: firebaseManager)
+    static let profileViewModel = ProfileViewModel(profileOwnerId: user.id, firebaseManager: firebaseManager)
     static let editInformationViewModel = EditInformationViewModel(user: user, firebaseManager: firebaseManager)
-    static let writeViewModel = WriteViewModel(user: user, firebaseManager: firebaseManager)
+    static let writeViewModel = WriteViewModel(userId: user.id, firebaseManager: firebaseManager)
 }

@@ -11,12 +11,12 @@ import Combine
 
 final class WriteViewModel: ObservableObject {
     @Published var error: Error?
-    let user: UserDTO
+    let userId: UUID
     let firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(user: UserDTO, firebaseManager: FirebaseManager) {
-        self.user = user
+    init(userId: UUID, firebaseManager: FirebaseManager) {
+        self.userId = userId
         self.firebaseManager = firebaseManager
     }
     
@@ -24,7 +24,7 @@ final class WriteViewModel: ObservableObject {
         let newId = UUID()
         
         var newContent = MinimoDTO(id: newId,
-                                   creator: user.id,
+                                   creator: userId,
                                    createdAt: Date(),
                                    content: body,
                                    images: [])

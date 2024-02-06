@@ -14,7 +14,7 @@ struct HomeMainView: View {
     @Binding var tabType: TabType
     
     var body: some View {
-        let writeViewModel = WriteViewModel(user: viewModel.user, firebaseManager: viewModel.firebaseManager)
+        let writeViewModel = WriteViewModel(userId: viewModel.userId, firebaseManager: viewModel.firebaseManager)
         ZStack(alignment: .bottomTrailing) {
             HomeList(fetchTrigger: $fetchTrigger, tabType: tabType)
                 .environmentObject(viewModel)
@@ -27,7 +27,8 @@ struct HomeMainView: View {
 
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeMainView(fetchTrigger: .constant(false), tabType: .constant(.home))
+        HomeMainView(fetchTrigger: .constant(false),
+                     tabType: .constant(.home))
             .environmentObject(PreviewStatics.homeViewModel)
     }
 }

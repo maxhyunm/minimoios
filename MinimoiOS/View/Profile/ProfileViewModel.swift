@@ -15,13 +15,11 @@ final class ProfileViewModel: ObservableObject {
     @Published var originScrollOffset: CGFloat
     @Published var newScrollOffset: CGFloat
     
-    var user: UserDTO
     var profileOwnerId: UUID
     var firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(user: UserDTO, profileOwnerId: UUID, firebaseManager: FirebaseManager) {
-        self.user = user
+    init(profileOwnerId: UUID, firebaseManager: FirebaseManager) {
         self.profileOwnerId = profileOwnerId
         self.firebaseManager = firebaseManager
         self.originScrollOffset = 0.0
@@ -29,7 +27,7 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func fetchContents() {
-        let query = Filter.whereField("creator", isEqualTo: user.id.uuidString)
+        let query = Filter.whereField("creator", isEqualTo: profileOwnerId.uuidString)
         
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in

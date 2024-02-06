@@ -10,6 +10,7 @@ import SwiftUI
 struct TabMainView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
+    @EnvironmentObject var editInformationViewModel: EditInformationViewModel
     @State private var isEditProfileVisible: Bool = false
     @State private var tabType: TabType = .home
     @State private var fetchTrigger: Bool = true
@@ -19,10 +20,15 @@ struct TabMainView: View {
 //        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
 //    }
     
+    init(logOutTrigger: Binding<Bool>) {
+        _logOutTrigger = logOutTrigger
+    }
+    
     var body: some View {
         NavigationView {
             TabView {
-                HomeMainView(fetchTrigger: $fetchTrigger, tabType: $tabType)
+                HomeMainView(fetchTrigger: $fetchTrigger,
+                             tabType: $tabType)
                     .environmentObject(homeViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "house.fill")
@@ -31,9 +37,9 @@ struct TabMainView: View {
                         tabType = .home
                         fetchTrigger.toggle()
                     }
-                ProfileMainView(fetchTrigger: $fetchTrigger,
-                                tabType: $tabType,
-                                userId: profileViewModel.user.id.uuidString)
+                ProfileMainView(user: $editInformationViewModel.user,
+                                fetchTrigger: $fetchTrigger,
+                                tabType: $tabType)
                     .environmentObject(profileViewModel)
                     .tabItem {
                         Label(tabType.title, systemImage: "person.fill")
@@ -81,9 +87,10 @@ struct TabMainView: View {
 //            .navigationBarHidden(!isScrollOnTop)
         }
         .sheet(isPresented: $isEditProfileVisible) {
-            let editProfileViewModel = EditInformationViewModel(user: homeViewModel.user, firebaseManager: homeViewModel.firebaseManager)
-            EditInformationView(isProfileVisible: $isEditProfileVisible, fetchTrigger: $fetchTrigger)
-                .environmentObject(editProfileViewModel)
+            EditInformationView(name: $editInformationViewModel.user.name,
+                                isProfileVisible: $isEditProfileVisible,
+                                fetchTrigger: $fetchTrigger)
+            .environmentObject(editInformationViewModel)
         }
         .onChange(of: fetchTrigger) { _ in
             switch tabType {
@@ -103,5 +110,6 @@ struct TimelineView_Previews: PreviewProvider {
         TabMainView(logOutTrigger: .constant(false))
             .environmentObject(PreviewStatics.homeViewModel)
             .environmentObject(PreviewStatics.profileViewModel)
+            .environmentObject(PreviewStatics.editInformationViewModel)
     }
 }

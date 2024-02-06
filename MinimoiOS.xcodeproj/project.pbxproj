@@ -210,13 +210,13 @@
 			path = Row;
 			sourceTree = "<group>";
 		};
-		BA28F0BC2B68F3A400042912 /* EditProfile */ = {
+		BA28F0BC2B68F3A400042912 /* EditInformation */ = {
 			isa = PBXGroup;
 			children = (
 				BA28F0B82B68D66B00042912 /* EditInformationViewModel.swift */,
 				BA28F0B62B68CF9500042912 /* EditInformationView.swift */,
 			);
-			path = EditProfile;
+			path = EditInformation;
 			sourceTree = "<group>";
 		};
 		BA28F0BD2B6908C800042912 /* View */ = {
@@ -233,7 +233,7 @@
 				BA28F0CD2B6A7E1D00042912 /* Profile */,
 				BA28F0BE2B69166B00042912 /* Write */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
-				BA28F0BC2B68F3A400042912 /* EditProfile */,
+				BA28F0BC2B68F3A400042912 /* EditInformation */,
 			);
 			path = View;
 			sourceTree = "<group>";

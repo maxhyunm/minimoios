@@ -32,7 +32,7 @@ struct HomeList: View {
                     let minimoRowViewModel = MinimoRowViewModel(
                         content: content,
                         firebaseManager: viewModel.firebaseManager,
-                        userId: viewModel.user.id.uuidString
+                        userId: viewModel.userId.uuidString
                     )
                     MinimoRow(fetchTrigger: $fetchTrigger)
                         .listRowSeparator(.hidden)
@@ -52,7 +52,8 @@ struct HomeList: View {
 
 struct HomeList_Previews: PreviewProvider {
     static var previews: some View {
-        HomeList(fetchTrigger: .constant(false), tabType: .home)
+        HomeList(fetchTrigger: .constant(false),
+                 tabType: .home)
             .environmentObject(PreviewStatics.homeViewModel)
     }
 }

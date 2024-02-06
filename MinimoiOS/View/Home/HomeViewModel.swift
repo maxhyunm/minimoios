@@ -15,12 +15,12 @@ final class HomeViewModel: ObservableObject {
     @Published var originScrollOffset: CGFloat
     @Published var newScrollOffset: CGFloat
     
-    var user: UserDTO
+    var userId: UUID
     var firebaseManager: FirebaseManager
     var cancellables = Set<AnyCancellable>()
     
-    init(user: UserDTO, firebaseManager: FirebaseManager) {
-        self.user = user
+    init(userId: UUID, firebaseManager: FirebaseManager) {
+        self.userId = userId
         self.firebaseManager = firebaseManager
         self.originScrollOffset = 0.0
         self.newScrollOffset = 0.0
@@ -28,7 +28,7 @@ final class HomeViewModel: ObservableObject {
     
     func fetchContents() {
         // TODO: 유저가 팔로우중인 사람들 모두 필터
-        let query = Filter.andFilter([Filter.whereField("creator", isEqualTo: user.id.uuidString)])
+        let query = Filter.andFilter([Filter.whereField("creator", isEqualTo: userId.uuidString)])
         
         firebaseManager.readQueryData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in

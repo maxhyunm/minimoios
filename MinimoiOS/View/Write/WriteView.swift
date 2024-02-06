@@ -117,11 +117,8 @@ struct WriteView: View {
 
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
-        WriteView(isWriting: .constant(true), fetchTrigger: .constant(false), writeViewModel: WriteViewModel(
-            user: UserDTO(
-                id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                name: "테스트"
-            ),
-            firebaseManager: FirebaseManager()))
+        WriteView(isWriting: .constant(true),
+                  fetchTrigger: .constant(false),
+                  writeViewModel: PreviewStatics.writeViewModel)
     }
 }

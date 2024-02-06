@@ -9,14 +9,15 @@ import SwiftUI
 
 struct EditInformationView: View {
     @EnvironmentObject var viewModel: EditInformationViewModel
-    @State private var isImagePickerVisible: Bool = false
-    @State private var editedName: String = ""
     @State private var editable: Bool = false
+    @State private var isImagePickerVisible: Bool = false
     @State private var selectedImage: UIImage = UIImage()
     @State private var isNameChanged: Bool = false
     @State private var isImageChanged: Bool = false
+    @Binding var name: String
     @Binding var isProfileVisible: Bool
     @Binding var fetchTrigger: Bool
+
     var isChanged: Bool {
         return isNameChanged || isImageChanged
     }
@@ -79,25 +80,32 @@ struct EditInformationView: View {
             
             HStack {
                 if editable {
-                    TextField("새로운 이름", text: $editedName)
+                    TextField("새로운 이름", text: $name)
                         .frame(width: 200)
+                        .onChange(of: name) { _ in
+                            if !isNameChanged {
+                                isNameChanged.toggle()
+                            }
+                        }
+                    
                     Button {
                         self.editable.toggle()
                         self.isNameChanged = true
                     } label: {
                         Image(systemName: "checkmark.circle")
                     }
-                    .disabled(editedName == "")
-                    .foregroundColor(editedName == "" ? .gray : .green)
+                    .disabled(!isNameChanged)
+                    .foregroundColor(!isNameChanged ? .gray : .green)
+                    
                     Button {
-                        editedName = ""
                         self.editable.toggle()
                     } label: {
                         Image(systemName: "x.circle")
                     }
                     .foregroundColor(.red)
+                    
                 } else {
-                    Text(editedName == "" ? viewModel.user.name : editedName)
+                    Text(name)
                         .font(.title3)
                     Button {
                         self.editable.toggle()
@@ -118,7 +126,7 @@ struct EditInformationView: View {
             
             Button {
                 if isNameChanged {
-                    viewModel.updateName(self.editedName)
+                    viewModel.updateName(self.name)
                 }
                 if isImageChanged {
                     viewModel.updateImage(selectedImage)
@@ -135,17 +143,14 @@ struct EditInformationView: View {
             .disabled(!isChanged)
             
             Spacer()
-            
         }
     }
 }
 
 struct EditInformationView_Previews: PreviewProvider {
     static var previews: some View {
-        EditInformationView(isProfileVisible: .constant(true), fetchTrigger: .constant(false))
-            .environmentObject(EditInformationViewModel(user: UserDTO(
-                id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                name: "테스트"
-            ), firebaseManager: FirebaseManager()))
+        EditInformationView(name: .constant("test"),
+                            isProfileVisible: .constant(true),
+                            fetchTrigger: .constant(false))
     }
 }

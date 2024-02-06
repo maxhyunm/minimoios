@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
+    @Binding var user: UserDTO
     private let backgroundColor: Color = .cyan
-    var user: UserDTO
     var tabType: TabType
     
     var body: some View {
@@ -57,6 +57,6 @@ struct ProfileHeaderView: View {
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(user: UserDTO(id: UUID(), name: "테스트"), tabType: .home)
+        ProfileHeaderView(user: .constant(PreviewStatics.user), tabType: .home)
     }
 }
