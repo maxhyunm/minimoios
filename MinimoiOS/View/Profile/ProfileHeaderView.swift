@@ -64,8 +64,8 @@ struct ProfileHeaderView: View {
             .padding(.horizontal, 10)
             .offset(x: 0, y: 50)
         }
-        .frame(height: 160)
-        .offset(x: 0, y: -30)
+        .frame(height: 140)
+        .offset(x: 0, y: -10)
     }
 }
 

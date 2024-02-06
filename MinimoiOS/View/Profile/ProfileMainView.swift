@@ -14,20 +14,35 @@ struct ProfileMainView: View {
     @Binding var fetchTrigger: Bool
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            ProfileList(fetchTrigger: $fetchTrigger)
-                .environmentObject(userModel)
-                .environmentObject(viewModel)
-            
-            if viewModel.ownerModel.user.id == userModel.user.id {
-                let writeViewModel = WriteViewModel(userId: userModel.user.id, firebaseManager: viewModel.firebaseManager)
-                WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                ProfileList(fetchTrigger: $fetchTrigger)
+                    .environmentObject(userModel)
+                    .environmentObject(viewModel)
+                
+                if viewModel.ownerModel.user.id == userModel.user.id {
+                    let writeViewModel = WriteViewModel(userId: userModel.user.id, firebaseManager: viewModel.firebaseManager)
+                    WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
+                }
             }
-        }
-        .onAppear {
-            viewModel.ownerModel.fetchFollowers()
-            viewModel.ownerModel.fetchFollowings()
-            fetchTrigger.toggle()
+            .onAppear {
+                viewModel.ownerModel.fetchFollowers()
+                viewModel.ownerModel.fetchFollowings()
+                fetchTrigger.toggle()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        SearchFromUserView(fetchTrigger: $fetchTrigger)
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .tint(.cyan)
+                    }
+                }
+            }
+            .tint(.cyan)
+            .toolbarBackground(TabType.profile.navigationBarBackground, for: .navigationBar)
+            
         }
     }
 }

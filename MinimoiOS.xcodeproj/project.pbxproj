@@ -44,7 +44,8 @@
 		BA28F0F22B72323900042912 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F12B72323900042912 /* UserModel.swift */; };
 		BA28F0F42B726A6D00042912 /* ToolbarWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */; };
 		BA28F0F62B728E2C00042912 /* TabItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F52B728E2C00042912 /* TabItemsView.swift */; };
-		BA28F0F82B7296C200042912 /* ToolbarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F72B7296C200042912 /* ToolbarItemView.swift */; };
+		BA28F0F82B7296C200042912 /* ToolbarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */; };
+		BA28F0FA2B72B98E00042912 /* SearchFromUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F92B72B98E00042912 /* SearchFromUserView.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -127,7 +128,8 @@
 		BA28F0F12B72323900042912 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarWrapperView.swift; sourceTree = "<group>"; };
 		BA28F0F52B728E2C00042912 /* TabItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemsView.swift; sourceTree = "<group>"; };
-		BA28F0F72B7296C200042912 /* ToolbarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemView.swift; sourceTree = "<group>"; };
+		BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarMenuView.swift; sourceTree = "<group>"; };
+		BA28F0F92B72B98E00042912 /* SearchFromUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFromUserView.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -240,7 +242,9 @@
 				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA28F0C32B6A09FF00042912 /* PopUpView.swift */,
 				BA28F0C72B6A631E00042912 /* SearchView.swift */,
+				BA28F0F92B72B98E00042912 /* SearchFromUserView.swift */,
 				BA28F0E62B6CF7E700042912 /* WriteButton.swift */,
+				BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */,
 				BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */,
 				BA28F09C2B66489900042912 /* Minimo */,
 				BA28F0E32B6CDE6400042912 /* Home */,
@@ -248,7 +252,6 @@
 				BA28F0BE2B69166B00042912 /* Write */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditInformation */,
-				BA28F0F72B7296C200042912 /* ToolbarItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA28F0FA2B72B98E00042912 /* SearchFromUserView.swift in Sources */,
 				BA28F0B32B68C80200042912 /* MinimoRowViewModel.swift in Sources */,
 				BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */,
 				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
@@ -481,7 +485,7 @@
 				BA4C9E2E2B640B7000C96C87 /* HomeList.swift in Sources */,
 				BA28F0C82B6A631E00042912 /* SearchView.swift in Sources */,
 				BA28F0C62B6A58CD00042912 /* HomeMainView.swift in Sources */,
-				BA28F0F82B7296C200042912 /* ToolbarItemView.swift in Sources */,
+				BA28F0F82B7296C200042912 /* ToolbarMenuView.swift in Sources */,
 				BA4C9E2B2B63FC2C00C96C87 /* AuthManager.swift in Sources */,
 				BA28F0D02B6A7EB100042912 /* ProfileHeaderView.swift in Sources */,
 				BA28F0E72B6CF7E700042912 /* WriteButton.swift in Sources */,

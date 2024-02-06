@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToolbarItemView: ToolbarContent {
+struct ToolbarMenuView: ToolbarContent {
     @Binding var isEditProfileVisible: Bool
     @Binding var logOutTrigger: Bool
     

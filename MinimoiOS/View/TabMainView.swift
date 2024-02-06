@@ -26,42 +26,33 @@ struct TabMainView: View {
     
     var body: some View {
         VStack {
-            NavigationStack() {
-                ZStack {
-                    switch tabType {
-                    case .home:
-                        HomeMainView(fetchTrigger: $fetchTrigger)
-                            .environmentObject(userModel)
-                            .environmentObject(homeViewModel)
-                    case .profile:
-                        ProfileMainView(fetchTrigger: $fetchTrigger)
-                            .environmentObject(userModel)
-                            .environmentObject(profileViewModel)
-                    case .search:
-                        SearchView()
-                    }
-                }
-                .onChange(of: fetchTrigger) { _ in
-                    switch tabType {
-                    case .home:
-                        homeViewModel.fetchContents(followings: userModel.followings)
-                    case .profile:
-                        profileViewModel.fetchContents()
-                    case .search:
-                        break
-                    }
-                }
-                .toolbar {
-                    ToolbarItemView(isEditProfileVisible: $isEditProfileVisible, logOutTrigger: $logOutTrigger)
-                }
-                .tint(.cyan)
-                .toolbarBackground(tabType.navigationBarBackground, for: .navigationBar)
-                .navigationTitle(tabType == .search ? tabType.title : "")
-                .sheet(isPresented: $isEditProfileVisible) {
-                    EditInformationView(name: $userModel.user.name,
-                                        isProfileVisible: $isEditProfileVisible,
-                                        fetchTrigger: $fetchTrigger)
+            ZStack {
+                switch tabType {
+                case .home:
+                    HomeMainView(fetchTrigger: $fetchTrigger,
+                                 isEditProfileVisible: $isEditProfileVisible,
+                                 logOutTrigger: $logOutTrigger)
                     .environmentObject(userModel)
+                    .environmentObject(homeViewModel)
+                case .profile:
+                    ProfileMainView(fetchTrigger: $fetchTrigger)
+                    .environmentObject(userModel)
+                    .environmentObject(profileViewModel)
+                case .search:
+                    SearchView(fetchTrigger: $fetchTrigger,
+                               isEditProfileVisible: $isEditProfileVisible,
+                               logOutTrigger: $logOutTrigger)
+                    .environmentObject(userModel)
+                }
+            }
+            .onChange(of: fetchTrigger) { _ in
+                switch tabType {
+                case .home:
+                    homeViewModel.fetchContents(followings: userModel.followings)
+                case .profile:
+                    profileViewModel.fetchContents()
+                case .search:
+                    break
                 }
             }
             TabItemsView(tabType: $tabType)

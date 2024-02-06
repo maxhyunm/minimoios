@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TabItemsView: View {
     @Binding var tabType: TabType
-    
+
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
