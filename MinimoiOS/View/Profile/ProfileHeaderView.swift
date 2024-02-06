@@ -50,10 +50,10 @@ struct ProfileHeaderView: View {
                             .bold()
                         HStack(alignment: .center, spacing: 10) {
                             Text("Following")
-                            Text("\($userModel.follow.followings.count)")
+                            Text("\($userModel.followings.count)")
                             Text("|")
                             Text("Follower")
-                            Text("\($userModel.follow.followers.count)")
+                            Text("\($userModel.followers.count)")
                             Spacer()
                         }
                         .font(.caption2)

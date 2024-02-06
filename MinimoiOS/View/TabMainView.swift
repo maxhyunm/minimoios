@@ -91,12 +91,12 @@ struct TabMainView: View {
             EditInformationView(name: $userModel.user.name,
                                 isProfileVisible: $isEditProfileVisible,
                                 fetchTrigger: $fetchTrigger)
-            .environmentObject(editInformationViewModel)
+            .environmentObject(userModel)
         }
         .onChange(of: fetchTrigger) { _ in
             switch tabType {
             case .home:
-                homeViewModel.fetchContents()
+                homeViewModel.fetchContents(followings: userModel.followings)
             case .profile:
                 profileViewModel.fetchContents()
             case .search:

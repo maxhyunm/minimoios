@@ -10,11 +10,10 @@ import Foundation
 struct FollowDTO: Decodable, Identifiable, Hashable, Uploadable {
     var id: UUID
     var userId: UUID
-    var followings: [UUID]
-    var followers: [UUID]
+    var targetId: UUID
     
     enum CodingKeys: String, CodingKey {
-        case id, userId, followings, followers
+        case id, userId, targetId
     }
     
     init(from decoder: Decoder) throws {
@@ -26,24 +25,20 @@ struct FollowDTO: Decodable, Identifiable, Hashable, Uploadable {
         
         id = uuid
         userId = try container.decode(UUID.self, forKey: .userId)
-        userId = try container.decode(UUID.self, forKey: .userId)
-        followings = try container.decode([UUID].self, forKey: .followings)
-        followers = try container.decode([UUID].self, forKey: .followers)
+        targetId = try container.decode(UUID.self, forKey: .targetId)
     }
     
-    init(id: UUID, userId: UUID, followings:[UUID] = [], followers:[UUID] = []) {
+    init(id: UUID, userId: UUID, targetId: UUID) {
         self.id = id
         self.userId = userId
-        self.followings = followings
-        self.followers = followers
+        self.targetId = targetId
     }
     
     func dataIntoDictionary() -> [String : Any] {
         return [
             "id": self.id.uuidString,
             "userId": self.userId.uuidString,
-            "followings": self.followings.map { $0.uuidString },
-            "followers": self.followers.map { $0.uuidString }
+            "targetId": self.targetId.uuidString
         ]
     }
 }

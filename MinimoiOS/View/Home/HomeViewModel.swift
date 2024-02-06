@@ -26,9 +26,10 @@ final class HomeViewModel: ObservableObject {
         self.newScrollOffset = 0.0
     }
     
-    func fetchContents() {
-        // TODO: 유저가 팔로우중인 사람들 모두 필터
-        let query = Filter.andFilter([Filter.whereField("creator", isEqualTo: userId.uuidString)])
+    func fetchContents(followings: [UUID]) {
+        var readable = followings
+        readable.append(userId)
+        let query = Filter.andFilter([Filter.whereField("creator", in: readable.map { $0.uuidString })])
         
         firebaseManager.readMultipleData(from: "contents", query: query, orderBy: "createdAt", descending: false, limit: 20)
             .sink { completion in

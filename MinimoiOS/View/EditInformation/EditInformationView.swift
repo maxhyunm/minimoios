@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditInformationView: View {
-    @EnvironmentObject var viewModel: EditInformationViewModel
+    @EnvironmentObject var userModel: UserModel
     @State private var editable: Bool = false
     @State private var isImagePickerVisible: Bool = false
     @State private var selectedImage: UIImage = UIImage()
@@ -37,7 +37,7 @@ struct EditInformationView: View {
             
             VStack {
                 if !isImageChanged {
-                    AsyncImage(url: URL(string: viewModel.userModel.user.image)) { image in
+                    AsyncImage(url: URL(string: userModel.user.image)) { image in
                         image.resizable()
                     } placeholder: {
                         ProgressView()
@@ -126,10 +126,10 @@ struct EditInformationView: View {
             
             Button {
                 if isNameChanged {
-                    viewModel.updateName(self.name)
+                    userModel.updateName(self.name)
                 }
                 if isImageChanged {
-                    viewModel.updateImage(selectedImage)
+                    userModel.updateImage(selectedImage)
                 }
                 self.isProfileVisible = false
                 self.fetchTrigger.toggle()

@@ -82,12 +82,16 @@ struct FirebaseManager {
         }
     }
 
-    func readMultipleData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int) -> Future<[T], MinimoError> {
+    func readMultipleData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int? = nil) -> Future<[T], MinimoError> {
+        let ref = Firestore.firestore()
+            .collection(collection)
+            .whereFilter(query)
+//            .order(by: orderBy, descending: descending)
+//        if let limit {
+//            ref.limit(to: limit)
+//        }
         return Future { promise in
-            Firestore.firestore()
-                .collection(collection)
-                .whereFilter(query)
-                .getDocuments { snapshot, error in
+            ref.getDocuments { snapshot, error in
                 if let _ = error {
                     promise(.failure(.unknown))
                 }
