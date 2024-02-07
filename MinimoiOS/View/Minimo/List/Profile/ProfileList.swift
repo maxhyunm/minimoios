@@ -39,7 +39,7 @@ struct ProfileList: View {
                             firebaseManager: viewModel.firebaseManager,
                             userId: userModel.user.id.uuidString
                         )
-                        MinimoRow(fetchTrigger: $fetchTrigger)
+                        ProfileRow(fetchTrigger: $fetchTrigger)
                             .listRowSeparator(.hidden)
                             .environmentObject(userModel)
                             .environmentObject(minimoRowViewModel)

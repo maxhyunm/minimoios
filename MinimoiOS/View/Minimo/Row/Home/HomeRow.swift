@@ -1,13 +1,13 @@
 //
-//  MinimoRow.swift
+//  HomeRow.swift
 //  MinimoiOS
 //
-//  Created by Min Hyun on 2024/01/28.
+//  Created by Min Hyun on 2024/02/07.
 //
 
 import SwiftUI
 
-struct MinimoRow: View {
+struct HomeRow: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
@@ -135,9 +135,9 @@ struct MinimoRow: View {
     }
 }
 
-struct MinimoRow_Previews: PreviewProvider {
+struct HomeRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow(fetchTrigger: .constant(false))
+        HomeRow(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.userModel)
             .environmentObject(PreviewStatics.minimoRowModel)
     }

@@ -1,13 +1,13 @@
 //
-//  MinimoRow.swift
+//  HomeRow.swift
 //  MinimoiOS
 //
-//  Created by Min Hyun on 2024/01/28.
+//  Created by Min Hyun on 2024/02/07.
 //
 
 import SwiftUI
 
-struct MinimoRow: View {
+struct ProfileRow: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
@@ -24,38 +24,9 @@ struct MinimoRow: View {
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    if let ownerModel = viewModel.creatorModel {
-                        let profileViewModel = MinimoModel(
-                            userId: userModel.user.id,
-                            contentsOwnerId: ownerModel.user.id,
-                            firebaseManager: viewModel.firebaseManager
-                        )
-                        if ownerModel.user.id == userModel.user.id {
-                            NavigationLink {
-                                ProfileMainView(fetchTrigger: $fetchTrigger)
-                                    .environmentObject(userModel)
-                                    .environmentObject(profileViewModel)
-                            } label: {
-                                Text(viewModel.creatorName)
-                                    .font(.headline)
-                                    .tint(.black)
-                            }
-                        } else {
-                            NavigationLink {
-                                ProfileMainView(fetchTrigger: $fetchTrigger)
-                                    .environmentObject(ownerModel)
-                                    .environmentObject(profileViewModel)
-                            } label: {
-                                Text(viewModel.creatorName)
-                                    .font(.headline)
-                                    .tint(.black)
-                            }
-                        }
-                    } else {
-                        Text(viewModel.creatorName)
+                    Text(viewModel.creatorName)
                             .font(.headline)
                             .tint(.black)
-                    }
                     
                     Spacer()
                     
@@ -135,9 +106,9 @@ struct MinimoRow: View {
     }
 }
 
-struct MinimoRow_Previews: PreviewProvider {
+struct ProfileRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow(fetchTrigger: .constant(false))
+        ProfileRow(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.userModel)
             .environmentObject(PreviewStatics.minimoRowModel)
     }
