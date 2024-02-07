@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeMainView: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: MinimoModel
-    @EnvironmentObject var writeViewModel: WriteViewModel
     @State private var isWriting: Bool = false
     @State private var isEditInformationVisible: Bool = false
     @Binding var fetchTrigger: Bool
@@ -21,7 +20,8 @@ struct HomeMainView: View {
             ZStack(alignment: .bottomTrailing) {
                 HomeList(fetchTrigger: $fetchTrigger)
                     .environmentObject(viewModel)
-                WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
+                WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger)
+                    .environmentObject(viewModel)
             }
             .onAppear {
                 userModel.fetchFollowers()
@@ -29,7 +29,7 @@ struct HomeMainView: View {
                 fetchTrigger.toggle()
             }
             .onChange(of: userModel.followings) { followings in
-                viewModel.fetchFollowingContents(of: userModel.user.id, followings: followings)
+                viewModel.fetchFollowingContents(followings: followings)
             }
             .toolbar {
                 ToolbarMenuView(editInformationTrigger: $isEditInformationVisible, logOutTrigger: $logOutTrigger)

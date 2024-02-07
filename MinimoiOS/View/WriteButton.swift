@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct WriteButton: View {
+    @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var viewModel: MinimoModel
     @Binding var isWriting: Bool
     @Binding var fetchTrigger: Bool
-    let writeViewModel: WriteViewModel
     
     var body: some View {
         Button {
@@ -27,8 +28,9 @@ struct WriteButton: View {
         .offset(x: -30, y: -20)
         .sheet(isPresented: $isWriting) {
             WriteView(isWriting: $isWriting,
-                      fetchTrigger: $fetchTrigger,
-                      writeViewModel: writeViewModel)
+                      fetchTrigger: $fetchTrigger)
+            .environmentObject(userModel)
+            .environmentObject(viewModel)
         }
     }
 }
@@ -36,7 +38,7 @@ struct WriteButton: View {
 struct WriteButton_Previews: PreviewProvider {
     static var previews: some View {
         WriteButton(isWriting: .constant(false),
-                    fetchTrigger: .constant(false),
-                    writeViewModel: PreviewStatics.writeViewModel)
+                    fetchTrigger: .constant(false))
+        .environmentObject(PreviewStatics.writeViewModel)
     }
 }

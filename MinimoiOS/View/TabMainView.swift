@@ -9,9 +9,9 @@ import SwiftUI
 
 struct TabMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var homeViewModel: MinimoModel
-    @EnvironmentObject var profileViewModel: MinimoModel
-    @EnvironmentObject var writeViewModel: WriteViewModel
+    @EnvironmentObject var minimoModel: MinimoModel
+//    @EnvironmentObject var homeViewModel: MinimoModel
+//    @EnvironmentObject var profileViewModel: MinimoModel
     @State private var fetchTrigger: Bool = true
     @State private var tabType: TabType = .home
     @Binding var logOutTrigger: Bool
@@ -32,13 +32,11 @@ struct TabMainView: View {
                     HomeMainView(fetchTrigger: $fetchTrigger,
                                  logOutTrigger: $logOutTrigger)
                     .environmentObject(userModel)
-                    .environmentObject(homeViewModel)
-                    .environmentObject(writeViewModel)
+                    .environmentObject(minimoModel)
                 case .profile:
                     ProfileMainView(fetchTrigger: $fetchTrigger)
                     .environmentObject(userModel)
-                    .environmentObject(profileViewModel)
-                    .environmentObject(writeViewModel)
+                    .environmentObject(minimoModel)
                 case .search:
                     SearchView(fetchTrigger: $fetchTrigger,
                                logOutTrigger: $logOutTrigger)
@@ -48,10 +46,9 @@ struct TabMainView: View {
             .onChange(of: fetchTrigger) { _ in
                 switch tabType {
                 case .home:
-                    homeViewModel.fetchFollowingContents(of: userModel.user.id,
-                                                         followings: userModel.followings)
+                    minimoModel.fetchFollowingContents(followings: userModel.followings)
                 case .profile:
-                    profileViewModel.fetchUserContents(for: userModel.user.id)
+                    minimoModel.fetchProfileContents()
                 case .search:
                     break
                 }
@@ -68,6 +65,5 @@ struct TimelineView_Previews: PreviewProvider {
             .environmentObject(PreviewStatics.homeViewModel)
             .environmentObject(PreviewStatics.profileViewModel)
             .environmentObject(PreviewStatics.editInformationViewModel)
-            .environmentObject(PreviewStatics.writeViewModel)
     }
 }

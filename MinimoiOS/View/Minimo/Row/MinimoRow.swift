@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MinimoRow: View {
+    @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
     @State private var isPopUpVisible: Bool = false
@@ -26,6 +27,8 @@ struct MinimoRow: View {
                     if let ownerModel = viewModel.creatorModel {
                         NavigationLink {
                             let profileViewModel = MinimoModel(
+                                userId: userModel.user.id,
+                                contentsOwnerId: ownerModel.user.id,
                                 firebaseManager: viewModel.firebaseManager
                             )
                             ProfileMainView(fetchTrigger: $fetchTrigger)
@@ -123,14 +126,7 @@ struct MinimoRow: View {
 struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
         MinimoRow(fetchTrigger: .constant(false))
-            .environmentObject(MinimoRowViewModel(
-                content: MinimoDTO(
-                    id: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                    creator: UUID(uuidString: "c8ad784e-a52a-4914-9aec-e115a2143b87")!,
-                    createdAt: Date(),
-                    content: "얍"
-                ),
-                firebaseManager: FirebaseManager(),
-                userId: "c8ad784e-a52a-4914-9aec-e115a2143b87"))
+            .environmentObject(PreviewStatics.userModel)
+            .environmentObject(PreviewStatics.minimoRowModel)
     }
 }

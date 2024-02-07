@@ -41,6 +41,7 @@ struct ProfileList: View {
                         )
                         MinimoRow(fetchTrigger: $fetchTrigger)
                             .listRowSeparator(.hidden)
+                            .environmentObject(userModel)
                             .environmentObject(minimoRowViewModel)
                     }
                     .padding(.horizontal)

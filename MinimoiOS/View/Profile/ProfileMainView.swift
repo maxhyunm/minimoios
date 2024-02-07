@@ -11,7 +11,6 @@ struct ProfileMainView: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var ownerModel: UserModel
     @EnvironmentObject var viewModel: MinimoModel
-    @EnvironmentObject var writeViewModel: WriteViewModel
     @State private var isWriting: Bool = false
     @Binding var fetchTrigger: Bool
     
@@ -24,7 +23,8 @@ struct ProfileMainView: View {
                     .environmentObject(viewModel)
                 
                 if ownerModel.user.id == userModel.user.id {
-                    WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
+                    WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger)
+                        .environmentObject(viewModel)
                 }
             }
             .onAppear {

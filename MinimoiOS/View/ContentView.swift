@@ -23,14 +23,16 @@ struct ContentView: View {
 //                                                firebaseManager: authManager.firebaseManager)
 //                let profileViewModel = MinimoModel(userId: userModel.user.id,
 //                                                   firebaseManager: authManager.firebaseManager)
-                let homeViewModel = MinimoModel(firebaseManager: authManager.firebaseManager)
-                let profileViewModel = MinimoModel(firebaseManager: authManager.firebaseManager)
-                let writeViewModel = WriteViewModel(userId: userModel.user.id, firebaseManager: authManager.firebaseManager)
+//                let homeViewModel = MinimoModel(user: userModel,
+//                                                contentsOwner: userModel,
+//                                                firebaseManager: authManager.firebaseManager)
+//                let profileViewModel = MinimoModel(firebaseManager: authManager.firebaseManager)
+                let minimoModel = MinimoModel(userId: userModel.user.id,
+                                              contentsOwnerId: userModel.user.id,
+                                              firebaseManager: authManager.firebaseManager)
                 TabMainView(logOutTrigger: $logOutTrigger)
                     .environmentObject(userModel)
-                    .environmentObject(homeViewModel)
-                    .environmentObject(profileViewModel)
-                    .environmentObject(writeViewModel)
+                    .environmentObject(minimoModel)
                     .onChange(of: logOutTrigger) { state in
                         authManager.handleLogout()
                     }

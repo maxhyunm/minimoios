@@ -9,12 +9,13 @@ import SwiftUI
 import PhotosUI
 
 struct WriteView: View {
+    @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var viewModel: MinimoModel
     @State private var content = ""
     @State private var selectedItem = [PhotosPickerItem]()
     @State private var selectedImages = [UIImage]()
     @Binding var isWriting: Bool
     @Binding var fetchTrigger: Bool
-    let writeViewModel: WriteViewModel
     
     private var isEmpty: Bool {
         return content == "" && selectedItem.isEmpty
@@ -34,7 +35,7 @@ struct WriteView: View {
                 Spacer()
                 
                 Button {
-                    writeViewModel.createContent(body: content, images: selectedImages)
+                    viewModel.createContent(body: content, images: selectedImages)
                     content = ""
                     selectedItem = []
                     selectedImages = []
@@ -118,7 +119,8 @@ struct WriteView: View {
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
         WriteView(isWriting: .constant(true),
-                  fetchTrigger: .constant(false),
-                  writeViewModel: PreviewStatics.writeViewModel)
+                  fetchTrigger: .constant(false))
+        .environmentObject(PreviewStatics.userModel)
+        .environmentObject(PreviewStatics.minimoModel)
     }
 }
