@@ -40,7 +40,6 @@ struct WriteView: View {
                     selectedItem = []
                     selectedImages = []
                     isWriting.toggle()
-                    fetchTrigger.toggle()
                 } label: {
                     Text("MO!")
                         .font(.headline)

@@ -46,24 +46,27 @@ final class HomeViewModel: ObservableObject {
         var readable = followings
         readable.append(userId)
         let query = Filter.andFilter([Filter.whereField("creator", in: readable.map { $0.uuidString })])
-
-        firebaseManager.readMultipleData(from: .contents, query: query, orderBy: "createdAt", descending: false)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { contents in
-                self.contents = contents.sorted { $0.createdAt > $1.createdAt }
-                self.isLoading = false
+        
+        Task {
+            let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
+                                                                                      query: query,
+                                                                                      orderBy: "createdAt",
+                                                                                      descending: false)
+            
+            await MainActor.run {
+                contents = result.sorted { $0.createdAt > $1.createdAt }
+                isLoading = false
             }
-            .store(in: &cancellables)
+        }
     }
     
     func createContent(body: String, images: [UIImage]) {
-        isLoading = true
+        Task {
+            await MainActor.run {
+                isLoading = true
+            }
+        }
+        
         let newId = UUID()
         let newContent = MinimoDTO(id: newId,
                                    creator: userId,

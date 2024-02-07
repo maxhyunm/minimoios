@@ -46,8 +46,10 @@ struct HomeMainView: View {
             }
             if viewModel.isLoading {
                 ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .progressViewStyle(CircularProgressViewStyle())
                     .controlSize(.large)
+                    .background(.white.opacity(0.5))
             }
         }
     }

@@ -31,21 +31,23 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func fetchContents() {
-        isLoading = true
-        let query = Filter.whereField("creator", isEqualTo: ownerId.uuidString)
-        
-        firebaseManager.readMultipleData(from: .contents, query: query, orderBy: "createdAt", descending: false)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { contents in
-                self.contents = contents.sorted { $0.createdAt > $1.createdAt }
-                self.isLoading = false
+        Task {
+            await MainActor.run {
+                isLoading = true
             }
-            .store(in: &cancellables)
+        }
+        
+        let query = Filter.whereField("creator", isEqualTo: ownerId.uuidString)
+
+        Task {
+            let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
+                                                                                      query: query,
+                                                                                      orderBy: "createdAt",
+                                                                                      descending: false)
+            await MainActor.run {
+                contents = result.sorted { $0.createdAt > $1.createdAt }
+                isLoading = false
+            }
+        }
     }
 }
