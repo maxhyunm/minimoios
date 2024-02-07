@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MinimoRow: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoRowViewModel
+    @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
     @State private var isPopUpVisible: Bool = false
     @State private var popUpImageURL: URL? = nil
@@ -32,9 +32,9 @@ struct MinimoRow: View {
                         )
                         if ownerModel.user.id == userModel.user.id {
                             NavigationLink {
-                                ProfileMainView(fetchTrigger: $fetchTrigger)
-                                    .environmentObject(userModel)
-                                    .environmentObject(profileViewModel)
+                                ProfileMainView(viewModel: profileViewModel,
+                                                ownerModel: userModel,
+                                                fetchTrigger: $fetchTrigger)
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
@@ -42,9 +42,9 @@ struct MinimoRow: View {
                             }
                         } else {
                             NavigationLink {
-                                ProfileMainView(fetchTrigger: $fetchTrigger)
-                                    .environmentObject(ownerModel)
-                                    .environmentObject(profileViewModel)
+                                ProfileMainView(viewModel: profileViewModel,
+                                                ownerModel: ownerModel,
+                                                fetchTrigger: $fetchTrigger)
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
@@ -137,8 +137,6 @@ struct MinimoRow: View {
 
 struct MinimoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MinimoRow(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject(PreviewStatics.minimoRowModel)
+        MinimoRow(viewModel: PreviewStatics.minimoRowModel, fetchTrigger: .constant(false))
     }
 }

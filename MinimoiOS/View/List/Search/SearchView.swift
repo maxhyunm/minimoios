@@ -27,7 +27,6 @@ struct SearchView: View {
                 EditInformationView(name: userModel.user.name,
                                     isVisible: $isEditInformationVisible,
                                     fetchTrigger: $fetchTrigger)
-                .environmentObject(userModel)
             }
         }
     }
@@ -38,6 +37,5 @@ struct SearchView_Previews: PreviewProvider {
         SearchView(
             fetchTrigger: .constant(false),
             logOutTrigger: .constant(false))
-        .environmentObject(PreviewStatics.userModel)
     }
 }

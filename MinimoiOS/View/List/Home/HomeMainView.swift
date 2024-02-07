@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: MinimoModel
     @State private var isWriting: Bool = false
     @State private var isEditInformationVisible: Bool = false
     @Binding var fetchTrigger: Bool
@@ -18,10 +18,11 @@ struct HomeMainView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-                HomeList(fetchTrigger: $fetchTrigger)
-                    .environmentObject(viewModel)
-                WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger)
-                    .environmentObject(viewModel)
+                HomeList(viewModel: viewModel,
+                         fetchTrigger: $fetchTrigger)
+                WriteButton(viewModel: viewModel,
+                            isWriting: $isWriting,
+                            fetchTrigger: $fetchTrigger)
             }
             .onAppear {
                 userModel.fetchFollowers()
@@ -40,7 +41,6 @@ struct HomeMainView: View {
                 EditInformationView(name: userModel.user.name,
                                     isVisible: $isEditInformationVisible,
                                     fetchTrigger: $fetchTrigger)
-                .environmentObject(userModel)
             }
         }
     }
@@ -48,8 +48,8 @@ struct HomeMainView: View {
 
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeMainView(fetchTrigger: .constant(false),
+        HomeMainView(viewModel: PreviewStatics.minimoModel,
+                     fetchTrigger: .constant(false),
                      logOutTrigger: .constant(false))
-        .environmentObject(PreviewStatics.minimoModel)
     }
 }

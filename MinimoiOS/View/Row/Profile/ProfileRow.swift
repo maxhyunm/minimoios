@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileRow: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoRowViewModel
+    @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
     @State private var isPopUpVisible: Bool = false
     @State private var popUpImageURL: URL? = nil
@@ -30,7 +30,7 @@ struct ProfileRow: View {
                     
                     Spacer()
                     
-                    if viewModel.userId == viewModel.creatorId {
+                    if userModel.user.id.uuidString == viewModel.creatorId {
                         Button {
                             removeAlertTrigger.toggle()
                         } label: {
@@ -108,8 +108,7 @@ struct ProfileRow: View {
 
 struct ProfileRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileRow(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject(PreviewStatics.minimoRowModel)
+        ProfileRow(viewModel: PreviewStatics.minimoRowModel,
+                   fetchTrigger: .constant(false))
     }
 }

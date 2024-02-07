@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ProfileList: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var ownerModel: UserModel
-    @EnvironmentObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: MinimoModel
+    @ObservedObject var ownerModel: UserModel
     @Binding var fetchTrigger: Bool
     
 //    private var scrollOffsetObserver: some View {
@@ -29,9 +29,8 @@ struct ProfileList: View {
         ScrollView {
 //            scrollOffsetObserver
             LazyVStack  {
-                let headerView = ProfileHeaderView(fetchTrigger: $fetchTrigger)
-                    .environmentObject(userModel)
-                    .environmentObject(ownerModel)
+                let headerView = ProfileHeaderView(ownerModel: ownerModel,
+                                                   fetchTrigger: $fetchTrigger)
                 Section(header: headerView) {
                     ForEach($viewModel.contents) { $content in
                         let minimoRowViewModel = MinimoRowViewModel(
@@ -39,10 +38,9 @@ struct ProfileList: View {
                             firebaseManager: viewModel.firebaseManager,
                             userId: userModel.user.id.uuidString
                         )
-                        ProfileRow(fetchTrigger: $fetchTrigger)
+                        ProfileRow(viewModel: minimoRowViewModel,
+                                   fetchTrigger: $fetchTrigger)
                             .listRowSeparator(.hidden)
-                            .environmentObject(userModel)
-                            .environmentObject(minimoRowViewModel)
                     }
                     .padding(.horizontal)
                 }
@@ -59,9 +57,8 @@ struct ProfileList: View {
 
 struct ProfileList_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileList(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject((PreviewStatics.userModel))
-            .environmentObject(PreviewStatics.minimoModel)
+        ProfileList(viewModel: PreviewStatics.minimoModel,
+                    ownerModel: PreviewStatics.userModel,
+                    fetchTrigger: .constant(false))
     }
 }

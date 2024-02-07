@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var ownerModel: UserModel
-    @State private var isEditInformationVisible: Bool = false
+    @ObservedObject var ownerModel: UserModel
     @Binding var fetchTrigger: Bool
+    @State private var isEditInformationVisible: Bool = false
     
     var isUsersProfile: Bool {
         return userModel.user.id == ownerModel.user.id
@@ -114,15 +114,13 @@ struct ProfileHeaderView: View {
             EditInformationView(name: userModel.user.name,
                                 isVisible: $isEditInformationVisible,
                                 fetchTrigger: $fetchTrigger)
-            .environmentObject(userModel)
         }
     }
 }
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject((PreviewStatics.userModel))
+        ProfileHeaderView(ownerModel: PreviewStatics.userModel,
+                          fetchTrigger: .constant(false))
     }
 }

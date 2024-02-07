@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeList: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: MinimoModel
     @Binding var fetchTrigger: Bool
     
 //    private var scrollOffsetObserver: some View {
@@ -34,10 +34,9 @@ struct HomeList: View {
                         firebaseManager: viewModel.firebaseManager,
                         userId: userModel.user.id.uuidString
                     )
-                    MinimoRow(fetchTrigger: $fetchTrigger)
+                    HomeRow(viewModel: minimoRowViewModel,
+                            fetchTrigger: $fetchTrigger)
                         .listRowSeparator(.hidden)
-                        .environmentObject(userModel)
-                        .environmentObject(minimoRowViewModel)
                 }
                 .padding(.horizontal)
             }
@@ -54,8 +53,6 @@ struct HomeList: View {
 
 struct HomeList_Previews: PreviewProvider {
     static var previews: some View {
-        HomeList(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject(PreviewStatics.minimoModel)
+        HomeList(viewModel: PreviewStatics.minimoModel, fetchTrigger: .constant(false))
     }
 }

@@ -10,7 +10,7 @@ import PhotosUI
 
 struct WriteView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: MinimoModel
     @State private var content = ""
     @State private var selectedItem = [PhotosPickerItem]()
     @State private var selectedImages = [UIImage]()
@@ -65,9 +65,8 @@ struct WriteView: View {
 
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
-        WriteView(isWriting: .constant(true),
+        WriteView(viewModel: PreviewStatics.minimoModel,
+                  isWriting: .constant(true),
                   fetchTrigger: .constant(false))
-        .environmentObject(PreviewStatics.userModel)
-        .environmentObject(PreviewStatics.minimoModel)
     }
 }

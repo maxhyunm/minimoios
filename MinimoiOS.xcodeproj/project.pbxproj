@@ -265,7 +265,6 @@
 				BA16A9E62B736C6F0037A236 /* Home */,
 				BA16A9E72B736C740037A236 /* Profile */,
 				BA28F0B22B68C80200042912 /* MinimoRowViewModel.swift */,
-				BA28F0A12B666D8E00042912 /* MinimoRow.swift */,
 				BA28F0B02B68AD1700042912 /* MinimoUserImageView.swift */,
 			);
 			path = Row;
@@ -288,7 +287,6 @@
 				BA28F0A92B67EB0600042912 /* TabMainView.swift */,
 				BA28F0F52B728E2C00042912 /* TabItemsView.swift */,
 				BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */,
-				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditInformation */,
 				BA16A9E82B736C830037A236 /* List */,
@@ -342,6 +340,8 @@
 		BA28F0FB2B7329C100042912 /* NoUse */ = {
 			isa = PBXGroup;
 			children = (
+				BA28F0A12B666D8E00042912 /* MinimoRow.swift */,
+				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA28F0D72B6AA8AD00042912 /* ColorType.swift */,
 				BA28F0E42B6CDE8400042912 /* MinimoViewModelType.swift */,
 				BA28F0D92B6CAD1C00042912 /* WriteViewModel.swift */,

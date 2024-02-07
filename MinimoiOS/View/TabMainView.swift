@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TabMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var minimoModel: MinimoModel
+    @ObservedObject var minimoModel: MinimoModel
     @State private var fetchTrigger: Bool = true
     @State private var tabType: TabType = .home
     @Binding var logOutTrigger: Bool
@@ -18,27 +18,21 @@ struct TabMainView: View {
 //        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
 //    }
     
-    init(logOutTrigger: Binding<Bool>) {
-        _logOutTrigger = logOutTrigger
-    }
-    
     var body: some View {
         VStack {
             ZStack {
                 switch tabType {
                 case .home:
-                    HomeMainView(fetchTrigger: $fetchTrigger,
+                    HomeMainView(viewModel: minimoModel,
+                                 fetchTrigger: $fetchTrigger,
                                  logOutTrigger: $logOutTrigger)
-                    .environmentObject(userModel)
-                    .environmentObject(minimoModel)
                 case .profile:
-                    ProfileMainView(fetchTrigger: $fetchTrigger)
-                    .environmentObject(userModel)
-                    .environmentObject(minimoModel)
+                    ProfileMainView(viewModel: minimoModel,
+                                    ownerModel: userModel,
+                                    fetchTrigger: $fetchTrigger)
                 case .search:
                     SearchView(fetchTrigger: $fetchTrigger,
                                logOutTrigger: $logOutTrigger)
-                    .environmentObject(userModel)
                 }
             }
             .onChange(of: fetchTrigger) { _ in
@@ -59,9 +53,7 @@ struct TabMainView: View {
 
 struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        TabMainView(logOutTrigger: .constant(false))
-            .environmentObject(PreviewStatics.homeViewModel)
-            .environmentObject(PreviewStatics.profileViewModel)
-            .environmentObject(PreviewStatics.editInformationViewModel)
+        TabMainView(minimoModel: PreviewStatics.minimoModel,
+                    logOutTrigger: .constant(false))
     }
 }

@@ -22,15 +22,13 @@ struct ContentView: View {
                 let minimoModel = MinimoModel(userId: userModel.user.id,
                                               contentsOwnerId: userModel.user.id,
                                               firebaseManager: authManager.firebaseManager)
-                TabMainView(logOutTrigger: $logOutTrigger)
+                TabMainView(minimoModel: minimoModel, logOutTrigger: $logOutTrigger)
                     .environmentObject(userModel)
-                    .environmentObject(minimoModel)
                     .onChange(of: logOutTrigger) { state in
                         authManager.handleLogout()
                     }
             } else {
                 LoginView()
-                    .environmentObject(authManager)
             }
         }
     }
@@ -39,6 +37,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(AuthManager(firebaseManager: FirebaseManager()))
     }
 }

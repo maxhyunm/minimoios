@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WriteButton: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: MinimoModel
     @Binding var isWriting: Bool
     @Binding var fetchTrigger: Bool
     
@@ -27,18 +27,17 @@ struct WriteButton: View {
         .clipShape(Circle())
         .offset(x: -30, y: -20)
         .sheet(isPresented: $isWriting) {
-            WriteView(isWriting: $isWriting,
+            WriteView(viewModel: viewModel,
+                      isWriting: $isWriting,
                       fetchTrigger: $fetchTrigger)
-            .environmentObject(userModel)
-            .environmentObject(viewModel)
         }
     }
 }
 
 struct WriteButton_Previews: PreviewProvider {
     static var previews: some View {
-        WriteButton(isWriting: .constant(false),
+        WriteButton(viewModel: PreviewStatics.minimoModel,
+                    isWriting: .constant(false),
                     fetchTrigger: .constant(false))
-        .environmentObject(PreviewStatics.writeViewModel)
     }
 }

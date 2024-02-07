@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeRow: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: MinimoRowViewModel
+    @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
     @State private var isPopUpVisible: Bool = false
     @State private var popUpImageURL: URL? = nil
@@ -32,9 +32,9 @@ struct HomeRow: View {
                         )
                         if ownerModel.user.id == userModel.user.id {
                             NavigationLink {
-                                ProfileMainView(fetchTrigger: $fetchTrigger)
-                                    .environmentObject(userModel)
-                                    .environmentObject(profileViewModel)
+                                ProfileMainView(viewModel: profileViewModel,
+                                                ownerModel: userModel,
+                                                fetchTrigger: $fetchTrigger)
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
@@ -42,9 +42,9 @@ struct HomeRow: View {
                             }
                         } else {
                             NavigationLink {
-                                ProfileMainView(fetchTrigger: $fetchTrigger)
-                                    .environmentObject(ownerModel)
-                                    .environmentObject(profileViewModel)
+                                ProfileMainView(viewModel: profileViewModel,
+                                                ownerModel: ownerModel,
+                                                fetchTrigger: $fetchTrigger)
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
@@ -137,8 +137,7 @@ struct HomeRow: View {
 
 struct HomeRow_Previews: PreviewProvider {
     static var previews: some View {
-        HomeRow(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject(PreviewStatics.minimoRowModel)
+        HomeRow(viewModel: PreviewStatics.minimoRowModel,
+                fetchTrigger: .constant(false))
     }
 }

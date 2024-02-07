@@ -9,22 +9,22 @@ import SwiftUI
 
 struct ProfileMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var ownerModel: UserModel
-    @EnvironmentObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: MinimoModel
+    @ObservedObject var ownerModel: UserModel
     @State private var isWriting: Bool = false
     @Binding var fetchTrigger: Bool
     
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-                ProfileList(fetchTrigger: $fetchTrigger)
-                    .environmentObject(userModel)
-                    .environmentObject(ownerModel)
-                    .environmentObject(viewModel)
+                ProfileList(viewModel: viewModel,
+                            ownerModel: ownerModel,
+                            fetchTrigger: $fetchTrigger)
                 
                 if ownerModel.user.id == userModel.user.id {
-                    WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger)
-                        .environmentObject(viewModel)
+                    WriteButton(viewModel: viewModel,
+                                isWriting: $isWriting,
+                                fetchTrigger: $fetchTrigger)
                 }
             }
             .onAppear {
@@ -51,9 +51,8 @@ struct ProfileMainView: View {
 
 struct ProfileMainView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileMainView(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.userModel)
-            .environmentObject((PreviewStatics.userModel))
-            .environmentObject(PreviewStatics.minimoModel)
+        ProfileMainView(viewModel: PreviewStatics.minimoModel,
+                        ownerModel: PreviewStatics.userModel,
+                        fetchTrigger: .constant(false))
     }
 }
