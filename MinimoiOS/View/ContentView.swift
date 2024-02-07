@@ -19,14 +19,6 @@ struct ContentView: View {
             Text("M I N I M O")
         } else {
             if let userModel = authManager.userModel {
-//                let homeViewModel = MinimoModel(userId: userModel.user.id,
-//                                                firebaseManager: authManager.firebaseManager)
-//                let profileViewModel = MinimoModel(userId: userModel.user.id,
-//                                                   firebaseManager: authManager.firebaseManager)
-//                let homeViewModel = MinimoModel(user: userModel,
-//                                                contentsOwner: userModel,
-//                                                firebaseManager: authManager.firebaseManager)
-//                let profileViewModel = MinimoModel(firebaseManager: authManager.firebaseManager)
                 let minimoModel = MinimoModel(userId: userModel.user.id,
                                               contentsOwnerId: userModel.user.id,
                                               firebaseManager: authManager.firebaseManager)

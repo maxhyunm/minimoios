@@ -241,16 +241,6 @@
 			path = Type;
 			sourceTree = "<group>";
 		};
-		BA16A9EB2B736D8D0037A236 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				BA28F0E82B6CF85100042912 /* PreviewStatics.swift */,
-				BA28F0D12B6A969100042912 /* ScrollOffsetKey.swift */,
-				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
 		BA28F09C2B66489900042912 /* Minimo */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +257,8 @@
 				BA16A9EA2B736D380037A236 /* Type */,
 				BA16A9E92B736D2D0037A236 /* Manager */,
 				BA28F0A52B67760400042912 /* Uploadable.swift */,
+				BA28F0E82B6CF85100042912 /* PreviewStatics.swift */,
+				BA28F0D12B6A969100042912 /* ScrollOffsetKey.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -294,11 +286,11 @@
 		BA28F0BD2B6908C800042912 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BA16A9EB2B736D8D0037A236 /* Utility */,
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
 				BA28F0A92B67EB0600042912 /* TabMainView.swift */,
 				BA28F0F52B728E2C00042912 /* TabItemsView.swift */,
 				BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */,
+				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditInformation */,
 				BA28F09C2B66489900042912 /* Minimo */,
@@ -319,8 +311,8 @@
 			isa = PBXGroup;
 			children = (
 				BA28F0DB2B6CD28E00042912 /* ProfileMainView.swift */,
-				BA28F0CF2B6A7EB100042912 /* ProfileHeaderView.swift */,
 				BA28F0E12B6CDCC000042912 /* ProfileList.swift */,
+				BA28F0CF2B6A7EB100042912 /* ProfileHeaderView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -391,6 +383,7 @@
 			children = (
 				BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */,
 				BA4C9E2C2B640ABB00C96C87 /* Model */,
+				BA28F0AF2B68A6F800042912 /* Utility */,
 				BA28F0BD2B6908C800042912 /* View */,
 				BA28F0FB2B7329C100042912 /* NoUse */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
@@ -426,7 +419,6 @@
 				BA28F0F12B72323900042912 /* UserModel.swift */,
 				BA28F0FD2B73467300042912 /* MinimoModel.swift */,
 				BA28F0F02B72322D00042912 /* DTO */,
-				BA28F0AF2B68A6F800042912 /* Utility */,
 			);
 			path = Model;
 			sourceTree = "<group>";

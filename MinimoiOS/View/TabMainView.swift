@@ -10,8 +10,6 @@ import SwiftUI
 struct TabMainView: View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var minimoModel: MinimoModel
-//    @EnvironmentObject var homeViewModel: MinimoModel
-//    @EnvironmentObject var profileViewModel: MinimoModel
     @State private var fetchTrigger: Bool = true
     @State private var tabType: TabType = .home
     @Binding var logOutTrigger: Bool
