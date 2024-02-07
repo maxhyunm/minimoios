@@ -26,7 +26,6 @@ struct MinimoRow: View {
                     if let ownerModel = viewModel.creatorModel {
                         NavigationLink {
                             let profileViewModel = MinimoModel(
-                                userId: ownerModel.user.id,
                                 firebaseManager: viewModel.firebaseManager
                             )
                             ProfileMainView(fetchTrigger: $fetchTrigger)

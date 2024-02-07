@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeList: View {
+    @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var viewModel: MinimoModel
     @Binding var fetchTrigger: Bool
     
@@ -31,7 +32,7 @@ struct HomeList: View {
                     let minimoRowViewModel = MinimoRowViewModel(
                         content: content,
                         firebaseManager: viewModel.firebaseManager,
-                        userId: viewModel.userId.uuidString
+                        userId: userModel.user.id.uuidString
                     )
                     MinimoRow(fetchTrigger: $fetchTrigger)
                         .listRowSeparator(.hidden)
@@ -53,6 +54,7 @@ struct HomeList: View {
 struct HomeList_Previews: PreviewProvider {
     static var previews: some View {
         HomeList(fetchTrigger: .constant(false))
-            .environmentObject(PreviewStatics.homeViewModel)
+            .environmentObject(PreviewStatics.userModel)
+            .environmentObject(PreviewStatics.minimoModel)
     }
 }

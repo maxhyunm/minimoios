@@ -29,7 +29,7 @@ struct HomeMainView: View {
                 fetchTrigger.toggle()
             }
             .onChange(of: userModel.followings) { followings in
-                viewModel.fetchContents(followings: followings)
+                viewModel.fetchFollowingContents(of: userModel.user.id, followings: followings)
             }
             .toolbar {
                 ToolbarMenuView(editInformationTrigger: $isEditInformationVisible, logOutTrigger: $logOutTrigger)
@@ -50,6 +50,6 @@ struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeMainView(fetchTrigger: .constant(false),
                      logOutTrigger: .constant(false))
-        .environmentObject(PreviewStatics.homeViewModel)
+        .environmentObject(PreviewStatics.minimoModel)
     }
 }

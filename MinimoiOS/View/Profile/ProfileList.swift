@@ -61,6 +61,6 @@ struct ProfileList_Previews: PreviewProvider {
         ProfileList(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.userModel)
             .environmentObject((PreviewStatics.userModel))
-            .environmentObject(PreviewStatics.profileViewModel)
+            .environmentObject(PreviewStatics.minimoModel)
     }
 }

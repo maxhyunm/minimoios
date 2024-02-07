@@ -48,9 +48,10 @@ struct TabMainView: View {
             .onChange(of: fetchTrigger) { _ in
                 switch tabType {
                 case .home:
-                    homeViewModel.fetchContents(followings: userModel.followings)
+                    homeViewModel.fetchFollowingContents(of: userModel.user.id,
+                                                         followings: userModel.followings)
                 case .profile:
-                    profileViewModel.fetchContents()
+                    profileViewModel.fetchUserContents(for: userModel.user.id)
                 case .search:
                     break
                 }

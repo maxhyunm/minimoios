@@ -13,11 +13,11 @@ protocol MinimoModelType {
     var error: Error? { get }
     var originScrollOffset: CGFloat { get }
     var newScrollOffset: CGFloat { get }
-    var userId: UUID { get }
     var firebaseManager: FirebaseManager { get }
     var cancellables: Set<AnyCancellable>  { get }
     
-    init(userId: UUID, firebaseManager: FirebaseManager)
+    init(firebaseManager: FirebaseManager)
     
-    func fetchContents(followings: [UUID]?)
+    func fetchFollowingContents(of user: UUID, followings: [UUID])
+    func fetchUserContents(for user: UUID)
 }
