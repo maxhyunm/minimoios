@@ -203,13 +203,12 @@
 				BA28F0CB2B6A731E00042912 /* TabType.swift */,
 				BA28F0D72B6AA8AD00042912 /* ColorType.swift */,
 				BA28F0982B6621FA00042912 /* Error.swift */,
+				BA28F0E82B6CF85100042912 /* PreviewStatics.swift */,
+				BA28F0A52B67760400042912 /* Uploadable.swift */,
 				BA4C9E2A2B63FC2C00C96C87 /* AuthManager.swift */,
 				BA28F0A32B676EDA00042912 /* FirebaseManager.swift */,
 				BA28F0962B661DE000042912 /* DecodingManager.swift */,
 				BA28F0D12B6A969100042912 /* ScrollOffsetKey.swift */,
-				BA28F0A52B67760400042912 /* Uploadable.swift */,
-				BA28F0E42B6CDE8400042912 /* MinimoViewModelType.swift */,
-				BA28F0E82B6CF85100042912 /* PreviewStatics.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -227,7 +226,6 @@
 		BA28F0BC2B68F3A400042912 /* EditInformation */ = {
 			isa = PBXGroup;
 			children = (
-				BA28F0B82B68D66B00042912 /* EditInformationViewModel.swift */,
 				BA28F0B62B68CF9500042912 /* EditInformationView.swift */,
 			);
 			path = EditInformation;
@@ -239,16 +237,14 @@
 				BA4C9DFB2B6395F500C96C87 /* ContentView.swift */,
 				BA28F0A92B67EB0600042912 /* TabMainView.swift */,
 				BA28F0F52B728E2C00042912 /* TabItemsView.swift */,
+				BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */,
 				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA28F0C32B6A09FF00042912 /* PopUpView.swift */,
-				BA28F0C72B6A631E00042912 /* SearchView.swift */,
-				BA28F0F92B72B98E00042912 /* SearchFromUserView.swift */,
 				BA28F0E62B6CF7E700042912 /* WriteButton.swift */,
-				BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */,
-				BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */,
 				BA28F09C2B66489900042912 /* Minimo */,
 				BA28F0E32B6CDE6400042912 /* Home */,
 				BA28F0CD2B6A7E1D00042912 /* Profile */,
+				BA28F0FC2B732A1D00042912 /* Search */,
 				BA28F0BE2B69166B00042912 /* Write */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditInformation */,
@@ -298,6 +294,25 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		BA28F0FB2B7329C100042912 /* NoUse */ = {
+			isa = PBXGroup;
+			children = (
+				BA28F0E42B6CDE8400042912 /* MinimoViewModelType.swift */,
+				BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */,
+				BA28F0B82B68D66B00042912 /* EditInformationViewModel.swift */,
+			);
+			path = NoUse;
+			sourceTree = "<group>";
+		};
+		BA28F0FC2B732A1D00042912 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BA28F0C72B6A631E00042912 /* SearchView.swift */,
+				BA28F0F92B72B98E00042912 /* SearchFromUserView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		BA4C9DED2B6395F500C96C87 = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +337,7 @@
 				BA4C9E2C2B640ABB00C96C87 /* Model */,
 				BA28F0AF2B68A6F800042912 /* Utility */,
 				BA28F0BD2B6908C800042912 /* View */,
+				BA28F0FB2B7329C100042912 /* NoUse */,
 				BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */,
 				BA4C9E152B63A23400C96C87 /* Config.xcconfig */,
 				BA4C9E0E2B63984600C96C87 /* Info.plist */,
