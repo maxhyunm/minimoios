@@ -9,7 +9,6 @@ import SwiftUI
 import PhotosUI
 
 struct WriteView: View {
-    @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: MinimoModel
     @State private var content = ""
     @State private var selectedItem = [PhotosPickerItem]()

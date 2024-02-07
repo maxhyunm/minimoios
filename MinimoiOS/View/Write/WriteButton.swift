@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WriteButton: View {
-    @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: MinimoModel
     @Binding var isWriting: Bool
     @Binding var fetchTrigger: Bool

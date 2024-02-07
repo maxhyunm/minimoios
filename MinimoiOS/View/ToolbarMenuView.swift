@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ToolbarMenuView: ToolbarContent {
+    @EnvironmentObject var authManager: AuthManager
     @Binding var editInformationTrigger: Bool
-    @Binding var logOutTrigger: Bool
     
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
@@ -22,7 +22,7 @@ struct ToolbarMenuView: ToolbarContent {
                 }
                 
                 Button {
-                    logOutTrigger.toggle()
+                    authManager.logOutTrigger.toggle()
                 } label: {
                     Text("로그아웃")
                         .font(.headline)

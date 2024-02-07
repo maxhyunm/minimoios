@@ -13,7 +13,6 @@ struct HomeMainView: View {
     @State private var isWriting: Bool = false
     @State private var isEditInformationVisible: Bool = false
     @Binding var fetchTrigger: Bool
-    @Binding var logOutTrigger: Bool
     
     var body: some View {
         NavigationStack {
@@ -33,7 +32,7 @@ struct HomeMainView: View {
                 viewModel.fetchFollowingContents(followings: followings)
             }
             .toolbar {
-                ToolbarMenuView(editInformationTrigger: $isEditInformationVisible, logOutTrigger: $logOutTrigger)
+                ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)
             }
             .tint(.cyan)
             .toolbarBackground(TabType.home.navigationBarBackground, for: .navigationBar)
@@ -49,7 +48,6 @@ struct HomeMainView: View {
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeMainView(viewModel: PreviewStatics.minimoModel,
-                     fetchTrigger: .constant(false),
-                     logOutTrigger: .constant(false))
+                     fetchTrigger: .constant(false))
     }
 }

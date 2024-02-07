@@ -12,7 +12,6 @@ import Combine
 
 struct ContentView: View {
     @EnvironmentObject var authManager: AuthManager
-    @State private var logOutTrigger: Bool = false
 
     var body: some View {
         if authManager.isLoading {
@@ -22,9 +21,9 @@ struct ContentView: View {
                 let minimoModel = MinimoModel(userId: userModel.user.id,
                                               contentsOwnerId: userModel.user.id,
                                               firebaseManager: authManager.firebaseManager)
-                TabMainView(minimoModel: minimoModel, logOutTrigger: $logOutTrigger)
+                TabMainView(minimoModel: minimoModel)
                     .environmentObject(userModel)
-                    .onChange(of: logOutTrigger) { state in
+                    .onChange(of: authManager.logOutTrigger) { state in
                         authManager.handleLogout()
                     }
             } else {

@@ -12,7 +12,6 @@ struct TabMainView: View {
     @ObservedObject var minimoModel: MinimoModel
     @State private var fetchTrigger: Bool = true
     @State private var tabType: TabType = .home
-    @Binding var logOutTrigger: Bool
     
 //    private var isScrollOnTop: Bool {
 //        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
@@ -24,15 +23,13 @@ struct TabMainView: View {
                 switch tabType {
                 case .home:
                     HomeMainView(viewModel: minimoModel,
-                                 fetchTrigger: $fetchTrigger,
-                                 logOutTrigger: $logOutTrigger)
+                                 fetchTrigger: $fetchTrigger)
                 case .profile:
                     ProfileMainView(viewModel: minimoModel,
                                     ownerModel: userModel,
                                     fetchTrigger: $fetchTrigger)
                 case .search:
-                    SearchView(fetchTrigger: $fetchTrigger,
-                               logOutTrigger: $logOutTrigger)
+                    SearchView(fetchTrigger: $fetchTrigger)
                 }
             }
             .onChange(of: fetchTrigger) { _ in
@@ -53,7 +50,6 @@ struct TabMainView: View {
 
 struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        TabMainView(minimoModel: PreviewStatics.minimoModel,
-                    logOutTrigger: .constant(false))
+        TabMainView(minimoModel: PreviewStatics.minimoModel)
     }
 }

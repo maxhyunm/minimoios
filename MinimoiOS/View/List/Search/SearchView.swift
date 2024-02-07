@@ -11,7 +11,6 @@ struct SearchView: View {
     @EnvironmentObject var userModel: UserModel
     @Binding var fetchTrigger: Bool
     @State private var isEditInformationVisible: Bool = false
-    @Binding var logOutTrigger: Bool
     
     var body: some View {
         NavigationStack {
@@ -19,7 +18,7 @@ struct SearchView: View {
             .navigationTitle(TabType.search.title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarMenuView(editInformationTrigger: $isEditInformationVisible, logOutTrigger: $logOutTrigger)
+                ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)
             }
             .tint(.cyan)
             .toolbarBackground(TabType.search.navigationBarBackground, for: .navigationBar)
@@ -35,7 +34,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
-            fetchTrigger: .constant(false),
-            logOutTrigger: .constant(false))
+            fetchTrigger: .constant(false))
     }
 }
