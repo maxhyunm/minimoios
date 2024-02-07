@@ -12,12 +12,19 @@ struct EditInformationView: View {
     @State private var editable: Bool = false
     @State private var isImagePickerVisible: Bool = false
     @State private var selectedImage: UIImage = UIImage()
+    @State private var isNameValid: Bool = false
     @State private var isNameChanged: Bool = false
     @State private var isImageChanged: Bool = false
-    @Binding var name: String
-    @Binding var isProfileVisible: Bool
+    @State private var name: String
+    @Binding var isVisible: Bool
     @Binding var fetchTrigger: Bool
-
+    
+    init(name: String, isVisible: Binding<Bool>, fetchTrigger: Binding<Bool>) {
+        self._name = State(initialValue: name)
+        self._isVisible = isVisible
+        self._fetchTrigger = fetchTrigger
+    }
+    
     var isChanged: Bool {
         return isNameChanged || isImageChanged
     }
@@ -27,7 +34,7 @@ struct EditInformationView: View {
             HStack {
                 Spacer()
                 Button {
-                    self.isProfileVisible = false
+                    self.isVisible = false
                 } label: {
                     Text("Close")
                 }
@@ -82,10 +89,14 @@ struct EditInformationView: View {
                 if editable {
                     TextField("새로운 이름", text: $name)
                         .frame(width: 200)
-                        .onChange(of: name) { _ in
-                            if !isNameChanged {
-                                isNameChanged.toggle()
+                        .onChange(of: name) { newName in
+                            guard newName != userModel.user.name,
+                                  newName.count > 0,
+                                  newName.count < 20 else {
+                                isNameValid = false
+                                return
                             }
+                            isNameValid = true
                         }
                     
                     Button {
@@ -94,10 +105,12 @@ struct EditInformationView: View {
                     } label: {
                         Image(systemName: "checkmark.circle")
                     }
-                    .disabled(!isNameChanged)
-                    .foregroundColor(!isNameChanged ? .gray : .green)
+                    .disabled(!isNameValid)
+                    .foregroundColor(!isNameValid ? .gray : .green)
                     
                     Button {
+                        self.name = self.userModel.user.name
+                        self.isNameChanged = false
                         self.editable.toggle()
                     } label: {
                         Image(systemName: "x.circle")
@@ -131,7 +144,7 @@ struct EditInformationView: View {
                 if isImageChanged {
                     userModel.updateImage(selectedImage)
                 }
-                self.isProfileVisible = false
+                self.isVisible = false
                 self.fetchTrigger.toggle()
             } label: {
                 Text("변경사항 저장")
@@ -149,8 +162,8 @@ struct EditInformationView: View {
 
 struct EditInformationView_Previews: PreviewProvider {
     static var previews: some View {
-        EditInformationView(name: .constant("test"),
-                            isProfileVisible: .constant(true),
+        EditInformationView(name: "test",
+                            isVisible: .constant(true),
                             fetchTrigger: .constant(false))
     }
 }

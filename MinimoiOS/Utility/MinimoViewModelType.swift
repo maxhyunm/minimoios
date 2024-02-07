@@ -8,16 +8,16 @@
 import Foundation
 import Combine
 
-protocol MinimoViewModelType {
+protocol MinimoModelType {
     var contents: [MinimoDTO] { get }
     var error: Error? { get }
     var originScrollOffset: CGFloat { get }
     var newScrollOffset: CGFloat { get }
-    var user: UserDTO { get }
+    var userId: UUID { get }
     var firebaseManager: FirebaseManager { get }
     var cancellables: Set<AnyCancellable>  { get }
     
-    init(user: UserDTO, firebaseManager: FirebaseManager)
+    init(userId: UUID, firebaseManager: FirebaseManager)
     
-    func fetchContents()
+    func fetchContents(followings: [UUID]?)
 }

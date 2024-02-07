@@ -9,9 +9,9 @@ import SwiftUI
 
 struct TabMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var homeViewModel: HomeViewModel
-    @EnvironmentObject var profileViewModel: ProfileViewModel
-    @State private var isEditProfileVisible: Bool = false
+    @EnvironmentObject var homeViewModel: MinimoModel
+    @EnvironmentObject var profileViewModel: MinimoModel
+    @EnvironmentObject var writeViewModel: WriteViewModel
     @State private var fetchTrigger: Bool = true
     @State private var tabType: TabType = .home
     @Binding var logOutTrigger: Bool
@@ -30,17 +30,17 @@ struct TabMainView: View {
                 switch tabType {
                 case .home:
                     HomeMainView(fetchTrigger: $fetchTrigger,
-                                 isEditProfileVisible: $isEditProfileVisible,
                                  logOutTrigger: $logOutTrigger)
                     .environmentObject(userModel)
                     .environmentObject(homeViewModel)
+                    .environmentObject(writeViewModel)
                 case .profile:
                     ProfileMainView(fetchTrigger: $fetchTrigger)
                     .environmentObject(userModel)
                     .environmentObject(profileViewModel)
+                    .environmentObject(writeViewModel)
                 case .search:
                     SearchView(fetchTrigger: $fetchTrigger,
-                               isEditProfileVisible: $isEditProfileVisible,
                                logOutTrigger: $logOutTrigger)
                     .environmentObject(userModel)
                 }
@@ -67,5 +67,6 @@ struct TimelineView_Previews: PreviewProvider {
             .environmentObject(PreviewStatics.homeViewModel)
             .environmentObject(PreviewStatics.profileViewModel)
             .environmentObject(PreviewStatics.editInformationViewModel)
+            .environmentObject(PreviewStatics.writeViewModel)
     }
 }

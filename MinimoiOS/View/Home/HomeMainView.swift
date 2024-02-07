@@ -9,15 +9,15 @@ import SwiftUI
 
 struct HomeMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MinimoModel
+    @EnvironmentObject var writeViewModel: WriteViewModel
     @State private var isWriting: Bool = false
+    @State private var isEditInformationVisible: Bool = false
     @Binding var fetchTrigger: Bool
-    @Binding var isEditProfileVisible: Bool
     @Binding var logOutTrigger: Bool
     
     var body: some View {
         NavigationStack {
-            let writeViewModel = WriteViewModel(userId: viewModel.userId, firebaseManager: viewModel.firebaseManager)
             ZStack(alignment: .bottomTrailing) {
                 HomeList(fetchTrigger: $fetchTrigger)
                     .environmentObject(viewModel)
@@ -32,13 +32,13 @@ struct HomeMainView: View {
                 viewModel.fetchContents(followings: followings)
             }
             .toolbar {
-                ToolbarMenuView(isEditProfileVisible: $isEditProfileVisible, logOutTrigger: $logOutTrigger)
+                ToolbarMenuView(editInformationTrigger: $isEditInformationVisible, logOutTrigger: $logOutTrigger)
             }
             .tint(.cyan)
             .toolbarBackground(TabType.home.navigationBarBackground, for: .navigationBar)
-            .sheet(isPresented: $isEditProfileVisible) {
-                EditInformationView(name: $userModel.user.name,
-                                    isProfileVisible: $isEditProfileVisible,
+            .sheet(isPresented: $isEditInformationVisible) {
+                EditInformationView(name: userModel.user.name,
+                                    isVisible: $isEditInformationVisible,
                                     fetchTrigger: $fetchTrigger)
                 .environmentObject(userModel)
             }
@@ -49,7 +49,6 @@ struct HomeMainView: View {
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeMainView(fetchTrigger: .constant(false),
-                     isEditProfileVisible: .constant(false),
                      logOutTrigger: .constant(false))
         .environmentObject(PreviewStatics.homeViewModel)
     }

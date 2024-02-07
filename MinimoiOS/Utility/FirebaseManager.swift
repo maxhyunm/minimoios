@@ -25,35 +25,6 @@ struct FirebaseManager {
         Firestore.firestore().collection(collection).document(data.id.uuidString).setData(data.dataIntoDictionary())
     }
     
-    func readUserData(for id: UUID) -> Future<UserDTO, MinimoError> {
-        let query = Filter.whereField("id", isEqualTo: id.uuidString)
-        return Future { promise in
-            Firestore.firestore()
-                .collection("users")
-                .whereFilter(query)
-                .getDocuments { snapshot, error in
-                    if let _ = error {
-                        promise(.failure(.unknown))
-                        return
-                    }
-                    guard let snapshot else {
-                        promise(.failure(.dataNotFound))
-                        return
-                    }
-                    do {
-                        let dataArray = try snapshot.documents.reduce(into: []) { $0.append(try $1.data(as: UserDTO.self)) }
-                        guard let userData = dataArray.first else {
-                            promise(.failure(.dataNotFound))
-                            return
-                        }
-                        promise(.success(userData))
-                    } catch {
-                        promise(.failure(.decodingError))
-                    }
-            }
-        }
-    }
-    
     func readSingleData<T: Decodable>(from collection: String, query: Filter) -> Future<T, MinimoError> {
         return Future { promise in
             Firestore.firestore()

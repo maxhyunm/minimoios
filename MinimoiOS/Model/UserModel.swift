@@ -22,8 +22,6 @@ final class UserModel: ObservableObject {
     init(user: UserDTO, firebaseManager: FirebaseManager) {
         self.user = user
         self.firebaseManager = firebaseManager
-//        fetchFollowings()
-//        fetchFollowers()
     }
     
     func updateName(_ name: String) {

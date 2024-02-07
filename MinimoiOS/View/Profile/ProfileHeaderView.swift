@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     @EnvironmentObject var userModel: UserModel
-    @Binding var ownerModel: UserModel
+    @EnvironmentObject var ownerModel: UserModel
+    @State private var isEditInformationVisible: Bool = false
+    @Binding var fetchTrigger: Bool
     
     var isUsersProfile: Bool {
         return userModel.user.id == ownerModel.user.id
@@ -35,7 +37,7 @@ struct ProfileHeaderView: View {
                     Spacer()
                     if isUsersProfile {
                         Button {
-                            
+                            isEditInformationVisible = true
                         } label: {
                             Text("Edit")
                                 .font(.subheadline)
@@ -108,12 +110,19 @@ struct ProfileHeaderView: View {
         }
         .frame(height: 140)
         .offset(x: 0, y: -10)
+        .sheet(isPresented: $isEditInformationVisible) {
+            EditInformationView(name: userModel.user.name,
+                                isVisible: $isEditInformationVisible,
+                                fetchTrigger: $fetchTrigger)
+            .environmentObject(userModel)
+        }
     }
 }
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(ownerModel: .constant(PreviewStatics.userModel))
+        ProfileHeaderView(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.userModel)
+            .environmentObject((PreviewStatics.userModel))
     }
 }

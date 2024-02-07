@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ToolbarMenuView: ToolbarContent {
-    @Binding var isEditProfileVisible: Bool
+    @Binding var editInformationTrigger: Bool
     @Binding var logOutTrigger: Bool
     
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Menu {
                 Button {
-                    isEditProfileVisible = true
+                    editInformationTrigger = true
                 } label: {
                     Text("정보 수정")
                         .font(.body)

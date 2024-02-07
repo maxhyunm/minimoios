@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ProfileMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewModel: ProfileViewModel
+    @EnvironmentObject var ownerModel: UserModel
+    @EnvironmentObject var viewModel: MinimoModel
+    @EnvironmentObject var writeViewModel: WriteViewModel
     @State private var isWriting: Bool = false
     @Binding var fetchTrigger: Bool
     
@@ -18,16 +20,16 @@ struct ProfileMainView: View {
             ZStack(alignment: .bottomTrailing) {
                 ProfileList(fetchTrigger: $fetchTrigger)
                     .environmentObject(userModel)
+                    .environmentObject(ownerModel)
                     .environmentObject(viewModel)
                 
-                if viewModel.ownerModel.user.id == userModel.user.id {
-                    let writeViewModel = WriteViewModel(userId: userModel.user.id, firebaseManager: viewModel.firebaseManager)
+                if ownerModel.user.id == userModel.user.id {
                     WriteButton(isWriting: $isWriting, fetchTrigger: $fetchTrigger, writeViewModel: writeViewModel)
                 }
             }
             .onAppear {
-                viewModel.ownerModel.fetchFollowers()
-                viewModel.ownerModel.fetchFollowings()
+                ownerModel.fetchFollowers()
+                ownerModel.fetchFollowings()
                 fetchTrigger.toggle()
             }
             .toolbar {
@@ -51,6 +53,7 @@ struct ProfileMainView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileMainView(fetchTrigger: .constant(false))
             .environmentObject(PreviewStatics.userModel)
+            .environmentObject((PreviewStatics.userModel))
             .environmentObject(PreviewStatics.profileViewModel)
     }
 }

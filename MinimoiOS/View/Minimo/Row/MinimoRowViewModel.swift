@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import Combine
 
 final class MinimoRowViewModel: ObservableObject {
@@ -27,7 +28,8 @@ final class MinimoRowViewModel: ObservableObject {
     }
     
     func fetchCreatorDetail() {
-        firebaseManager.readUserData(for: content.creator).sink { _ in
+        let query = Filter.whereField("id", isEqualTo: content.creator.uuidString)
+        firebaseManager.readSingleData(from: "users", query: query).sink { _ in
         } receiveValue: { user in
             self.creatorModel = UserModel(user: user, firebaseManager: self.firebaseManager)
             self.creatorId = user.id.uuidString

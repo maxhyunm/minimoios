@@ -25,11 +25,12 @@ struct MinimoRow: View {
                 HStack {
                     if let ownerModel = viewModel.creatorModel {
                         NavigationLink {
-                            let profileViewModel = ProfileViewModel(
-                                ownerModel: ownerModel,
+                            let profileViewModel = MinimoModel(
+                                userId: ownerModel.user.id,
                                 firebaseManager: viewModel.firebaseManager
                             )
                             ProfileMainView(fetchTrigger: $fetchTrigger)
+                                .environmentObject(ownerModel)
                                 .environmentObject(profileViewModel)
                         } label: {
                             Text(viewModel.creatorName)

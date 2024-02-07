@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeList: View {
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MinimoModel
     @Binding var fetchTrigger: Bool
     
 //    private var scrollOffsetObserver: some View {
