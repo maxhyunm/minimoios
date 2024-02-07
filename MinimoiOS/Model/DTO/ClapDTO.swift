@@ -41,4 +41,6 @@ struct ClapDTO: Decodable, Identifiable, Hashable, Uploadable {
             "userId": self.userId.uuidString
         ]
     }
+    
+    static let fields: [String] = ["id", "userId", "contentId"]
 }

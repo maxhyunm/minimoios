@@ -9,7 +9,8 @@ import SwiftUI
 import PhotosUI
 
 struct WriteView: View {
-    @ObservedObject var viewModel: MinimoModel
+    @EnvironmentObject var tabType: Tab
+    @ObservedObject var viewModel: HomeViewModel
     @State private var content = ""
     @State private var selectedItem = [PhotosPickerItem]()
     @State private var selectedImages = [UIImage]()
@@ -64,7 +65,7 @@ struct WriteView: View {
 
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
-        WriteView(viewModel: PreviewStatics.minimoModel,
+        WriteView(viewModel: PreviewStatics.homeViewModel,
                   isWriting: .constant(true),
                   fetchTrigger: .constant(false))
     }

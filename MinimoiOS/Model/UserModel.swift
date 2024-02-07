@@ -26,34 +26,41 @@ final class UserModel: ObservableObject {
     
     func updateName(_ name: String) {
         user.name = name
-        firebaseManager.updateData(from: "users", uuid: user.id, data: ["name": name])
+        Task {
+            do {
+                try await firebaseManager.updateData(from: .users, uuid: user.id, data: ["name": name])
+            } catch {
+                self.error = MinimoError.unknown
+            }
+        }
     }
     
     func updateImage(_ image: UIImage) {
         if user.image != "" {
             firebaseManager.deleteImage(url: user.image)
         }
-        firebaseManager.saveJpegImage(image: image, collection: "users", uuid: user.id).sink { completion in
-            switch completion {
-            case .finished:
-                break
-            case .failure(let error):
-                self.error = error
+        
+        Task {
+            do {
+                let imageString = try await firebaseManager.saveJpegImageAsync(image: image, collection: .users, uuid: user.id)
+                try await firebaseManager.updateData(from: .users,
+                                                     uuid: self.user.id,
+                                                     data: ["image": imageString.url, "imagePath": imageString.path])
+                user.image = imageString.url
+                user.imagePath = imageString.path
+            } catch {
+                self.error = MinimoError.unknown
             }
-        } receiveValue: { imageString in
-            self.firebaseManager.updateData(from: "users",
-                                            uuid: self.user.id,
-                                            data: ["image": imageString.url, "imagePath": imageString.path])
-            self.user.image = imageString.url
-            self.user.imagePath = imageString.path
         }
-        .store(in: &cancellables)
+        
+        
+
     }
     
     func fetchFollowings() {
         let query = Filter.whereField("userId", isEqualTo: user.id.uuidString)
         firebaseManager
-            .readMultipleData(from: "follows", query: query, orderBy: "targetId", descending: true)
+            .readMultipleData(from: .follows, query: query, orderBy: "targetId", descending: true)
             .sink { completion in
             switch completion {
             case .finished:
@@ -71,7 +78,7 @@ final class UserModel: ObservableObject {
     func fetchFollowers() {
         let query = Filter.whereField("targetId", isEqualTo: user.id.uuidString)
         firebaseManager
-            .readMultipleData(from: "follows", query: query, orderBy: "targetId", descending: true)
+            .readMultipleData(from: .follows, query: query, orderBy: "targetId", descending: true)
             .sink { completion in
             switch completion {
             case .finished:
@@ -90,7 +97,13 @@ final class UserModel: ObservableObject {
         guard !followings.contains(targetUser) else { return }
         followings.append(targetUser)
         let newFollow = FollowDTO(id: UUID(), userId: user.id, targetId: targetUser)
-        firebaseManager.createData(to: "follows", data: newFollow)
+        Task { [newFollow] in
+            do {
+                try await firebaseManager.createData(to: .follows, data: newFollow)
+            } catch {
+                self.error = MinimoError.unknown
+            }
+        }
     }
     
     func unfollow(for targetUser: UUID) {
@@ -99,7 +112,7 @@ final class UserModel: ObservableObject {
         
         let query = Filter.andFilter([Filter.whereField("userId", isEqualTo: user.id.uuidString),
                                       Filter.whereField("targetId", isEqualTo: targetUser.uuidString)])
-        firebaseManager.readSingleData(from: "follows", query: query).sink { completion in
+        firebaseManager.readSingleData(from: .follows, query: query).sink { completion in
             switch completion {
             case .finished:
                 break
@@ -108,7 +121,13 @@ final class UserModel: ObservableObject {
             }
         } receiveValue: { follow in
             let follow: FollowDTO = follow
-            self.firebaseManager.deleteData(from: "follows", uuid: follow.id)
+            Task {
+                do {
+                    try await self.firebaseManager.deleteData(from: .follows, uuid: follow.id)
+                } catch {
+                    self.error = MinimoError.unknown
+                }
+            }
         }
         .store(in: &self.cancellables)
     }

@@ -7,41 +7,47 @@
 
 import SwiftUI
 
-enum TabType: CaseIterable {
-    case home
-    case profile
-    case search
+
+final class Tab: ObservableObject {
+    @Published var current: TabType = .home
     
-    var title: String {
-        switch self {
-        case .home:
-            return "Minimo"
-        case .profile:
-            return "Profile"
-        case .search:
-            return "Search"
+    enum TabType: CaseIterable {
+        case home
+        case profile
+        case search
+        
+        var title: String {
+            switch self {
+            case .home:
+                return "Minimo"
+            case .profile:
+                return "Profile"
+            case .search:
+                return "Search"
+            }
+        }
+        
+        var navigationBarBackground: Color {
+            switch self {
+            case .home:
+                return .white
+            case .profile:
+                return .white
+            case .search:
+                return .white
+            }
+        }
+        
+        var labelName: String {
+            switch self {
+            case .home:
+                return "house.fill"
+            case .profile:
+                return "person.fill"
+            case .search:
+                return "magnifyingglass"
+            }
         }
     }
-    
-    var navigationBarBackground: Color {
-        switch self {
-        case .home:
-            return .white
-        case .profile:
-            return .white
-        case .search:
-            return .white
-        }
-    }
-    
-    var labelName: String {
-        switch self {
-        case .home:
-            return "house.fill"
-        case .profile:
-            return "person.fill"
-        case .search:
-            return "magnifyingglass"
-        }
-    }
+
 }

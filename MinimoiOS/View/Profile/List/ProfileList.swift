@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileList: View {
     @EnvironmentObject var userModel: UserModel
-    @ObservedObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: ProfileViewModel
     @ObservedObject var ownerModel: UserModel
     @Binding var fetchTrigger: Bool
     
@@ -57,7 +57,7 @@ struct ProfileList: View {
 
 struct ProfileList_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileList(viewModel: PreviewStatics.minimoModel,
+        ProfileList(viewModel: PreviewStatics.profileViewModel,
                     ownerModel: PreviewStatics.userModel,
                     fetchTrigger: .constant(false))
     }

@@ -58,4 +58,6 @@ struct AuthDTO: Decodable, Identifiable, Hashable, Uploadable {
             "createdAt": dateFormatter.string(from: self.createdAt)
         ]
     }
+    
+    static let fields: [String] = ["id", "email", "oAuthType", "createdAt", "user"]
 }

@@ -41,4 +41,6 @@ struct FollowDTO: Decodable, Identifiable, Hashable, Uploadable {
             "targetId": self.targetId.uuidString
         ]
     }
+    
+    static let fields: [String] = ["id", "userId", "targetId"]
 }

@@ -29,7 +29,7 @@ final class MinimoRowViewModel: ObservableObject {
     
     func fetchCreatorDetail() {
         let query = Filter.whereField("id", isEqualTo: content.creator.uuidString)
-        firebaseManager.readSingleData(from: "users", query: query).sink { _ in
+        firebaseManager.readSingleData(from: .users, query: query).sink { _ in
         } receiveValue: { user in
             self.creatorModel = UserModel(user: user, firebaseManager: self.firebaseManager)
             self.creatorId = user.id.uuidString
@@ -40,7 +40,13 @@ final class MinimoRowViewModel: ObservableObject {
     }
     
     func deleteContent() {
-        content.images.forEach { firebaseManager.deleteImage(url: $0) }
-        firebaseManager.deleteData(from: "contents", uuid: content.id)
+        for url in content.images {
+            firebaseManager.deleteImage(url: url)
+        }
+        
+        Task {
+            try await firebaseManager.deleteData(from: .contents, uuid: content.id)
+        }
+        
     }
 }

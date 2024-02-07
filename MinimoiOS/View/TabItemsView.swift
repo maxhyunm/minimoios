@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct TabItemsView: View {
-    @Binding var tabType: TabType
+    @EnvironmentObject var tabType: Tab
 
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
-            ForEach(TabType.allCases, id: \.self) { tab in
+            ForEach(Tab.TabType.allCases, id: \.self) { tab in
                 Button {
-                    tabType = tab
+                    tabType.current = tab
                 } label: {
                     Image(systemName: tab.labelName)
-                        .tint(tabType == tab ? .cyan : .black)
+                        .tint(tabType.current == tab ? .cyan : .black)
                 }
                 Spacer()
             }
@@ -28,6 +28,6 @@ struct TabItemsView: View {
 
 struct TabItemsView_Previews: PreviewProvider {
     static var previews: some View {
-        TabItemsView(tabType: .constant(.home))
+        TabItemsView()
     }
 }

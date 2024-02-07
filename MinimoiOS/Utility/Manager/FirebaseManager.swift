@@ -21,14 +21,15 @@ struct FirebaseManager {
         }
     }
     
-    func createData<T: Uploadable>(to collection: String, data: T) {
-        Firestore.firestore().collection(collection).document(data.id.uuidString).setData(data.dataIntoDictionary())
+    func createData<T: Uploadable>(to collection: Collection, data: T) async throws {
+        try await Firestore.firestore().collection(collection.name).document(data.id.uuidString)
+            .setData(data.dataIntoDictionary())
     }
     
-    func readSingleData<T: Decodable>(from collection: String, query: Filter) -> Future<T, MinimoError> {
+    func readSingleData<T: Decodable>(from collection: Collection, query: Filter) -> Future<T, MinimoError> {
         return Future { promise in
             Firestore.firestore()
-                .collection(collection)
+                .collection(collection.name)
                 .whereFilter(query)
                 .getDocuments { snapshot, error in
                     if let _ = error {
@@ -53,9 +54,9 @@ struct FirebaseManager {
         }
     }
 
-    func readMultipleData<T: Decodable>(from collection: String, query: Filter, orderBy: String, descending: Bool, limit: Int? = nil) -> Future<[T], MinimoError> {
+    func readMultipleData<T: Decodable>(from collection: Collection, query: Filter, orderBy: String, descending: Bool, limit: Int? = nil) -> Future<[T], MinimoError> {
         let ref = Firestore.firestore()
-            .collection(collection)
+            .collection(collection.name)
             .whereFilter(query)
 //            .order(by: orderBy, descending: descending)
 //        if let limit {
@@ -84,15 +85,32 @@ struct FirebaseManager {
         }
     }
     
-    func updateData(from collection: String, uuid: UUID, data: [AnyHashable: Any]) {
-        Firestore.firestore().collection(collection).document(uuid.uuidString).updateData(data)
+    func updateData(from collection: Collection, uuid: UUID, data: [AnyHashable: Any]) async throws {
+        try await Firestore.firestore().collection(collection.name).document(uuid.uuidString).updateData(data)
     }
     
-    func deleteData(from collection: String, uuid: UUID) {
-        Firestore.firestore().collection(collection).document(uuid.uuidString).delete()
+    func deleteData(from collection: Collection, uuid: UUID) async throws {
+        try await Firestore.firestore().collection(collection.name).document(uuid.uuidString)
+            .updateData(collection.fields.reduce(into: [:]) { $0[$1] = FieldValue.delete() })
+        try await Firestore.firestore().collection(collection.name).document(uuid.uuidString).delete()
     }
     
-    func saveJpegImage(image: UIImage, collection: String, uuid: UUID) -> Future<ImageString, MinimoError> {
+    func saveJpegImageAsync(image: UIImage, collection: Collection, uuid: UUID) async throws -> ImageString {
+        guard let data = image.jpegData(compressionQuality: 0.8) else {
+            throw MinimoError.invalidImage
+        }
+        let storage = Storage.storage()
+        let meta = StorageMetadata()
+        meta.contentType = "image/jpeg"
+        let path = "\(collection)/\(uuid)/\(UUID().uuidString)"
+        let imageReference = storage.reference().child(path)
+        
+        let _ = try await imageReference.putDataAsync(data, metadata: meta)
+        let url = try await imageReference.downloadURL()
+        return (url: "\(url)", path: "\(path).jpeg")
+    }
+    
+    func saveJpegImage(image: UIImage, collection: Collection, uuid: UUID) -> Future<ImageString, MinimoError> {
         return Future { promise in
             guard let data = image.jpegData(compressionQuality: 0.8) else {
                 promise(.failure(.invalidImage))

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct TabMainView: View {
     @EnvironmentObject var userModel: UserModel
-    @ObservedObject var minimoModel: MinimoModel
+    @EnvironmentObject var tabType: Tab
+    @ObservedObject var homeModel: HomeViewModel
+    @ObservedObject var profileModel: ProfileViewModel
     @State private var fetchTrigger: Bool = true
-    @State private var tabType: TabType = .home
     
 //    private var isScrollOnTop: Bool {
 //        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
@@ -20,12 +21,12 @@ struct TabMainView: View {
     var body: some View {
         VStack {
             ZStack {
-                switch tabType {
+                switch tabType.current {
                 case .home:
-                    HomeMainView(viewModel: minimoModel,
+                    HomeMainView(viewModel: homeModel,
                                  fetchTrigger: $fetchTrigger)
                 case .profile:
-                    ProfileMainView(viewModel: minimoModel,
+                    ProfileMainView(viewModel: profileModel,
                                     ownerModel: userModel,
                                     fetchTrigger: $fetchTrigger)
                 case .search:
@@ -33,16 +34,16 @@ struct TabMainView: View {
                 }
             }
             .onChange(of: fetchTrigger) { _ in
-                switch tabType {
+                switch tabType.current {
                 case .home:
-                    minimoModel.fetchFollowingContents(followings: userModel.followings)
+                    homeModel.fetchContents()
                 case .profile:
-                    minimoModel.fetchProfileContents()
+                    profileModel.fetchContents()
                 case .search:
                     break
                 }
             }
-            TabItemsView(tabType: $tabType)
+            TabItemsView()
                 .frame(height: 30)
         }
     }
@@ -50,6 +51,8 @@ struct TabMainView: View {
 
 struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        TabMainView(minimoModel: PreviewStatics.minimoModel)
+//        TabMainView(minimoModel: PreviewStatics.minimoModel)
+        TabMainView(homeModel: PreviewStatics.homeViewModel,
+                    profileModel: PreviewStatics.profileViewModel)
     }
 }

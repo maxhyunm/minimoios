@@ -50,4 +50,5 @@ struct UserDTO: Decodable, Identifiable, Hashable, Uploadable {
         ]
     }
     
+    static let fields: [String] = ["id", "name", "image", "imagePath", "biography"]
 }

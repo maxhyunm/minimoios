@@ -25,9 +25,8 @@ struct HomeRow: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     if let ownerModel = viewModel.creatorModel {
-                        let profileViewModel = MinimoModel(
-                            userId: userModel.user.id,
-                            contentsOwnerId: ownerModel.user.id,
+                        let profileViewModel = ProfileViewModel(
+                            ownerId: ownerModel.user.id,
                             firebaseManager: viewModel.firebaseManager
                         )
                         if ownerModel.user.id == userModel.user.id {

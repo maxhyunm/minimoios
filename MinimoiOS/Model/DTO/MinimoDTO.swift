@@ -60,4 +60,6 @@ struct MinimoDTO: Decodable, Identifiable, Hashable, Uploadable {
             "imagePaths": self.imagePaths
         ]
     }
+    
+    static let fields: [String] = ["id", "creator", "createdAt", "content", "images", "imagePaths"]
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WriteButton: View {
-    @ObservedObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: HomeViewModel
     @Binding var isWriting: Bool
     @Binding var fetchTrigger: Bool
     
@@ -35,7 +35,7 @@ struct WriteButton: View {
 
 struct WriteButton_Previews: PreviewProvider {
     static var previews: some View {
-        WriteButton(viewModel: PreviewStatics.minimoModel,
+        WriteButton(viewModel: PreviewStatics.homeViewModel,
                     isWriting: .constant(false),
                     fetchTrigger: .constant(false))
     }

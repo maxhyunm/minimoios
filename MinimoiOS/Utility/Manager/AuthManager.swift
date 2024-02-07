@@ -147,7 +147,7 @@ final class AuthManager: ObservableObject {
         } receiveValue: { authData in
             self.auth = authData
             let userQuery = Filter.whereField("id", isEqualTo: authData.user.uuidString)
-            self.firebaseManager.readSingleData(from: "users", query: userQuery).sink { completion in
+            self.firebaseManager.readSingleData(from: .users, query: userQuery).sink { completion in
                 switch completion {
                 case.finished:
                     break
@@ -203,7 +203,7 @@ final class AuthManager: ObservableObject {
             Filter.whereField("email", isEqualTo: email),
             Filter.whereField("oAuthType", isEqualTo: type.rawValue)
         ])
-        return firebaseManager.readSingleData(from: "auth", query: query)
+        return firebaseManager.readSingleData(from: .auth, query: query)
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
@@ -214,8 +214,14 @@ final class AuthManager: ObservableObject {
                               oAuthType: type,
                               createdAt: Date(),
                               user: newUser.id)
-        firebaseManager.createData(to: "auth", data: newAuth)
-        firebaseManager.createData(to: "users", data: newUser)
+        Task { [newUser, newAuth] in
+            do {
+                try await firebaseManager.createData(to: .auth, data: newAuth)
+                try await firebaseManager.createData(to: .users, data: newUser)
+            } catch {
+                self.error = MinimoError.unknown
+            }
+        }
         self.auth = newAuth
         self.userModel = UserModel(user: newUser, firebaseManager: self.firebaseManager)
         UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")

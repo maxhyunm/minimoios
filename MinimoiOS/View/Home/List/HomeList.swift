@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeList: View {
     @EnvironmentObject var userModel: UserModel
-    @ObservedObject var viewModel: MinimoModel
+    @ObservedObject var viewModel: HomeViewModel
     @Binding var fetchTrigger: Bool
     
 //    private var scrollOffsetObserver: some View {
@@ -53,6 +53,6 @@ struct HomeList: View {
 
 struct HomeList_Previews: PreviewProvider {
     static var previews: some View {
-        HomeList(viewModel: PreviewStatics.minimoModel, fetchTrigger: .constant(false))
+        HomeList(viewModel: PreviewStatics.homeViewModel, fetchTrigger: .constant(false))
     }
 }
