@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		BA16A9E32B736A270037A236 /* HomeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16A9E22B736A270037A236 /* HomeRow.swift */; };
 		BA16A9E52B736B7D0037A236 /* ProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16A9E42B736B7D0037A236 /* ProfileRow.swift */; };
+		BA16A9ED2B7375380037A236 /* ImageMultiSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16A9EC2B7375380037A236 /* ImageMultiSelectView.swift */; };
+		BA16A9EF2B73765E0037A236 /* EditImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16A9EE2B73765E0037A236 /* EditImageView.swift */; };
+		BA16A9F12B7377C90037A236 /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16A9F02B7377C90037A236 /* EditNameView.swift */; };
 		BA28F0912B6618D800042912 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0902B6618D800042912 /* GoogleService-Info.plist */; };
 		BA28F0932B661C3700042912 /* test_user.json in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0922B661C3700042912 /* test_user.json */; };
 		BA28F0952B661D1E00042912 /* test_contents.json in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0942B661D1E00042912 /* test_contents.json */; };
@@ -96,6 +99,9 @@
 /* Begin PBXFileReference section */
 		BA16A9E22B736A270037A236 /* HomeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRow.swift; sourceTree = "<group>"; };
 		BA16A9E42B736B7D0037A236 /* ProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRow.swift; sourceTree = "<group>"; };
+		BA16A9EC2B7375380037A236 /* ImageMultiSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMultiSelectView.swift; sourceTree = "<group>"; };
+		BA16A9EE2B73765E0037A236 /* EditImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageView.swift; sourceTree = "<group>"; };
+		BA16A9F02B7377C90037A236 /* EditNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
 		BA28F0902B6618D800042912 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA28F0922B661C3700042912 /* test_user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test_user.json; sourceTree = "<group>"; };
 		BA28F0942B661D1E00042912 /* test_contents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test_contents.json; sourceTree = "<group>"; };
@@ -241,16 +247,6 @@
 			path = Type;
 			sourceTree = "<group>";
 		};
-		BA28F09C2B66489900042912 /* Minimo */ = {
-			isa = PBXGroup;
-			children = (
-				BA16A9E82B736C830037A236 /* List */,
-				BA28F0B52B68CC9C00042912 /* Row */,
-				BA28F0BE2B69166B00042912 /* Write */,
-			);
-			path = Minimo;
-			sourceTree = "<group>";
-		};
 		BA28F0AF2B68A6F800042912 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +275,8 @@
 			isa = PBXGroup;
 			children = (
 				BA28F0B62B68CF9500042912 /* EditInformationView.swift */,
+				BA16A9EE2B73765E0037A236 /* EditImageView.swift */,
+				BA16A9F02B7377C90037A236 /* EditNameView.swift */,
 			);
 			path = EditInformation;
 			sourceTree = "<group>";
@@ -293,7 +291,9 @@
 				BA28F0BA2B68EE2800042912 /* ImagePicker.swift */,
 				BA4C9E192B63C7B300C96C87 /* Login */,
 				BA28F0BC2B68F3A400042912 /* EditInformation */,
-				BA28F09C2B66489900042912 /* Minimo */,
+				BA16A9E82B736C830037A236 /* List */,
+				BA28F0B52B68CC9C00042912 /* Row */,
+				BA28F0BE2B69166B00042912 /* Write */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,6 +303,7 @@
 			children = (
 				BA28F0E62B6CF7E700042912 /* WriteButton.swift */,
 				BA28F0A72B67EAD900042912 /* WriteView.swift */,
+				BA16A9EC2B7375380037A236 /* ImageMultiSelectView.swift */,
 			);
 			path = Write;
 			sourceTree = "<group>";
@@ -538,6 +539,7 @@
 			files = (
 				BA28F0FA2B72B98E00042912 /* SearchFromUserView.swift in Sources */,
 				BA28F0B32B68C80200042912 /* MinimoRowViewModel.swift in Sources */,
+				BA16A9ED2B7375380037A236 /* ImageMultiSelectView.swift in Sources */,
 				BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */,
 				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
 				BA28F0D22B6A969100042912 /* ScrollOffsetKey.swift in Sources */,
@@ -545,6 +547,7 @@
 				BA28F0A82B67EAD900042912 /* WriteView.swift in Sources */,
 				BA28F0DA2B6CAD1C00042912 /* WriteViewModel.swift in Sources */,
 				BA28F0DC2B6CD28E00042912 /* ProfileMainView.swift in Sources */,
+				BA16A9EF2B73765E0037A236 /* EditImageView.swift in Sources */,
 				BA28F0F62B728E2C00042912 /* TabItemsView.swift in Sources */,
 				BA28F0B12B68AD1700042912 /* MinimoUserImageView.swift in Sources */,
 				BA4C9E2E2B640B7000C96C87 /* HomeList.swift in Sources */,
@@ -571,6 +574,7 @@
 				BA28F09E2B6648B300042912 /* HomeViewModel.swift in Sources */,
 				BA28F0EF2B72296200042912 /* ClapDTO.swift in Sources */,
 				BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */,
+				BA16A9F12B7377C90037A236 /* EditNameView.swift in Sources */,
 				BA28F0D82B6AA8AD00042912 /* ColorType.swift in Sources */,
 				BA28F09B2B6632AC00042912 /* MinimoDTO.swift in Sources */,
 				BA28F0F22B72323900042912 /* UserModel.swift in Sources */,
