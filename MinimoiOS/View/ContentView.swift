@@ -30,9 +30,6 @@ struct ContentView: View {
                 TabMainView(homeModel: homeModel, profileModel: profileModel, searchModel: searchModel)
                     .environmentObject(userModel)
                     .environmentObject(tabType)
-                    .onChange(of: authManager.logOutTrigger) { state in
-                        authManager.handleLogout()
-                    }
             } else {
                 LoginView()
             }

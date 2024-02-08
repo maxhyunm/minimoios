@@ -18,7 +18,6 @@ final class AuthManager: ObservableObject {
     @Published var error: Error?
     @Published var isLoading: Bool = true
     @Published var isLoggedIn: Bool = false
-    @Published var logOutTrigger: Bool = false
     
     var auth: AuthDTO?
     var firebaseManager: FirebaseManager

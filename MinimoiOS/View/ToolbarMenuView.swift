@@ -22,7 +22,7 @@ struct ToolbarMenuView: ToolbarContent {
                 }
                 
                 Button {
-                    authManager.logOutTrigger.toggle()
+                    authManager.handleLogout()
                 } label: {
                     Text("로그아웃")
                         .font(.headline)
