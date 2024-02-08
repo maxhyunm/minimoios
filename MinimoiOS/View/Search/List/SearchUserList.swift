@@ -12,14 +12,21 @@ struct SearchUserList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        ScrollView {
-            LazyVStack  {
-                ForEach($viewModel.users, id: \.self) { $user in
-                    let targetUserModel = UserModel(user: user, firebaseManager: viewModel.firebaseManager)
-                    SearchUserRow(targetUser: $user, targetUserModel: targetUserModel)
-                        .listRowSeparator(.hidden)
+        if !viewModel.isLoading && viewModel.users.isEmpty {
+            VStack {
+                Text("No User Results")
+            }
+            .frame(maxHeight: .infinity)
+        } else {
+            ScrollView {
+                LazyVStack  {
+                    ForEach($viewModel.users, id: \.self) { $user in
+                        let targetUserModel = UserModel(user: user, firebaseManager: viewModel.firebaseManager)
+                        SearchUserRow(targetUser: $user, targetUserModel: targetUserModel)
+                            .listRowSeparator(.hidden)
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
         }
     }

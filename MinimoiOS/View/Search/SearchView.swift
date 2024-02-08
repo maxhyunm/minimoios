@@ -38,7 +38,7 @@ struct SearchView: View {
                     
                     VStack {
                         if isSearched {
-                            SearchTabItemsView(tabType: $tabType)
+                            SearchTabItemsView(tabType: $tabType, viewModel: viewModel)
                             
                             switch tabType {
                             case .contents:

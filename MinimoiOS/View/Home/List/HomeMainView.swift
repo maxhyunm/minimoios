@@ -27,11 +27,8 @@ struct HomeMainView: View {
                 .onAppear {
                     userModel.fetchFollowers()
                     userModel.fetchFollowings()
-                    fetchTrigger.toggle()
-                }
-                .onChange(of: userModel.followings) { followings in
                     viewModel.followings = userModel.followings
-                    viewModel.fetchContents()
+                    fetchTrigger.toggle()
                 }
                 .toolbar {
                     ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)

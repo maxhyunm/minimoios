@@ -12,18 +12,26 @@ struct SearchContentList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        ScrollView {
-            List($viewModel.contents) { $content in
-                let minimoRowViewModel = MinimoRowViewModel(
-                    content: content,
-                    firebaseManager: viewModel.firebaseManager,
-                    userId: userModel.user.id.uuidString
-                )
-                SearchContentRow(viewModel: minimoRowViewModel)
-                    .listRowSeparator(.hidden)
+        if !viewModel.isLoading && viewModel.contents.isEmpty {
+            VStack {
+                Text("No Minimo Results")
             }
-            .padding(.horizontal)
-            
+            .frame(maxHeight: .infinity)
+        } else {
+            ScrollView {
+                LazyVStack  {
+                    ForEach($viewModel.contents) { $content in
+                        let minimoRowViewModel = MinimoRowViewModel(
+                            content: content,
+                            firebaseManager: viewModel.firebaseManager,
+                            userId: userModel.user.id.uuidString
+                        )
+                        SearchContentRow(viewModel: minimoRowViewModel)
+                            .listRowSeparator(.hidden)
+                    }
+                    .padding(.horizontal)
+                }
+            }
         }
     }
 }

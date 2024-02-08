@@ -36,9 +36,14 @@ final class SearchViewModel: ObservableObject {
                 isLoading = true
             }
         }
-
-        let contentQuery = Filter.whereField("content", isGreaterOrEqualTo: keyword)
-        let userQuery = Filter.whereField("name", isGreaterOrEqualTo: keyword)
+        
+        // TODO: string 포함하는 검색이 불가능한가?
+//        let contentQuery = Filter.andFilter([Filter.whereField("content", isGreaterOrEqualTo: keyword),
+//                                             Filter.whereField("content", isLessThanOrEqualTo: "\(keyword)")])
+//        let userQuery = Filter.whereField("name", isGreaterOrEqualTo: keyword)
+        
+        let contentQuery = Filter.whereField("content", isEqualTo: keyword)
+        let userQuery = Filter.whereField("name", isEqualTo: keyword)
         
         Task {
             let userResult: [UserDTO] = try await firebaseManager.readMultipleDataAsync(from: .users,

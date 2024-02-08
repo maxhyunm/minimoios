@@ -22,11 +22,11 @@ struct ProfileMainView: View {
                                 ownerModel: ownerModel,
                                 fetchTrigger: $fetchTrigger)
                     
-                    //                if ownerModel.user.id == userModel.user.id {
-                    //                    WriteButton(viewModel: viewModel,
-                    //                                isWriting: $isWriting,
-                    //                                fetchTrigger: $fetchTrigger)
-                    //                }
+//                if ownerModel.user.id == userModel.user.id {
+//                    WriteButton(viewModel: viewModel,
+//                                isWriting: $isWriting,
+//                                fetchTrigger: $fetchTrigger)
+//                }
                 }
                 .onAppear {
                     ownerModel.fetchFollowers()
