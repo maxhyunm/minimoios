@@ -12,6 +12,7 @@ struct TabMainView: View {
     @EnvironmentObject var tabType: Tab
     @ObservedObject var homeModel: HomeViewModel
     @ObservedObject var profileModel: ProfileViewModel
+    @ObservedObject var searchModel: SearchViewModel
     @State private var fetchTrigger: Bool = true
     
 //    private var isScrollOnTop: Bool {
@@ -30,7 +31,8 @@ struct TabMainView: View {
                                     ownerModel: userModel,
                                     fetchTrigger: $fetchTrigger)
                 case .search:
-                    SearchView(fetchTrigger: $fetchTrigger)
+                    SearchView(viewModel: searchModel,
+                               fetchTrigger: $fetchTrigger)
                 }
             }
             .onChange(of: fetchTrigger) { _ in
@@ -53,6 +55,7 @@ struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
 //        TabMainView(minimoModel: PreviewStatics.minimoModel)
         TabMainView(homeModel: PreviewStatics.homeViewModel,
-                    profileModel: PreviewStatics.profileViewModel)
+                    profileModel: PreviewStatics.profileViewModel,
+                    searchModel: PreviewStatics.searchViewModel)
     }
 }

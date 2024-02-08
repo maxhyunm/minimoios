@@ -23,6 +23,7 @@ struct PreviewStatics {
     static let userModel = UserModel(user: user, firebaseManager: firebaseManager)
     static let homeViewModel = HomeViewModel(userId: user.id, followings: userModel.followings, firebaseManager: firebaseManager)
     static let profileViewModel = ProfileViewModel(ownerId: user.id, firebaseManager: firebaseManager)
+    static let searchViewModel = SearchViewModel(userId: user.id, followings: userModel.followings, firebaseManager: firebaseManager)
 //    static let minimoModel = MinimoModel(userId: userModel.user.id, contentsOwnerId: userModel.user.id, firebaseManager: firebaseManager)
 //    static let editInformationViewModel = EditInformationViewModel(userModel: userModel, firebaseManager: firebaseManager)
 //    static let writeViewModel = WriteViewModel(userId: user.id, firebaseManager: firebaseManager)

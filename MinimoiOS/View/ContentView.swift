@@ -24,11 +24,10 @@ struct ContentView: View {
                                               firebaseManager: authManager.firebaseManager)
                 let profileModel = ProfileViewModel(ownerId: userModel.user.id,
                                                     firebaseManager: authManager.firebaseManager)
-//                let minimoModel = MinimoModel(userId: userModel.user.id,
-//                                              contentsOwnerId: userModel.user.id,
-//                                              firebaseManager: authManager.firebaseManager)
-//                TabMainView(minimoModel: minimoModel)
-                TabMainView(homeModel: homeModel, profileModel: profileModel)
+                let searchModel = SearchViewModel(userId: userModel.user.id,
+                                                  followings: userModel.followings,
+                                                  firebaseManager: authManager.firebaseManager)
+                TabMainView(homeModel: homeModel, profileModel: profileModel, searchModel: searchModel)
                     .environmentObject(userModel)
                     .environmentObject(tabType)
                     .onChange(of: authManager.logOutTrigger) { state in
