@@ -11,7 +11,7 @@ struct ProfileList: View {
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: ProfileViewModel
     @ObservedObject var ownerModel: UserModel
-    @Binding var fetchTrigger: Bool
+    @State private var fetchTrigger: Bool = false
     
 //    private var scrollOffsetObserver: some View {
 //        GeometryReader { geo in
@@ -49,8 +49,11 @@ struct ProfileList: View {
 //        .onPreferenceChange(ScrollOffsetKey.self) {
 //            viewModel.newScrollOffset = $0
 //        }
+        .onChange(of: fetchTrigger) { _ in
+            viewModel.fetchContents()
+        }
         .refreshable {
-            fetchTrigger.toggle()
+            viewModel.fetchContents()
         }
     }
 }
@@ -58,7 +61,6 @@ struct ProfileList: View {
 struct ProfileList_Previews: PreviewProvider {
     static var previews: some View {
         ProfileList(viewModel: PreviewStatics.profileViewModel,
-                    ownerModel: PreviewStatics.userModel,
-                    fetchTrigger: .constant(false))
+                    ownerModel: PreviewStatics.userModel)
     }
 }

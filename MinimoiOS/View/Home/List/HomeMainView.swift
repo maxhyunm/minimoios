@@ -12,23 +12,20 @@ struct HomeMainView: View {
     @ObservedObject var viewModel: HomeViewModel
     @State private var isWriting: Bool = false
     @State private var isEditInformationVisible: Bool = false
-    @Binding var fetchTrigger: Bool
     
     var body: some View {
         ZStack(alignment: .center) {
             NavigationStack {
                 ZStack(alignment: .bottomTrailing) {
-                    HomeList(viewModel: viewModel,
-                             fetchTrigger: $fetchTrigger)
+                    HomeList(viewModel: viewModel)
                     WriteButton(viewModel: viewModel,
-                                isWriting: $isWriting,
-                                fetchTrigger: $fetchTrigger)
+                                isWriting: $isWriting)
                 }
                 .onAppear {
                     userModel.fetchFollowers()
                     userModel.fetchFollowings()
                     viewModel.followings = userModel.followings
-                    fetchTrigger.toggle()
+                    viewModel.fetchContents()
                 }
                 .toolbar {
                     ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)
@@ -37,8 +34,10 @@ struct HomeMainView: View {
                 .toolbarBackground(Tab.TabType.home.navigationBarBackground, for: .navigationBar)
                 .sheet(isPresented: $isEditInformationVisible) {
                     EditInformationView(name: userModel.user.name,
-                                        isVisible: $isEditInformationVisible,
-                                        fetchTrigger: $fetchTrigger)
+                                        isVisible: $isEditInformationVisible)
+                    .onDisappear {
+                        viewModel.fetchContents()
+                    }
                 }
             }
             if viewModel.isLoading {
@@ -54,7 +53,6 @@ struct HomeMainView: View {
 
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeMainView(viewModel: PreviewStatics.homeViewModel,
-                     fetchTrigger: .constant(false))
+        HomeMainView(viewModel: PreviewStatics.homeViewModel)
     }
 }

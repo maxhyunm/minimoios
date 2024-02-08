@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeList: View {
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: HomeViewModel
-    @Binding var fetchTrigger: Bool
+    @State private var fetchTrigger: Bool = false
     
 //    private var scrollOffsetObserver: some View {
 //        GeometryReader { geo in
@@ -44,8 +44,11 @@ struct HomeList: View {
 //        .onPreferenceChange(ScrollOffsetKey.self) {
 //            viewModel.newScrollOffset = $0
 //        }
+        .onChange(of: fetchTrigger) { _ in
+            viewModel.fetchContents()
+        }
         .refreshable {
-            fetchTrigger.toggle()
+            viewModel.fetchContents()
         }
         
     }
@@ -53,6 +56,6 @@ struct HomeList: View {
 
 struct HomeList_Previews: PreviewProvider {
     static var previews: some View {
-        HomeList(viewModel: PreviewStatics.homeViewModel, fetchTrigger: .constant(false))
+        HomeList(viewModel: PreviewStatics.homeViewModel)
     }
 }

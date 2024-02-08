@@ -10,7 +10,6 @@ import SwiftUI
 struct SearchView: View {
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: SearchViewModel
-    @Binding var fetchTrigger: Bool
     @State private var isEditInformationVisible: Bool = false
     @State private var searchText: String = ""
     @State private var tabType: SearchTab = .contents
@@ -59,8 +58,7 @@ struct SearchView: View {
                 .toolbarBackground(Tab.TabType.search.navigationBarBackground, for: .navigationBar)
                 .sheet(isPresented: $isEditInformationVisible) {
                     EditInformationView(name: userModel.user.name,
-                                        isVisible: $isEditInformationVisible,
-                                        fetchTrigger: $fetchTrigger)
+                                        isVisible: $isEditInformationVisible)
                 }
             }
             if viewModel.isLoading {
@@ -76,7 +74,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: PreviewStatics.searchViewModel,
-            fetchTrigger: .constant(false))
+        SearchView(viewModel: PreviewStatics.searchViewModel)
     }
 }

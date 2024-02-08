@@ -13,7 +13,6 @@ struct TabMainView: View {
     @ObservedObject var homeModel: HomeViewModel
     @ObservedObject var profileModel: ProfileViewModel
     @ObservedObject var searchModel: SearchViewModel
-    @State private var fetchTrigger: Bool = true
     
 //    private var isScrollOnTop: Bool {
 //        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
@@ -24,25 +23,12 @@ struct TabMainView: View {
             ZStack {
                 switch tabType.current {
                 case .home:
-                    HomeMainView(viewModel: homeModel,
-                                 fetchTrigger: $fetchTrigger)
+                    HomeMainView(viewModel: homeModel)
                 case .profile:
                     ProfileMainView(viewModel: profileModel,
-                                    ownerModel: userModel,
-                                    fetchTrigger: $fetchTrigger)
+                                    ownerModel: userModel)
                 case .search:
-                    SearchView(viewModel: searchModel,
-                               fetchTrigger: $fetchTrigger)
-                }
-            }
-            .onChange(of: fetchTrigger) { _ in
-                switch tabType.current {
-                case .home:
-                    homeModel.fetchContents()
-                case .profile:
-                    profileModel.fetchContents()
-                case .search:
-                    break
+                    SearchView(viewModel: searchModel)
                 }
             }
             TabItemsView()
@@ -53,7 +39,6 @@ struct TabMainView: View {
 
 struct TimelineView_Previews: PreviewProvider {
     static var previews: some View {
-//        TabMainView(minimoModel: PreviewStatics.minimoModel)
         TabMainView(homeModel: PreviewStatics.homeViewModel,
                     profileModel: PreviewStatics.profileViewModel,
                     searchModel: PreviewStatics.searchViewModel)

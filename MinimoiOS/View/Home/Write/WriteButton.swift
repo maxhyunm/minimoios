@@ -10,7 +10,6 @@ import SwiftUI
 struct WriteButton: View {
     @ObservedObject var viewModel: HomeViewModel
     @Binding var isWriting: Bool
-    @Binding var fetchTrigger: Bool
     
     var body: some View {
         Button {
@@ -27,8 +26,7 @@ struct WriteButton: View {
         .offset(x: -30, y: -20)
         .sheet(isPresented: $isWriting) {
             WriteView(viewModel: viewModel,
-                      isWriting: $isWriting,
-                      fetchTrigger: $fetchTrigger)
+                      isWriting: $isWriting)
         }
     }
 }
@@ -36,7 +34,6 @@ struct WriteButton: View {
 struct WriteButton_Previews: PreviewProvider {
     static var previews: some View {
         WriteButton(viewModel: PreviewStatics.homeViewModel,
-                    isWriting: .constant(false),
-                    fetchTrigger: .constant(false))
+                    isWriting: .constant(false))
     }
 }

@@ -15,12 +15,10 @@ struct EditInformationView: View {
     @State private var isImageChanged: Bool = false
     @State private var name: String
     @Binding var isVisible: Bool
-    @Binding var fetchTrigger: Bool
     
-    init(name: String, isVisible: Binding<Bool>, fetchTrigger: Binding<Bool>) {
+    init(name: String, isVisible: Binding<Bool>) {
         self._name = State(initialValue: name)
         self._isVisible = isVisible
-        self._fetchTrigger = fetchTrigger
     }
     
     var isChanged: Bool {
@@ -65,7 +63,6 @@ struct EditInformationView: View {
                     userModel.updateImage(selectedImage)
                 }
                 self.isVisible = false
-                self.fetchTrigger.toggle()
             } label: {
                 Text("변경사항 저장")
             }
@@ -83,7 +80,6 @@ struct EditInformationView: View {
 struct EditInformationView_Previews: PreviewProvider {
     static var previews: some View {
         EditInformationView(name: "test",
-                            isVisible: .constant(true),
-                            fetchTrigger: .constant(false))
+                            isVisible: .constant(true))
     }
 }

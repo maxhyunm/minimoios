@@ -116,8 +116,10 @@ struct ProfileHeaderView: View {
         .offset(x: 0, y: -10)
         .sheet(isPresented: $isEditInformationVisible) {
             EditInformationView(name: userModel.user.name,
-                                isVisible: $isEditInformationVisible,
-                                fetchTrigger: $fetchTrigger)
+                                isVisible: $isEditInformationVisible)
+            .onDisappear {
+                fetchTrigger.toggle()
+            }
         }
     }
 }

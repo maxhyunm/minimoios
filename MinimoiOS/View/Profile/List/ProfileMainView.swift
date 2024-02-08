@@ -12,31 +12,28 @@ struct ProfileMainView: View {
     @ObservedObject var viewModel: ProfileViewModel
     @ObservedObject var ownerModel: UserModel
     @State private var isWriting: Bool = false
-    @Binding var fetchTrigger: Bool
     
     var body: some View {
         ZStack(alignment: .center) {
             NavigationStack {
                 ZStack(alignment: .bottomTrailing) {
                     ProfileList(viewModel: viewModel,
-                                ownerModel: ownerModel,
-                                fetchTrigger: $fetchTrigger)
+                                ownerModel: ownerModel)
                     
 //                if ownerModel.user.id == userModel.user.id {
 //                    WriteButton(viewModel: viewModel,
-//                                isWriting: $isWriting,
-//                                fetchTrigger: $fetchTrigger)
+//                                isWriting: $isWriting)
 //                }
                 }
                 .onAppear {
                     ownerModel.fetchFollowers()
                     ownerModel.fetchFollowings()
-                    fetchTrigger.toggle()
+                    viewModel.fetchContents()
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink {
-                            SearchFromUserView(fetchTrigger: $fetchTrigger)
+                            SearchFromUserView()
                         } label: {
                             Image(systemName: "magnifyingglass")
                                 .tint(.cyan)
@@ -61,7 +58,6 @@ struct ProfileMainView: View {
 struct ProfileMainView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileMainView(viewModel: PreviewStatics.profileViewModel,
-                        ownerModel: PreviewStatics.userModel,
-                        fetchTrigger: .constant(false))
+                        ownerModel: PreviewStatics.userModel)
     }
 }

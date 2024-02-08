@@ -14,9 +14,6 @@ struct SearchUserRow: View {
     @Binding var targetUser: UserDTO
     let targetUserModel: UserModel
     
-    // TODO: 없애기
-    @State private var fetchTrigger: Bool = false
-    
     var body: some View {
         HStack {
             VStack {
@@ -31,8 +28,7 @@ struct SearchUserRow: View {
                     )
                     NavigationLink {
                         ProfileMainView(viewModel: profileViewModel,
-                                        ownerModel: targetUserModel,
-                                        fetchTrigger: $fetchTrigger)
+                                        ownerModel: targetUserModel)
                     } label: {
                         Text(targetUser.name)
                             .font(.headline)

@@ -32,8 +32,7 @@ struct HomeRow: View {
                         if ownerModel.user.id == userModel.user.id {
                             NavigationLink {
                                 ProfileMainView(viewModel: profileViewModel,
-                                                ownerModel: userModel,
-                                                fetchTrigger: $fetchTrigger)
+                                                ownerModel: userModel)
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
@@ -42,8 +41,7 @@ struct HomeRow: View {
                         } else {
                             NavigationLink {
                                 ProfileMainView(viewModel: profileViewModel,
-                                                ownerModel: ownerModel,
-                                                fetchTrigger: $fetchTrigger)
+                                                ownerModel: ownerModel)
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
