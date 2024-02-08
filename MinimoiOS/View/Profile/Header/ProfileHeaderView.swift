@@ -24,15 +24,12 @@ struct ProfileHeaderView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            VStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.white, Color.cyan, Color.cyan]),
-                    startPoint: .top,
-                    endPoint: .bottom)
-                .background(ignoresSafeAreaEdges: .top)
-                .frame(height: 100)
-                Color.white
-            }
+            LinearGradient(
+                gradient: Gradient(colors: [Color.white, Color.cyan, Color.cyan]),
+                startPoint: .top,
+                endPoint: .bottom)
+            .background(ignoresSafeAreaEdges: .top)
+            .frame(height: 100)
             
             VStack(alignment: .leading, spacing: 5) {
                 HStack(alignment: .bottom) {
@@ -74,6 +71,7 @@ struct ProfileHeaderView: View {
                         }
                     }
                 }
+                
                 Text(ownerModel.user.name)
                     .foregroundColor(.black)
                     .font(.title3)
@@ -91,8 +89,9 @@ struct ProfileHeaderView: View {
                 .font(.caption2)
                 Text("Bio")
             }
+            .padding(.top, 50)
+            .padding(.bottom, 10)
             .padding(.horizontal, 20)
-            .offset(x: 0, y: 50)
         }
         .sheet(isPresented: $isEditInformationVisible) {
             EditInformationView(name: userModel.user.name,
