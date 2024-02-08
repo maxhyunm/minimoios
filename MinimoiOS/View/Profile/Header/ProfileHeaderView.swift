@@ -29,12 +29,17 @@ struct ProfileHeaderView: View {
                     gradient: Gradient(colors: [Color.white, Color.cyan, Color.cyan]),
                     startPoint: .top,
                     endPoint: .bottom)
+                .background(ignoresSafeAreaEdges: .top)
                 .frame(height: 100)
                 Color.white
             }
-            VStack {
-                HStack {
+            
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(alignment: .bottom) {
+                    ProfileImageView(image: ownerModel.user.image)
+                    
                     Spacer()
+                    
                     if isUsersProfile {
                         Button {
                             isEditInformationVisible = true
@@ -42,9 +47,10 @@ struct ProfileHeaderView: View {
                             Text("Edit")
                                 .font(.subheadline)
                                 .padding(5)
-                                .background(.white)
-                                .foregroundColor(.cyan)
+                                .background(.cyan)
+                                .foregroundColor(.white)
                                 .cornerRadius(5)
+                                .padding(.bottom, 10)
                         }
                     } else {
                         Button {
@@ -64,56 +70,30 @@ struct ProfileHeaderView: View {
                                 .background(.black)
                                 .foregroundColor(.white)
                                 .cornerRadius(5)
+                                .padding(.bottom, 10)
                         }
                     }
                 }
-                .frame(height: 20)
-                .padding(.trailing, 15)
-                .padding(.top, 20)
-                HStack(alignment: .top, spacing: 15) {
-                    AsyncImage(url: URL(string: ownerModel.user.image)) { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
-                            .padding()
-                    }
-                    .frame(width: 100, height: 100)
-                    .background(.white)
-                    .foregroundColor(.pink)
-                    .scaledToFit()
-                    .clipShape(Circle())
-                    .overlay {
-                        Circle().stroke(.white, lineWidth: 2)
-                    }
-                    .shadow(radius: 5)
-                    .padding(.leading, 5)
-                    
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(ownerModel.user.name)
-                            .foregroundColor(.black)
-                            .font(.title3)
-                            .bold()
-                        HStack(alignment: .center, spacing: 10) {
-                            Text("Following")
-                            Text("\(ownerModel.followings.count)")
-                            Text("|")
-                            Text("Follower")
-                            Text("\(ownerModel.followers.count)")
-                            Spacer()
-                        }
-                        .font(.caption2)
-                        .padding(.bottom, 10)
-                        Text("Bio")
-                        Spacer()
-                    }
+                Text(ownerModel.user.name)
+                    .foregroundColor(.black)
+                    .font(.title3)
+                    .bold()
+                    .padding(.top, 10)
+                
+                HStack(alignment: .center, spacing: 10) {
+                    Text("Following")
+                    Text("\(ownerModel.followings.count)")
+                    Text("|")
+                    Text("Follower")
+                    Text("\(ownerModel.followers.count)")
+                    Spacer()
                 }
-                .padding(.horizontal, 10)
-//                .offset(x: 0, y: 30)
+                .font(.caption2)
+                Text("Bio")
             }
+            .padding(.horizontal, 20)
+            .offset(x: 0, y: 50)
         }
-        .frame(height: 140)
-        .offset(x: 0, y: -10)
         .sheet(isPresented: $isEditInformationVisible) {
             EditInformationView(name: userModel.user.name,
                                 isVisible: $isEditInformationVisible)
@@ -128,5 +108,6 @@ struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileHeaderView(ownerModel: PreviewStatics.userModel,
                           fetchTrigger: .constant(false))
+        .environmentObject(PreviewStatics.userModel)
     }
 }
