@@ -8,33 +8,18 @@
 import SwiftUI
 
 struct SearchUserRow: View {
-    @State private var removeAlertTrigger: Bool = false
-    @State private var isPopUpVisible: Bool = false
-    @State private var popUpImageURL: URL? = nil
     @Binding var targetUser: UserDTO
-    let targetUserModel: UserModel
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             VStack {
                 MinimoUserImageView(userImage: $targetUser.image)
-                Spacer()
             }
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    let profileViewModel = ProfileViewModel(
-                        ownerId: targetUser.id,
-                        firebaseManager: targetUserModel.firebaseManager
-                    )
-                    NavigationLink {
-                        ProfileMainView(viewModel: profileViewModel,
-                                        ownerModel: targetUserModel)
-                    } label: {
-                        Text(targetUser.name)
-                            .font(.headline)
-                            .tint(.black)
-                    }
-                        
+                    Text(targetUser.name)
+                        .font(.headline)
+                        .tint(.black)
                     Spacer()
                 }
                 
@@ -43,17 +28,12 @@ struct SearchUserRow: View {
                     .font(.body)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.trailing)
         }
-        .padding()
-        .background(Color(white: 0.9))
-        .cornerRadius(10)
     }
 }
 
 struct SearchUserRow_Previews: PreviewProvider {
     static var previews: some View {
-        SearchUserRow(targetUser: .constant(PreviewStatics.user),
-                      targetUserModel: PreviewStatics.userModel)
+        SearchUserRow(targetUser: .constant(PreviewStatics.user))
     }
 }

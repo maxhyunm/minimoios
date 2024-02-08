@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchUserList: View {
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: SearchViewModel
+    @State var rowColor: Color = .clear
     
     var body: some View {
         if !viewModel.isLoading && viewModel.users.isEmpty {
@@ -18,16 +19,23 @@ struct SearchUserList: View {
             }
             .frame(maxHeight: .infinity)
         } else {
-            ScrollView {
-                LazyVStack  {
-                    ForEach($viewModel.users, id: \.self) { $user in
-                        let targetUserModel = UserModel(user: user, firebaseManager: viewModel.firebaseManager)
-                        SearchUserRow(targetUser: $user, targetUserModel: targetUserModel)
-                            .listRowSeparator(.hidden)
-                    }
-                    .padding(.horizontal)
+            List($viewModel.users, id: \.self)  { $user in
+                let targetUserModel = UserModel(user: user, firebaseManager: viewModel.firebaseManager)
+                let profileViewModel = ProfileViewModel(
+                    ownerId: user.id,
+                    firebaseManager: targetUserModel.firebaseManager
+                )
+                NavigationLink {
+                    ProfileMainView(viewModel: profileViewModel,
+                                    ownerModel: targetUserModel)
+                } label: {
+                    SearchUserRow(targetUser: $user)
+                        .background(rowColor)
                 }
+                .tint(.black)
+                .listRowSeparator(.hidden)
             }
+            .listStyle(.plain)
         }
     }
 }
