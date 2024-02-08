@@ -15,6 +15,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var originScrollOffset: CGFloat
     @Published var newScrollOffset: CGFloat
     @Published var isLoading: Bool = false
+    var allContents = [MinimoDTO]()
     
     let ownerId: UUID
     let firebaseManager: FirebaseManager
@@ -45,9 +46,18 @@ final class ProfileViewModel: ObservableObject {
                                                                                       orderBy: "createdAt",
                                                                                       descending: false)
             await MainActor.run {
-                contents = result.sorted { $0.createdAt > $1.createdAt }
+                allContents = result.sorted { $0.createdAt > $1.createdAt }
+                contents = allContents
                 isLoading = false
             }
+        }
+    }
+    
+    func searchContent(keyword: String) {
+        if keyword == "" {
+            contents = allContents
+        } else {
+            contents = allContents.filter { $0.content.contains(keyword) }
         }
     }
 }

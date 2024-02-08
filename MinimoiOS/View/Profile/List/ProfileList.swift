@@ -30,7 +30,7 @@ struct ProfileList: View {
 //            scrollOffsetObserver
             LazyVStack  {
                 let headerView = ProfileHeaderView(ownerModel: ownerModel,
-                                                   fetchTrigger: $fetchTrigger)
+                                                   viewModel: viewModel)
                 Section(header: headerView) {
                     ForEach($viewModel.contents) { $content in
                         let minimoRowViewModel = MinimoRowViewModel(

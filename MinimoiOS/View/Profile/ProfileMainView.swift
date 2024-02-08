@@ -30,18 +30,6 @@ struct ProfileMainView: View {
                     ownerModel.fetchFollowings()
                     viewModel.fetchContents()
                 }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink {
-                            SearchFromUserView()
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                                .tint(.cyan)
-                        }
-                    }
-                }
-                .tint(.cyan)
-                .toolbarBackground(Tab.TabType.profile.navigationBarBackground, for: .navigationBar)
             }
             
             if viewModel.isLoading {

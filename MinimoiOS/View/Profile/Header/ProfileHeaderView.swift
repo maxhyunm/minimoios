@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileHeaderView: View {
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var ownerModel: UserModel
-    @Binding var fetchTrigger: Bool
+    @ObservedObject var viewModel: ProfileViewModel
     @State private var isEditInformationVisible: Bool = false
     
     var isUsersProfile: Bool {
@@ -32,6 +32,8 @@ struct ProfileHeaderView: View {
             .frame(height: 100)
             
             VStack(alignment: .leading, spacing: 5) {
+                ProfileSearchView(viewModel: viewModel)
+                
                 HStack(alignment: .bottom) {
                     ProfileImageView(image: ownerModel.user.image)
                     
@@ -71,6 +73,7 @@ struct ProfileHeaderView: View {
                         }
                     }
                 }
+                .padding(.top, 5)
                 
                 Text(ownerModel.user.name)
                     .foregroundColor(.black)
@@ -89,7 +92,6 @@ struct ProfileHeaderView: View {
                 .font(.caption2)
                 Text("Bio")
             }
-            .padding(.top, 50)
             .padding(.bottom, 10)
             .padding(.horizontal, 20)
         }
@@ -97,7 +99,7 @@ struct ProfileHeaderView: View {
             EditInformationView(name: userModel.user.name,
                                 isVisible: $isEditInformationVisible)
             .onDisappear {
-                fetchTrigger.toggle()
+                viewModel.fetchContents()
             }
         }
     }
@@ -106,7 +108,7 @@ struct ProfileHeaderView: View {
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileHeaderView(ownerModel: PreviewStatics.userModel,
-                          fetchTrigger: .constant(false))
+                          viewModel: PreviewStatics.profileViewModel)
         .environmentObject(PreviewStatics.userModel)
     }
 }
