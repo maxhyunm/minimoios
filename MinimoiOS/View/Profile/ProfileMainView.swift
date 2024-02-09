@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ProfileMainView: View {
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var tabType: Tab
     @ObservedObject var viewModel: ProfileViewModel
     @ObservedObject var ownerModel: UserModel
-    @State private var isWriting: Bool = false
+//    @State private var isWriting: Bool = false
+    
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -46,6 +49,12 @@ struct ProfileMainView: View {
                     .background(Colors.background(for: colorScheme).opacity(0.5))
             }
         }
+        .onChange(of: tabType.isNavigating) { isNavigating in
+            if !isNavigating {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .navigationBarHidden(true)
     }
 }
 

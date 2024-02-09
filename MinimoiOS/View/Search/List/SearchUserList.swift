@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchUserList: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var tabType: Tab
     @ObservedObject var viewModel: SearchViewModel
     @State var rowColor: Color = .clear
     
@@ -29,6 +30,9 @@ struct SearchUserList: View {
                 NavigationLink {
                     ProfileMainView(viewModel: profileViewModel,
                                     ownerModel: targetUserModel)
+                    .onAppear {
+                        tabType.isNavigating = true
+                    }
                 } label: {
                     SearchUserRow(targetUser: $user)
                         .background(rowColor)

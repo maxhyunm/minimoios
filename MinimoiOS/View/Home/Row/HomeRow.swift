@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeRow: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var tabType: Tab
     @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
     @State private var isPopUpVisible: Bool = false
@@ -30,24 +31,17 @@ struct HomeRow: View {
                             ownerId: ownerModel.user.id,
                             firebaseManager: viewModel.firebaseManager
                         )
-                        if ownerModel.user.id == userModel.user.id {
-                            NavigationLink {
-                                ProfileMainView(viewModel: profileViewModel,
-                                                ownerModel: userModel)
-                            } label: {
-                                Text(viewModel.creatorName)
-                                    .font(.headline)
-                                    .tint(Colors.basic(for: colorScheme))
+                        let owner = ownerModel.user.id == userModel.user.id ? userModel : ownerModel
+                        NavigationLink {
+                            ProfileMainView(viewModel: profileViewModel,
+                                            ownerModel: owner)
+                            .onAppear {
+                                tabType.isNavigating = true
                             }
-                        } else {
-                            NavigationLink {
-                                ProfileMainView(viewModel: profileViewModel,
-                                                ownerModel: ownerModel)
-                            } label: {
-                                Text(viewModel.creatorName)
-                                    .font(.headline)
-                                    .tint(Colors.basic(for: colorScheme))
-                            }
+                        } label: {
+                            Text(viewModel.creatorName)
+                                .font(.headline)
+                                .tint(Colors.basic(for: colorScheme))
                         }
                     } else {
                         Text(viewModel.creatorName)

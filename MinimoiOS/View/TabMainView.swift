@@ -13,6 +13,7 @@ struct TabMainView: View {
     @ObservedObject var homeModel: HomeViewModel
     @ObservedObject var profileModel: ProfileViewModel
     @ObservedObject var searchModel: SearchViewModel
+    @State private var isNavigating: Bool = false
     
 //    private var isScrollOnTop: Bool {
 //        minimoViewModel.newScrollOffset >= minimoViewModel.originScrollOffset + 10.0
@@ -34,6 +35,9 @@ struct TabMainView: View {
             TabItemsView()
                 .frame(height: 30)
         }
+//        .onChange(of: tabType.current) { _ in
+//            tabType.isNavigating = false
+//        }
     }
 }
 

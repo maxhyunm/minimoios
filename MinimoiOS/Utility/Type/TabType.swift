@@ -10,6 +10,7 @@ import SwiftUI
 
 final class Tab: ObservableObject {
     @Published var current: TabType = .home
+    @Published var isNavigating: Bool = false
     
     enum TabType: CaseIterable {
         case home

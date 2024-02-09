@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileSearchView: View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var tabType: Tab
     @ObservedObject var viewModel: ProfileViewModel
     @State var isSearching: Bool = false
     @State var searchText: String = ""
@@ -19,6 +20,20 @@ struct ProfileSearchView: View {
     
     var body: some View {
         HStack(spacing: 10) {
+            if tabType.isNavigating {
+                Button {
+                    tabType.isNavigating.toggle()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .tint(Colors.highlight(for: colorScheme))
+                        .padding(8)
+                        .background(Colors.background(for: colorScheme).opacity(0.7))
+                        .frame(width: 25, height: 25)
+                        .clipShape(Circle())
+                        .frame(height: 35)
+                }
+            }
             if isSearching {
                 TextField("Search", text: $searchText)
                     .submitLabel(.done)
