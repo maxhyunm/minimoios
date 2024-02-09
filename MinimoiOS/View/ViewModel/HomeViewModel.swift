@@ -19,7 +19,6 @@ final class HomeViewModel: ObservableObject {
     let userId: UUID
     var followings: [UUID]
     let firebaseManager: FirebaseManager
-    var cancellables = Set<AnyCancellable>()
     
     init(userId: UUID, followings: [UUID], firebaseManager: FirebaseManager) {
         self.userId = userId

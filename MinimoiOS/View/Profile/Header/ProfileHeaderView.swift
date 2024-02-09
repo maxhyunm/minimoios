@@ -56,14 +56,14 @@ struct ProfileHeaderView: View {
                             if isFollowing {
                                 userModel.unfollow(for: ownerModel.user.id)
                                 Task {
-                                    try await ownerModel.fetchFollowings()
-                                    try await ownerModel.fetchFollowers()
+                                    await ownerModel.fetchFollowings()
+                                    await ownerModel.fetchFollowers()
                                 }
                             } else {
                                 userModel.follow(for: ownerModel.user.id)
                                 Task {
-                                    try await ownerModel.fetchFollowings()
-                                    try await ownerModel.fetchFollowers()
+                                    await ownerModel.fetchFollowings()
+                                    await ownerModel.fetchFollowers()
                                 }
                             }
                         } label: {

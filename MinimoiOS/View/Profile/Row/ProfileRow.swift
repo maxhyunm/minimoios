@@ -88,10 +88,14 @@ struct ProfileRow: View {
                 }
                 HStack(alignment: .center) {
                     Spacer()
-                    Image(systemName: "hands.clap.fill")
-                    // TODO: Clap 변경
-                    Text("0")
-                        .font(.callout)
+                    Button {
+                        viewModel.toggleClap()
+                    } label: {
+                        Image(systemName: "hands.clap.fill")
+                        Text("\(viewModel.clapCount)")
+                            .font(.callout)
+                    }
+                    .tint(viewModel.didUserClap ? .cyan : .black)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

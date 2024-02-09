@@ -19,7 +19,6 @@ final class ProfileViewModel: ObservableObject {
     
     let ownerId: UUID
     let firebaseManager: FirebaseManager
-    var cancellables = Set<AnyCancellable>()
     
     init(ownerId: UUID, firebaseManager: FirebaseManager) {
 

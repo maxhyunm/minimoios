@@ -60,7 +60,6 @@
 		BA28F0F42B726A6D00042912 /* ToolbarWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */; };
 		BA28F0F62B728E2C00042912 /* TabItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F52B728E2C00042912 /* TabItemsView.swift */; };
 		BA28F0F82B7296C200042912 /* ToolbarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */; };
-		BA28F0FE2B73467300042912 /* MinimoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28F0FD2B73467300042912 /* MinimoModel.swift */; };
 		BA4C9DFA2B6395F500C96C87 /* MinimoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */; };
 		BA4C9DFC2B6395F500C96C87 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C9DFB2B6395F500C96C87 /* ContentView.swift */; };
 		BA4C9DFE2B6395F700C96C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4C9DFD2B6395F700C96C87 /* Assets.xcassets */; };
@@ -159,7 +158,6 @@
 		BA28F0F32B726A6D00042912 /* ToolbarWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarWrapperView.swift; sourceTree = "<group>"; };
 		BA28F0F52B728E2C00042912 /* TabItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemsView.swift; sourceTree = "<group>"; };
 		BA28F0F72B7296C200042912 /* ToolbarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarMenuView.swift; sourceTree = "<group>"; };
-		BA28F0FD2B73467300042912 /* MinimoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoModel.swift; sourceTree = "<group>"; };
 		BA4C9DF62B6395F500C96C87 /* MinimoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4C9DF92B6395F500C96C87 /* MinimoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimoiOSApp.swift; sourceTree = "<group>"; };
 		BA4C9DFB2B6395F500C96C87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -478,7 +476,6 @@
 			children = (
 				BA28F0F02B72322D00042912 /* DTO */,
 				BA28F0F12B72323900042912 /* UserModel.swift */,
-				BA28F0FD2B73467300042912 /* MinimoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -644,7 +641,6 @@
 				BA28F0F22B72323900042912 /* UserModel.swift in Sources */,
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
-				BA28F0FE2B73467300042912 /* MinimoModel.swift in Sources */,
 				BA16AA0C2B74B9EF0037A236 /* SearchContentRow.swift in Sources */,
 				BA16A9F72B73BCA60037A236 /* ProfileViewModel.swift in Sources */,
 				BA28F0B92B68D66B00042912 /* EditInformationViewModel.swift in Sources */,

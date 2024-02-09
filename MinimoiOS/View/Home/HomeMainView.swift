@@ -23,8 +23,8 @@ struct HomeMainView: View {
                 }
                 .onAppear {
                     Task {
-                        try await userModel.fetchFollowers()
-                        try await userModel.fetchFollowings()
+                        await userModel.fetchFollowers()
+                        await userModel.fetchFollowings()
                         viewModel.followings = userModel.followings
                         viewModel.fetchContents()
                     }

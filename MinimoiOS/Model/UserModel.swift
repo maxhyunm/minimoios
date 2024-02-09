@@ -23,8 +23,8 @@ final class UserModel: ObservableObject {
         self.firebaseManager = firebaseManager
         
         Task {
-            try await fetchFollowings()
-            try await fetchFollowers()
+            await fetchFollowings()
+            await fetchFollowers()
         }
     }
     
@@ -52,25 +52,28 @@ final class UserModel: ObservableObject {
         }
     }
     
-    func fetchFollowings() async throws {
-        let query = Filter.whereField("userId", isEqualTo: user.id.uuidString)
-        
-        let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
-                                                                                       query: query)
-        await MainActor.run {
-            followings = followArray.map { $0.targetId }
+    func fetchFollowings() async  {
+        do {
+            let query = Filter.whereField("userId", isEqualTo: user.id.uuidString)
             
-        }
+            let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
+                                                                                           query: query)
+            await MainActor.run {
+                followings = followArray.map { $0.targetId }
+            }
+        } catch {}
     }
     
-    func fetchFollowers() async throws {
-        let query = Filter.whereField("targetId", isEqualTo: user.id.uuidString)
-        
-        let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
-                                                                                       query: query)
-        await MainActor.run {
-            followers = followArray.map { $0.targetId }
-        }
+    func fetchFollowers() async  {
+        do {
+            let query = Filter.whereField("targetId", isEqualTo: user.id.uuidString)
+            
+            let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
+                                                                                           query: query)
+            await MainActor.run {
+                followers = followArray.map { $0.targetId }
+            }
+        } catch {}
     }
     
     func follow(for targetUser: UUID) {
