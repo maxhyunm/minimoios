@@ -13,7 +13,7 @@ struct ProfileImageView: View {
     var body: some View {
         AsyncImage(url: URL(string: image)) { image in
             image.resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
         } placeholder: {
             ProgressView()
                 .padding()

@@ -161,6 +161,5 @@ struct FirebaseManager {
     func deleteImage(url: String) {
         Storage.storage().reference(forURL: url).delete { _ in }
     }
-    
 }
 

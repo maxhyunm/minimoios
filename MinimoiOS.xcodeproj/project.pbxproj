@@ -21,7 +21,6 @@
 		BA16AA082B74B5B50037A236 /* SearchUserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA072B74B5B50037A236 /* SearchUserList.swift */; };
 		BA16AA0A2B74B5BE0037A236 /* SearchContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA092B74B5BE0037A236 /* SearchContentList.swift */; };
 		BA16AA0C2B74B9EF0037A236 /* SearchContentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA0B2B74B9EF0037A236 /* SearchContentRow.swift */; };
-		BA16AA0E2B74BB810037A236 /* SearchFromUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA0D2B74BB810037A236 /* SearchFromUserView.swift */; };
 		BA16AA122B74BC940037A236 /* SearchUserRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA112B74BC940037A236 /* SearchUserRow.swift */; };
 		BA16AA162B74F5B70037A236 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA152B74F5B70037A236 /* ProfileImageView.swift */; };
 		BA16AA182B74FDDB0037A236 /* ProfileSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA172B74FDDB0037A236 /* ProfileSearchView.swift */; };
@@ -121,7 +120,6 @@
 		BA16AA072B74B5B50037A236 /* SearchUserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserList.swift; sourceTree = "<group>"; };
 		BA16AA092B74B5BE0037A236 /* SearchContentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentList.swift; sourceTree = "<group>"; };
 		BA16AA0B2B74B9EF0037A236 /* SearchContentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentRow.swift; sourceTree = "<group>"; };
-		BA16AA0D2B74BB810037A236 /* SearchFromUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFromUserView.swift; sourceTree = "<group>"; };
 		BA16AA112B74BC940037A236 /* SearchUserRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserRow.swift; sourceTree = "<group>"; };
 		BA16AA152B74F5B70037A236 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		BA16AA172B74FDDB0037A236 /* ProfileSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSearchView.swift; sourceTree = "<group>"; };
@@ -419,7 +417,6 @@
 				BA16AA102B74BC7B0037A236 /* Row */,
 				BA28F0C72B6A631E00042912 /* SearchView.swift */,
 				BA16AA032B74AFDB0037A236 /* SearchTabItemsView.swift */,
-				BA16AA0D2B74BB810037A236 /* SearchFromUserView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -648,7 +645,6 @@
 				BA28F0992B6621FA00042912 /* Error.swift in Sources */,
 				BA4C9E1B2B63CB2700C96C87 /* OAuthType.swift in Sources */,
 				BA28F0FE2B73467300042912 /* MinimoModel.swift in Sources */,
-				BA16AA0E2B74BB810037A236 /* SearchFromUserView.swift in Sources */,
 				BA16AA0C2B74B9EF0037A236 /* SearchContentRow.swift in Sources */,
 				BA16A9F72B73BCA60037A236 /* ProfileViewModel.swift in Sources */,
 				BA28F0B92B68D66B00042912 /* EditInformationViewModel.swift in Sources */,

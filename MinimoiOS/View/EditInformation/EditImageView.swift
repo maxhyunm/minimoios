@@ -19,6 +19,7 @@ struct EditImageView: View {
             if !isImageChanged {
                 AsyncImage(url: URL(string: originalImage)) { image in
                     image.resizable()
+                        .aspectRatio(contentMode: .fill)
                 } placeholder: {
                     ProgressView()
                         .padding()
@@ -30,6 +31,7 @@ struct EditImageView: View {
             } else {
                 Image(uiImage: selectedImage)
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 200, height: 200)
                     .scaledToFit()
                     .clipShape(Circle())

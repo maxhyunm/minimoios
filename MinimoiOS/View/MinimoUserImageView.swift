@@ -24,7 +24,7 @@ struct MinimoUserImageView: View {
         } else {
             AsyncImage(url: URL(string: userImage)) { image in
                 image.resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
             } placeholder: {
                 ProgressView()
                     .padding()
