@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditNameView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isNameValid: Bool = false
     @Binding var editable: Bool
     @Binding var name: String
@@ -36,7 +37,7 @@ struct EditNameView: View {
                     Image(systemName: "checkmark.circle")
                 }
                 .disabled(!isNameValid)
-                .foregroundColor(!isNameValid ? .gray : .green)
+                .foregroundColor(!isNameValid ? Colors.borders(for: colorScheme) : .green)
                 
                 Button {
                     self.name = self.originalName
@@ -55,7 +56,7 @@ struct EditNameView: View {
                 } label: {
                     Image(systemName: "pencil.line")
                 }
-                .foregroundColor(.cyan)
+                .foregroundColor(Colors.highlight(for: colorScheme))
             }
         }
         .padding(5)

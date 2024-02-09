@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchUserList: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: SearchViewModel
     @State var rowColor: Color = .clear
@@ -32,7 +33,7 @@ struct SearchUserList: View {
                     SearchUserRow(targetUser: $user)
                         .background(rowColor)
                 }
-                .tint(.black)
+                .tint(Colors.basic(for: colorScheme))
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)

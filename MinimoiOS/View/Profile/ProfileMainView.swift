@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileMainView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: ProfileViewModel
     @ObservedObject var ownerModel: UserModel
@@ -16,9 +17,13 @@ struct ProfileMainView: View {
     var body: some View {
         ZStack(alignment: .center) {
             NavigationStack {
-                ZStack(alignment: .bottomTrailing) {
+                ZStack(alignment: .top) {
                     ProfileList(viewModel: viewModel,
                                 ownerModel: ownerModel)
+                    
+                    ProfileSearchView(viewModel: viewModel)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 5)
                     
 //                if ownerModel.user.id == userModel.user.id {
 //                    WriteButton(viewModel: viewModel,
@@ -39,7 +44,7 @@ struct ProfileMainView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .progressViewStyle(CircularProgressViewStyle())
                     .controlSize(.large)
-                    .background(.white.opacity(0.5))
+                    .background(Colors.background(for: colorScheme).opacity(0.5))
             }
         }
     }

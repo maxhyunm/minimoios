@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileRow: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
@@ -26,7 +27,7 @@ struct ProfileRow: View {
                 HStack {
                     Text(viewModel.creatorName)
                             .font(.headline)
-                            .tint(.black)
+                            .tint(Colors.basic(for: colorScheme))
                     
                     Spacer()
                     
@@ -40,7 +41,7 @@ struct ProfileRow: View {
                         }
                         .buttonStyle(.plain)
                         .frame(width: 15, height: 15)
-                        .foregroundColor(.black)
+                        .foregroundColor(Colors.basic(for: colorScheme))
                         .alert(isPresented: $removeAlertTrigger) {
                             let okButton = Alert.Button.default(Text("네")) {
                                 viewModel.deleteContent()
@@ -95,14 +96,14 @@ struct ProfileRow: View {
                         Text("\(viewModel.clapCount)")
                             .font(.callout)
                     }
-                    .tint(viewModel.didUserClap ? .cyan : .black)
+                    .tint(viewModel.didUserClap ? Colors.highlight(for: colorScheme) : Colors.basic(for: colorScheme))
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.trailing)
         }
         .padding()
-        .background(Color(white: 0.9))
+        .background(Colors.minimoRow(for: colorScheme))
         .cornerRadius(10)
         .fullScreenCover(isPresented: $isPopUpVisible, content: {
             PopUpView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: SearchViewModel
     @State private var isEditInformationVisible: Bool = false
@@ -23,7 +24,7 @@ struct SearchView: View {
                         TextField("Search", text: $searchText)
                             .submitLabel(.done)
                             .padding(10)
-                            .background(Color(white: 0.95))
+                            .background(Colors.minimoRow(for: colorScheme))
                             .cornerRadius(15)
                         Button {
                             isSearched = true
@@ -52,22 +53,23 @@ struct SearchView: View {
                     
                 }
                 .toolbar {
-                    ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)
+                    BasicToolBarView(editInformationTrigger: $isEditInformationVisible)
                 }
-                .tint(.cyan)
-                .toolbarBackground(Tab.TabType.search.navigationBarBackground, for: .navigationBar)
+                .tint(Colors.highlight(for: colorScheme))
+                .toolbarBackground(Colors.background(for: colorScheme), for: .navigationBar)
                 .sheet(isPresented: $isEditInformationVisible) {
                     EditInformationView(name: userModel.user.name,
                                         biography: userModel.user.biography,
                                         isVisible: $isEditInformationVisible)
                 }
             }
+            
             if viewModel.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .progressViewStyle(CircularProgressViewStyle())
                     .controlSize(.large)
-                    .background(.white.opacity(0.5))
+                    .background(Colors.background(for: colorScheme).opacity(0.5))
             }
         }
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var ownerModel: UserModel
     @ObservedObject var viewModel: ProfileViewModel
@@ -20,19 +21,18 @@ struct ProfileHeaderView: View {
         return userModel.followings.contains(ownerModel.user.id)
     }
     
-    private let backgroundColor: Color = .cyan
-    
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
-                gradient: Gradient(colors: [Color.white, Color.cyan, Color.cyan]),
+                gradient: Gradient(colors: [Colors.background(for: colorScheme),
+                                            Colors.highlight(for: colorScheme),
+                                            Colors.highlight(for: colorScheme)]),
                 startPoint: .top,
                 endPoint: .bottom)
             .background(ignoresSafeAreaEdges: .top)
             .frame(height: 100)
             
             VStack(alignment: .leading, spacing: 5) {
-                ProfileSearchView(viewModel: viewModel)
                 
                 HStack(alignment: .bottom) {
                     ProfileImageView(image: ownerModel.user.image)
@@ -46,8 +46,8 @@ struct ProfileHeaderView: View {
                             Text("Edit")
                                 .font(.subheadline)
                                 .padding(5)
-                                .background(.cyan)
-                                .foregroundColor(.white)
+                                .background(Colors.highlight(for: colorScheme))
+                                .foregroundColor(Colors.background(for: colorScheme))
                                 .cornerRadius(5)
                                 .padding(.bottom, 10)
                         }
@@ -70,17 +70,17 @@ struct ProfileHeaderView: View {
                             Text(isFollowing ? "Unfollow" : "Follow")
                                 .font(.subheadline)
                                 .padding(5)
-                                .background(.black)
-                                .foregroundColor(.white)
+                                .background(Colors.basic(for: colorScheme))
+                                .foregroundColor(Colors.background(for: colorScheme))
                                 .cornerRadius(5)
                                 .padding(.bottom, 10)
                         }
                     }
                 }
-                .padding(.top, 5)
+                .padding(.top, 50)
                 
                 Text(ownerModel.user.name)
-                    .foregroundColor(.black)
+                    .foregroundColor(Colors.basic(for: colorScheme))
                     .font(.title3)
                     .bold()
                     .padding(.top, 10)
@@ -94,7 +94,9 @@ struct ProfileHeaderView: View {
                     Spacer()
                 }
                 .font(.caption2)
+                
                 Text(ownerModel.user.biography)
+                    .font(.callout)
                     .padding(.vertical, 5)
             }
             .padding(.bottom, 10)

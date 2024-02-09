@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct WriteView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var tabType: Tab
     @ObservedObject var viewModel: HomeViewModel
     @State private var content = ""
@@ -29,7 +30,7 @@ struct WriteView: View {
                 } label: {
                     Text("Cancel")
                 }
-                .foregroundColor(.cyan)
+                .foregroundColor(Colors.highlight(for: colorScheme))
                 
                 Spacer()
                 
@@ -44,8 +45,8 @@ struct WriteView: View {
                         .font(.headline)
                 }
                 .padding()
-                .background(isEmpty ? Color(white: 0.8) : .cyan)
-                .foregroundColor(.white)
+                .background(isEmpty ? Color(white: 0.8) : Colors.highlight(for: colorScheme))
+                .foregroundColor(Colors.background(for: colorScheme))
                 .cornerRadius(15)
                 .disabled(isEmpty)
             }

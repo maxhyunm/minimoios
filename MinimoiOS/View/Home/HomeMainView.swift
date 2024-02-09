@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeMainView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: HomeViewModel
     @State private var isWriting: Bool = false
@@ -30,10 +31,10 @@ struct HomeMainView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)
+                    BasicToolBarView(editInformationTrigger: $isEditInformationVisible)
                 }
-                .tint(.cyan)
-                .toolbarBackground(Tab.TabType.home.navigationBarBackground, for: .navigationBar)
+                .tint(Colors.highlight(for: colorScheme))
+                .toolbarBackground(Colors.background(for: colorScheme), for: .navigationBar)
                 .sheet(isPresented: $isEditInformationVisible) {
                     EditInformationView(name: userModel.user.name,
                                         biography: userModel.user.biography,
@@ -43,12 +44,13 @@ struct HomeMainView: View {
                     }
                 }
             }
+            
             if viewModel.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .progressViewStyle(CircularProgressViewStyle())
                     .controlSize(.large)
-                    .background(.white.opacity(0.5))
+                    .background(Colors.background(for: colorScheme).opacity(0.5))
             }
         }
     }

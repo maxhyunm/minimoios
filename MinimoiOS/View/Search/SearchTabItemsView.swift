@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchTabItemsView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var tabType: SearchTab
     @ObservedObject var viewModel: SearchViewModel
     @State private var isTabChanged: Bool = false
@@ -24,14 +25,14 @@ struct SearchTabItemsView: View {
                     } label: {
                         Text("\(tab.title) (\(countString))")
                             .font(tabType == tab ? .headline : .callout)
-                            .tint(tabType == tab ? .cyan : .black)
+                            .tint(tabType == tab ? Colors.highlight(for: colorScheme) : Colors.basic(for: colorScheme))
                             .frame(height: 35)
                             .frame(maxWidth: .infinity)
                     }
                     Rectangle()
                         .frame(height: 4)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(tabType == tab ? .cyan : .clear)
+                        .foregroundColor(tabType == tab ? Colors.highlight(for: colorScheme) : Colors.background(for: colorScheme))
                         .animation(.easeInOut(duration: 0.4), value: isTabChanged)
                 }
             }

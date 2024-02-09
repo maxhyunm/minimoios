@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileImageView: View {
+    @Environment(\.colorScheme) var colorScheme
     let image: String
     
     var body: some View {
@@ -19,12 +20,12 @@ struct ProfileImageView: View {
                 .padding()
         }
         .frame(width: 100, height: 100)
-        .background(.white)
+        .background(Colors.background(for: colorScheme))
         .foregroundColor(.pink)
         .scaledToFit()
         .clipShape(Circle())
         .overlay {
-            Circle().stroke(.white, lineWidth: 2)
+            Circle().stroke(Colors.background(for: colorScheme), lineWidth: 2)
         }
         .shadow(radius: 5)
     }

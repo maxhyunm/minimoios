@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabItemsView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var tabType: Tab
 
     var body: some View {
@@ -18,7 +19,7 @@ struct TabItemsView: View {
                     tabType.current = tab
                 } label: {
                     Image(systemName: tab.labelName)
-                        .tint(tabType.current == tab ? .cyan : .black)
+                        .tint(tabType.current == tab ? Colors.highlight(for: colorScheme) : Colors.basic(for: colorScheme))
                 }
                 Spacer()
             }

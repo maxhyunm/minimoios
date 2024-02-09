@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PopUpView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var isPopUpVisible: Bool
     @Binding var popUpImageURL: URL?
     
@@ -30,8 +31,8 @@ struct PopUpView: View {
                     .resizable()
                     .frame(width: 20, height: 20)
                     .padding(3)
-                    .background(.gray)
-                    .foregroundColor(.white)
+                    .background(Colors.borders(for: colorScheme))
+                    .foregroundColor(Colors.background(for: colorScheme))
                     .offset(x: 0, y: -26)
             }
         }

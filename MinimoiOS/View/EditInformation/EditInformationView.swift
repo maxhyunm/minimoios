@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditInformationView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @State private var isNameEditable: Bool = false
     @State private var isBiographyEditable: Bool = false
@@ -84,8 +85,8 @@ struct EditInformationView: View {
                 Text("변경사항 저장")
             }
             .padding()
-            .background(isChanged && !isEditing ? .cyan : .gray)
-            .foregroundColor(.white)
+            .background(isChanged && !isEditing ? Colors.highlight(for: colorScheme) : Colors.borders(for: colorScheme))
+            .foregroundColor(Colors.background(for: colorScheme))
             .cornerRadius(15)
             .disabled(!isChanged || isEditing)
             

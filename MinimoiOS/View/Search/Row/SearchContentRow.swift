@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchContentRow: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
@@ -25,7 +26,7 @@ struct SearchContentRow: View {
                 HStack {
                     Text(viewModel.creatorName)
                             .font(.headline)
-                            .tint(.black)
+                            .tint(Colors.basic(for: colorScheme))
                     
                     Spacer()
                 }
@@ -68,14 +69,14 @@ struct SearchContentRow: View {
                         Text("\(viewModel.clapCount)")
                             .font(.callout)
                     }
-                    .tint(viewModel.didUserClap ? .cyan : .black)
+                    .tint(viewModel.didUserClap ? Colors.highlight(for: colorScheme) : Colors.basic(for: colorScheme))
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.trailing)
         }
         .padding()
-        .background(Color(white: 0.9))
+        .background(Colors.minimoRow(for: colorScheme))
         .cornerRadius(10)
         .fullScreenCover(isPresented: $isPopUpVisible, content: {
             PopUpView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)

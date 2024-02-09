@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct EditImageView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var selectedItem = [PhotosPickerItem]()
     @Binding var selectedImage: UIImage
     @Binding var isImageChanged: Bool
@@ -46,8 +47,8 @@ struct EditImageView: View {
                     Image(systemName: "camera.fill.badge.ellipsis")
                         .frame(width:50, height:50)
                         .scaledToFit()
-                        .background(.cyan)
-                        .foregroundColor(.white)
+                        .background(Colors.highlight(for: colorScheme))
+                        .foregroundColor(Colors.background(for: colorScheme))
                         .clipShape(Circle())
                 }
                 .offset(x: 80, y: -50)

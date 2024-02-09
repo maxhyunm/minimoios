@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WriteButton: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: HomeViewModel
     @Binding var isWriting: Bool
     
@@ -20,8 +21,8 @@ struct WriteButton: View {
         }
         .frame(width: 30, height: 30)
         .padding()
-        .background(.cyan)
-        .foregroundColor(.white)
+        .background(Colors.highlight(for: colorScheme))
+        .foregroundColor(Colors.background(for: colorScheme))
         .clipShape(Circle())
         .offset(x: -30, y: -20)
         .sheet(isPresented: $isWriting) {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeRow: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userModel: UserModel
     @ObservedObject var viewModel: MinimoRowViewModel
     @State private var removeAlertTrigger: Bool = false
@@ -36,7 +37,7 @@ struct HomeRow: View {
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
-                                    .tint(.black)
+                                    .tint(Colors.basic(for: colorScheme))
                             }
                         } else {
                             NavigationLink {
@@ -45,13 +46,13 @@ struct HomeRow: View {
                             } label: {
                                 Text(viewModel.creatorName)
                                     .font(.headline)
-                                    .tint(.black)
+                                    .tint(Colors.basic(for: colorScheme))
                             }
                         }
                     } else {
                         Text(viewModel.creatorName)
                             .font(.headline)
-                            .tint(.black)
+                            .tint(Colors.basic(for: colorScheme))
                     }
                     
                     Spacer()
@@ -66,7 +67,7 @@ struct HomeRow: View {
                         }
                         .buttonStyle(.plain)
                         .frame(width: 15, height: 15)
-                        .foregroundColor(.black)
+                        .foregroundColor(Colors.basic(for: colorScheme))
                         .alert(isPresented: $removeAlertTrigger) {
                             let okButton = Alert.Button.default(Text("네")) {
                                 viewModel.deleteContent()
@@ -86,6 +87,7 @@ struct HomeRow: View {
                 Text(viewModel.content.content)
                     .lineLimit(nil)
                     .font(.body)
+                
                 Text(viewModel.content.createdAt.formatted(date: .numeric, time: .shortened))
                     .font(.caption2)
                 
@@ -112,6 +114,7 @@ struct HomeRow: View {
                         }
                     }
                 }
+                
                 HStack(alignment: .center) {
                     Spacer()
                     
@@ -122,14 +125,13 @@ struct HomeRow: View {
                         Text("\(viewModel.clapCount)")
                             .font(.callout)
                     }
-                    .tint(viewModel.didUserClap ? .cyan : .black)
+                    .tint(viewModel.didUserClap ? Colors.highlight(for: colorScheme) : Colors.basic(for: colorScheme))
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.trailing)
         }
         .padding()
-        .background(Color(white: 0.9))
+        .background(Colors.minimoRow(for: colorScheme))
         .cornerRadius(10)
         .fullScreenCover(isPresented: $isPopUpVisible, content: {
             PopUpView(isPopUpVisible: $isPopUpVisible, popUpImageURL: $popUpImageURL)

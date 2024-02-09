@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditBiographyView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isBiographyValid: Bool = false
     @Binding var editable: Bool
     @Binding var biography: String
@@ -39,7 +40,7 @@ struct EditBiographyView: View {
                         Image(systemName: "checkmark.circle")
                     }
                     .disabled(!isBiographyValid)
-                    .foregroundColor(!isBiographyValid ? .gray : .green)
+                    .foregroundColor(!isBiographyValid ? Colors.borders(for: colorScheme) : .green)
                     
                     Button {
                         self.biography = self.originalBiography
@@ -59,7 +60,7 @@ struct EditBiographyView: View {
                 } label: {
                     Image(systemName: "pencil.line")
                 }
-                .foregroundColor(.cyan)
+                .foregroundColor(Colors.highlight(for: colorScheme))
             }
         }
         .padding(5)

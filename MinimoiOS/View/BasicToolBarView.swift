@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct ToolbarMenuView: ToolbarContent {
+struct BasicToolBarView: ToolbarContent {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var authManager: AuthManager
     @Binding var editInformationTrigger: Bool
     
@@ -31,7 +32,7 @@ struct ToolbarMenuView: ToolbarContent {
             } label: {
                 Image(systemName: "person.circle")
             }
-            .foregroundColor(.cyan)
+            .foregroundColor(Colors.highlight(for: colorScheme))
         }
     }
 }

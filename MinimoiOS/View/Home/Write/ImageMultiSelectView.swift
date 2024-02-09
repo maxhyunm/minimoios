@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ImageMultiSelectView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var selectedItem: [PhotosPickerItem]
     @Binding var selectedImages: [UIImage]
     
@@ -25,7 +26,7 @@ struct ImageMultiSelectView: View {
                     }
                     .frame(width: 50, height: 50)
                     .padding()
-                    .foregroundColor(.cyan)
+                    .foregroundColor(Colors.highlight(for: colorScheme))
                     .onChange(of: selectedItem) { item in
                         selectedImages = []
                         item.forEach { item in
@@ -48,7 +49,7 @@ struct ImageMultiSelectView: View {
                             .resizable()
                             .frame(width: 80, height: 80)
                             .scaledToFill()
-                            .border(.cyan)
+                            .border(Colors.highlight(for: colorScheme))
                         
                         Button {
                             guard let index = selectedImages.firstIndex(of: image) else { return }
@@ -60,8 +61,8 @@ struct ImageMultiSelectView: View {
                         }
                         .padding(2)
                         .frame(width: 15, height: 15)
-                        .background(.cyan)
-                        .foregroundColor(.white)
+                        .background(Colors.highlight(for: colorScheme))
+                        .foregroundColor(Colors.background(for: colorScheme))
                     }
                 }
             }

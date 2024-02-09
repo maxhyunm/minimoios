@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileSearchView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: ProfileViewModel
     @State var isSearching: Bool = false
     @State var searchText: String = ""
@@ -24,7 +25,7 @@ struct ProfileSearchView: View {
                     .padding(.horizontal, 10)
                     .padding(.vertical, 3)
                     .frame(height: 40)
-                    .background(Color(white: 0.95).opacity(0.5))
+                    .background(Colors.minimoRow(for: colorScheme).opacity(0.5))
                     .cornerRadius(15)
                     .onChange(of: searchText) { text in
                         viewModel.searchContent(keyword: text)
@@ -32,15 +33,15 @@ struct ProfileSearchView: View {
             } else {
                 Spacer()
             }
+            
             Button {
                 isSearching.toggle()
-                
             } label: {
                 Image(systemName: buttonName)
                     .resizable()
-                    .tint(.cyan)
+                    .tint(Colors.highlight(for: colorScheme))
                     .padding(5)
-                    .background(.white.opacity(0.7))
+                    .background(Colors.background(for: colorScheme).opacity(0.7))
                     .frame(width: 25, height: 25)
                     .clipShape(Circle())
                     .frame(height: 40)

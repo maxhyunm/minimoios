@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchUserRow: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var targetUser: UserDTO
     
     var body: some View {
@@ -19,7 +20,7 @@ struct SearchUserRow: View {
                 HStack {
                     Text(targetUser.name)
                         .font(.headline)
-                        .tint(.black)
+                        .tint(Colors.basic(for: colorScheme))
                     Spacer()
                 }
                 

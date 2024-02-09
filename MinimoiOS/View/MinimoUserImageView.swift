@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MinimoUserImageView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var userImage: String
     var image = UIImage()
     
@@ -16,7 +17,7 @@ struct MinimoUserImageView: View {
             Image(uiImage: image)
                 .resizable()
                 .frame(width: 50, height: 50)
-                .background(.white)
+                .background(Colors.background(for: colorScheme))
                 .foregroundColor(.pink)
                 .scaledToFit()
                 .clipShape(Circle())
@@ -30,7 +31,7 @@ struct MinimoUserImageView: View {
                     .padding()
             }
             .frame(width: 50, height: 50)
-            .background(.white)
+            .background(Colors.background(for: colorScheme))
             .foregroundColor(.pink)
             .scaledToFit()
             .clipShape(Circle())
