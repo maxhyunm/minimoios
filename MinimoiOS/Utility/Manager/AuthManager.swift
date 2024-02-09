@@ -29,7 +29,10 @@ final class AuthManager: ObservableObject {
     
     func checkLogin() {
         guard let latestOAuthType = UserDefaults.standard.object(forKey: "latestOAuthType") as? String,
-        let oAuthType = OAuthType(rawValue: latestOAuthType) else { return }
+              let oAuthType = OAuthType(rawValue: latestOAuthType) else {
+            isLoading = false
+            return
+        }
         
         switch oAuthType {
         case .kakao:

@@ -10,13 +10,15 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import GoogleSignIn
 import FirebaseCore
+import Firebase
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-      if FirebaseApp.app() == nil {
-        FirebaseApp.configure()
-      }
+      FirebaseApp.configure()
+//      if FirebaseApp.app() == nil {
+//        FirebaseApp.configure()
+//      }
 
     return true
   }
@@ -25,7 +27,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct MinimoiOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State private var authManager = AuthManager(firebaseManager: FirebaseManager())
+//    @State private var authManager = AuthManager(firebaseManager: FirebaseManager())
     
     init() {
         guard let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String else { return }
@@ -34,6 +36,7 @@ struct MinimoiOSApp: App {
     
     var body: some Scene {
         WindowGroup {
+            let authManager = AuthManager(firebaseManager: FirebaseManager())
             ContentView()
                 .onOpenURL { url in
                     GIDSignIn.sharedInstance.handle(url)

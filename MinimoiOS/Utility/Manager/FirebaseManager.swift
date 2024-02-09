@@ -16,9 +16,9 @@ struct FirebaseManager {
     typealias ImageString = (url: String, path: String)
     
     init() {
-        if FirebaseApp.app() == nil {
-            FirebaseApp.configure()
-        }
+//        if FirebaseApp.app() == nil {
+//            FirebaseApp.configure()
+//        }
     }
     
     func createData<T: Uploadable>(to collection: Collection, data: T) async throws {
