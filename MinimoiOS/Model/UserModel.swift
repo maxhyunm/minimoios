@@ -52,9 +52,7 @@ final class UserModel: ObservableObject {
         
         Task {
             let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
-                                                                                           query: query,
-                                                                                           orderBy: "targetId",
-                                                                                           descending: true)
+                                                                                           query: query)
             await MainActor.run {
                 followings = followArray.map { $0.targetId }
             }
@@ -66,9 +64,7 @@ final class UserModel: ObservableObject {
         
         Task {
             let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
-                                                                                           query: query,
-                                                                                           orderBy: "targetId",
-                                                                                           descending: true)
+                                                                                           query: query)
             await MainActor.run {
                 followers = followArray.map { $0.targetId }
             }

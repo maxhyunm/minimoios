@@ -42,9 +42,7 @@ final class ProfileViewModel: ObservableObject {
 
         Task {
             let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
-                                                                                      query: query,
-                                                                                      orderBy: "createdAt",
-                                                                                      descending: false)
+                                                                                      query: query)
             await MainActor.run {
                 allContents = result.sorted { $0.createdAt > $1.createdAt }
                 contents = allContents

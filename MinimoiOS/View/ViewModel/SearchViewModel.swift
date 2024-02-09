@@ -47,13 +47,9 @@ final class SearchViewModel: ObservableObject {
         
         Task {
             let userResult: [UserDTO] = try await firebaseManager.readMultipleDataAsync(from: .users,
-                                                                                      query: userQuery,
-                                                                                      orderBy: "name",
-                                                                                      descending: true)
+                                                                                      query: userQuery)
             let contentResult: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
-                                                                                             query: contentQuery,
-                                                                                             orderBy: "createdAt",
-                                                                                             descending: false)
+                                                                                             query: contentQuery)
             await MainActor.run {
                 users = userResult.sorted { $0.name < $1.name }
                 contents = contentResult.sorted { $0.createdAt > $1.createdAt }

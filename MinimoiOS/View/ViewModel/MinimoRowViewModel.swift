@@ -18,7 +18,6 @@ final class MinimoRowViewModel: ObservableObject {
     let firebaseManager: FirebaseManager
     let userId: String
     let content: MinimoDTO
-    var cancellables = Set<AnyCancellable>()
     
     init(content: MinimoDTO, firebaseManager: FirebaseManager, userId: String) {
         self.content = content
@@ -29,14 +28,16 @@ final class MinimoRowViewModel: ObservableObject {
     
     func fetchCreatorDetail() {
         let query = Filter.whereField("id", isEqualTo: content.creator.uuidString)
-        firebaseManager.readSingleData(from: .users, query: query).sink { _ in
-        } receiveValue: { user in
-            self.creatorModel = UserModel(user: user, firebaseManager: self.firebaseManager)
-            self.creatorId = user.id.uuidString
-            self.creatorName = user.name
-            self.creatorImage = user.image
+        Task {
+            let user: UserDTO = try await firebaseManager.readSingleDataAsync(from: .users, query: query)
+            
+            await MainActor.run {
+                self.creatorModel = UserModel(user: user, firebaseManager: self.firebaseManager)
+                self.creatorId = user.id.uuidString
+                self.creatorName = user.name
+                self.creatorImage = user.image
+            }
         }
-        .store(in: &cancellables)
     }
     
     func deleteContent() {

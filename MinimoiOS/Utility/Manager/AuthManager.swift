@@ -64,7 +64,9 @@ final class AuthManager: ObservableObject {
             }
             if let user,
                let profile = user.profile {
-                self.fetchUserDetail(name: profile.name, email: profile.email, type: .google)
+                Task {
+                    await self.fetchUserData(name: profile.name, email: profile.email, type: .google)
+                }
             }
         }
     }
@@ -110,7 +112,9 @@ final class AuthManager: ObservableObject {
             }
             if let result,
                let profile = result.user.profile {
-                self.fetchUserDetail(name: profile.name, email: profile.email, type: .google)
+                Task {
+                    await self.fetchUserData(name: profile.name, email: profile.email, type: .google)
+                }
             }
         }
     }
@@ -125,45 +129,11 @@ final class AuthManager: ObservableObject {
                 self.error = MinimoError.unknown
                 return
             }
-            self.fetchUserDetail(name: name, email: email, type: .kakao)
+            Task {
+                await self.fetchUserData(name: name, email: email, type: .kakao)
+            }
         }
     }
-    
-    private func fetchUserDetail(name: String, email: String, type: OAuthType) {
-        fetchUserData(email: email, type: type).sink { completion in
-            switch completion {
-            case.finished:
-                self.isLoading = false
-                break
-            case .failure(let error):
-                if error == MinimoError.dataNotFound {
-                    self.addUser(name: name, email: email, type: type)
-                } else {
-                    self.error = error
-                    self.isLoading = false
-                }
-            }
-        } receiveValue: { authData in
-            self.auth = authData
-            let userQuery = Filter.whereField("id", isEqualTo: authData.user.uuidString)
-            self.firebaseManager.readSingleData(from: .users, query: userQuery).sink { completion in
-                switch completion {
-                case.finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            } receiveValue: { user in
-                self.userModel = UserModel(user: user, firebaseManager: self.firebaseManager)
-                UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
-                self.isLoading = false
-                self.isLoggedIn = true
-            }
-            .store(in: &self.cancellables)
-        }
-        .store(in: &cancellables)
-    }
-    
     
     func handleLogout() {
         guard let auth else { return }
@@ -197,12 +167,29 @@ final class AuthManager: ObservableObject {
         self.error = nil
     }
     
-    private func fetchUserData(email: String, type: OAuthType) -> Future<AuthDTO, MinimoError> {
-        let query = Filter.andFilter([
-            Filter.whereField("email", isEqualTo: email),
-            Filter.whereField("oAuthType", isEqualTo: type.rawValue)
-        ])
-        return firebaseManager.readSingleData(from: .auth, query: query)
+    private func fetchUserData(name: String, email: String, type: OAuthType) async {
+        do {
+            let authQuery = Filter.andFilter([
+                Filter.whereField("email", isEqualTo: email),
+                Filter.whereField("oAuthType", isEqualTo: type.rawValue)
+            ])
+            let authData: AuthDTO = try await firebaseManager.readSingleDataAsync(from: .auth, query: authQuery)
+            let userQuery = Filter.whereField("id", isEqualTo: authData.user.uuidString)
+            
+            let user: UserDTO = try await firebaseManager.readSingleDataAsync(from: .users, query: userQuery)
+            
+            await MainActor.run {
+                auth = authData
+                userModel = UserModel(user: user, firebaseManager: self.firebaseManager)
+                UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
+                isLoading = false
+                isLoggedIn = true
+            }
+        } catch {
+            // TODO: Auth / User 각각의 데이터 없을 때에 맞춰서 다르게 생성(User만 없으면 Auth에 맞춰서 생성해야 함)
+            addUser(name: name, email: email, type: type)
+        }
+        
     }
     
     private func addUser(name: String, email: String, type: OAuthType) {
@@ -213,18 +200,18 @@ final class AuthManager: ObservableObject {
                               oAuthType: type,
                               createdAt: Date(),
                               user: newUser.id)
+        
         Task { [newUser, newAuth] in
-            do {
-                try await firebaseManager.createData(to: .auth, data: newAuth)
-                try await firebaseManager.createData(to: .users, data: newUser)
-            } catch {
-                self.error = MinimoError.unknown
+            try await firebaseManager.createData(to: .auth, data: newAuth)
+            try await firebaseManager.createData(to: .users, data: newUser)
+            
+            await MainActor.run {
+                auth = newAuth
+                userModel = UserModel(user: newUser, firebaseManager: self.firebaseManager)
+                UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
+                isLoading = false
+                isLoggedIn = true
             }
         }
-        self.auth = newAuth
-        self.userModel = UserModel(user: newUser, firebaseManager: self.firebaseManager)
-        UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
-        self.isLoading = false
-        self.isLoggedIn = true
     }
 }
