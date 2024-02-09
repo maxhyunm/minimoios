@@ -22,10 +22,12 @@ struct HomeMainView: View {
                                 isWriting: $isWriting)
                 }
                 .onAppear {
-                    userModel.fetchFollowers()
-                    userModel.fetchFollowings()
-                    viewModel.followings = userModel.followings
-                    viewModel.fetchContents()
+                    Task {
+                        try await userModel.fetchFollowers()
+                        try await userModel.fetchFollowings()
+                        viewModel.followings = userModel.followings
+                        viewModel.fetchContents()
+                    }
                 }
                 .toolbar {
                     ToolbarMenuView(editInformationTrigger: $isEditInformationVisible)

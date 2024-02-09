@@ -55,12 +55,16 @@ struct ProfileHeaderView: View {
                         Button {
                             if isFollowing {
                                 userModel.unfollow(for: ownerModel.user.id)
-                                ownerModel.fetchFollowings()
-                                ownerModel.fetchFollowers()
+                                Task {
+                                    try await ownerModel.fetchFollowings()
+                                    try await ownerModel.fetchFollowers()
+                                }
                             } else {
                                 userModel.follow(for: ownerModel.user.id)
-                                ownerModel.fetchFollowings()
-                                ownerModel.fetchFollowers()
+                                Task {
+                                    try await ownerModel.fetchFollowings()
+                                    try await ownerModel.fetchFollowers()
+                                }
                             }
                         } label: {
                             Text(isFollowing ? "Unfollow" : "Follow")

@@ -186,7 +186,7 @@ final class AuthManager: ObservableObject {
                 isLoggedIn = true
             }
         } catch {
-            // TODO: Auth / User 각각의 데이터 없을 때에 맞춰서 다르게 생성(User만 없으면 Auth에 맞춰서 생성해야 함)
+            // TODO: Auth / User 각각의 데이터 없을 때에 맞춰서 다르게 생성(User만 없으면 Auth에 맞춰서 생성해야 함) -> 각 상황에 맞게 에러 생성할 것
             addUser(name: name, email: email, type: type)
         }
         

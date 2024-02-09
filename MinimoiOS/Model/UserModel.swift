@@ -21,6 +21,11 @@ final class UserModel: ObservableObject {
     init(user: UserDTO, firebaseManager: FirebaseManager) {
         self.user = user
         self.firebaseManager = firebaseManager
+        
+        Task {
+            try await fetchFollowings()
+            try await fetchFollowers()
+        }
     }
     
     func updateName(_ name: String) {
@@ -47,27 +52,24 @@ final class UserModel: ObservableObject {
         }
     }
     
-    func fetchFollowings() {
+    func fetchFollowings() async throws {
         let query = Filter.whereField("userId", isEqualTo: user.id.uuidString)
         
-        Task {
-            let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
-                                                                                           query: query)
-            await MainActor.run {
-                followings = followArray.map { $0.targetId }
-            }
+        let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
+                                                                                       query: query)
+        await MainActor.run {
+            followings = followArray.map { $0.targetId }
+            
         }
     }
     
-    func fetchFollowers() {
+    func fetchFollowers() async throws {
         let query = Filter.whereField("targetId", isEqualTo: user.id.uuidString)
         
-        Task {
-            let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
-                                                                                           query: query)
-            await MainActor.run {
-                followers = followArray.map { $0.targetId }
-            }
+        let followArray: [FollowDTO] = try await firebaseManager.readMultipleDataAsync(from: .follows,
+                                                                                       query: query)
+        await MainActor.run {
+            followers = followArray.map { $0.targetId }
         }
     }
     

@@ -26,9 +26,11 @@ struct ProfileMainView: View {
 //                }
                 }
                 .onAppear {
-                    ownerModel.fetchFollowers()
-                    ownerModel.fetchFollowings()
-                    viewModel.fetchContents()
+                    Task {
+                        try await ownerModel.fetchFollowers()
+                        try await ownerModel.fetchFollowings()
+                        viewModel.fetchContents()
+                    }
                 }
             }
             
