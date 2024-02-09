@@ -29,7 +29,6 @@ struct ProfileHeaderView: View {
                                             Colors.highlight(for: colorScheme)]),
                 startPoint: .top,
                 endPoint: .bottom)
-            .background(ignoresSafeAreaEdges: .top)
             .frame(height: 100)
             
             VStack(alignment: .leading, spacing: 5) {

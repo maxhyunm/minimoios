@@ -24,7 +24,7 @@ struct ProfileSearchView: View {
                     .submitLabel(.done)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 3)
-                    .frame(height: 40)
+                    .frame(height: 35)
                     .background(Colors.minimoRow(for: colorScheme).opacity(0.5))
                     .cornerRadius(15)
                     .onChange(of: searchText) { text in
@@ -44,7 +44,7 @@ struct ProfileSearchView: View {
                     .background(Colors.background(for: colorScheme).opacity(0.7))
                     .frame(width: 25, height: 25)
                     .clipShape(Circle())
-                    .frame(height: 40)
+                    .frame(height: 35)
             }
         }
         .frame(maxWidth: .infinity)

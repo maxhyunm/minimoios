@@ -22,8 +22,7 @@ struct ProfileMainView: View {
                                 ownerModel: ownerModel)
                     
                     ProfileSearchView(viewModel: viewModel)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 5)
+                        .padding(.horizontal, 15)
                     
 //                if ownerModel.user.id == userModel.user.id {
 //                    WriteButton(viewModel: viewModel,
