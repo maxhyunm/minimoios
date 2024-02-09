@@ -17,7 +17,7 @@ struct EditNameView: View {
     var body: some View {
         HStack {
             if editable {
-                TextField("새로운 이름", text: $name)
+                TextField("Name", text: $name)
                     .frame(width: 200)
                     .onChange(of: name) { newName in
                         guard newName != originalName,
@@ -58,7 +58,7 @@ struct EditNameView: View {
                 .foregroundColor(.cyan)
             }
         }
-        .padding()
+        .padding(5)
     }
 }
 

@@ -37,6 +37,15 @@ final class UserModel: ObservableObject {
         }
     }
     
+    func updateBiography(_ biography: String) {
+        user.biography = biography
+        Task {
+            do {
+                try await firebaseManager.updateData(from: .users, uuid: user.id, data: ["biography": biography])
+            } catch {}
+        }
+    }
+    
     func updateImage(_ image: UIImage) {
         if user.image != "" {
             firebaseManager.deleteImage(url: user.image)

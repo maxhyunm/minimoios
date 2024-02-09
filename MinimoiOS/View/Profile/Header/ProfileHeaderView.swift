@@ -94,13 +94,15 @@ struct ProfileHeaderView: View {
                     Spacer()
                 }
                 .font(.caption2)
-                Text("Bio")
+                Text(ownerModel.user.biography)
+                    .padding(.vertical, 5)
             }
             .padding(.bottom, 10)
             .padding(.horizontal, 20)
         }
         .sheet(isPresented: $isEditInformationVisible) {
             EditInformationView(name: userModel.user.name,
+                                biography: userModel.user.biography,
                                 isVisible: $isEditInformationVisible)
             .onDisappear {
                 viewModel.fetchContents()

@@ -58,6 +58,7 @@ struct SearchView: View {
                 .toolbarBackground(Tab.TabType.search.navigationBarBackground, for: .navigationBar)
                 .sheet(isPresented: $isEditInformationVisible) {
                     EditInformationView(name: userModel.user.name,
+                                        biography: userModel.user.biography,
                                         isVisible: $isEditInformationVisible)
                 }
             }

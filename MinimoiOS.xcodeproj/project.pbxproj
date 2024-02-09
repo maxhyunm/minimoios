@@ -24,6 +24,7 @@
 		BA16AA122B74BC940037A236 /* SearchUserRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA112B74BC940037A236 /* SearchUserRow.swift */; };
 		BA16AA162B74F5B70037A236 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA152B74F5B70037A236 /* ProfileImageView.swift */; };
 		BA16AA182B74FDDB0037A236 /* ProfileSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA172B74FDDB0037A236 /* ProfileSearchView.swift */; };
+		BA16AA1A2B75F5C70037A236 /* EditBiographyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16AA192B75F5C70037A236 /* EditBiographyView.swift */; };
 		BA28F0912B6618D800042912 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0902B6618D800042912 /* GoogleService-Info.plist */; };
 		BA28F0932B661C3700042912 /* test_user.json in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0922B661C3700042912 /* test_user.json */; };
 		BA28F0952B661D1E00042912 /* test_contents.json in Resources */ = {isa = PBXBuildFile; fileRef = BA28F0942B661D1E00042912 /* test_contents.json */; };
@@ -122,6 +123,7 @@
 		BA16AA112B74BC940037A236 /* SearchUserRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserRow.swift; sourceTree = "<group>"; };
 		BA16AA152B74F5B70037A236 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		BA16AA172B74FDDB0037A236 /* ProfileSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSearchView.swift; sourceTree = "<group>"; };
+		BA16AA192B75F5C70037A236 /* EditBiographyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBiographyView.swift; sourceTree = "<group>"; };
 		BA28F0902B6618D800042912 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA28F0922B661C3700042912 /* test_user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test_user.json; sourceTree = "<group>"; };
 		BA28F0942B661D1E00042912 /* test_contents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test_contents.json; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				BA28F0B62B68CF9500042912 /* EditInformationView.swift */,
 				BA16A9EE2B73765E0037A236 /* EditImageView.swift */,
 				BA16A9F02B7377C90037A236 /* EditNameView.swift */,
+				BA16AA192B75F5C70037A236 /* EditBiographyView.swift */,
 			);
 			path = EditInformation;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 			files = (
 				BA28F0B32B68C80200042912 /* MinimoRowViewModel.swift in Sources */,
 				BA16A9ED2B7375380037A236 /* ImageMultiSelectView.swift in Sources */,
+				BA16AA1A2B75F5C70037A236 /* EditBiographyView.swift in Sources */,
 				BA28F0A42B676EDA00042912 /* FirebaseManager.swift in Sources */,
 				BA4C9E142B639FD300C96C87 /* LoginView.swift in Sources */,
 				BA16AA182B74FDDB0037A236 /* ProfileSearchView.swift in Sources */,

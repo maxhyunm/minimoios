@@ -9,20 +9,28 @@ import SwiftUI
 
 struct EditInformationView: View {
     @EnvironmentObject var userModel: UserModel
-    @State private var editable: Bool = false
+    @State private var isNameEditable: Bool = false
+    @State private var isBiographyEditable: Bool = false
     @State private var selectedImage: UIImage = UIImage()
     @State private var isNameChanged: Bool = false
     @State private var isImageChanged: Bool = false
+    @State private var isBiographyChanged: Bool = false
     @State private var name: String
+    @State private var biography: String
     @Binding var isVisible: Bool
     
-    init(name: String, isVisible: Binding<Bool>) {
+    init(name: String, biography: String, isVisible: Binding<Bool>) {
         self._name = State(initialValue: name)
+        self._biography = State(initialValue: biography)
         self._isVisible = isVisible
     }
     
     var isChanged: Bool {
-        return isNameChanged || isImageChanged
+        return isNameChanged || isImageChanged || isBiographyChanged
+    }
+    
+    var isEditing: Bool {
+        return isNameEditable || isBiographyEditable
     }
     
     var body: some View {
@@ -43,34 +51,43 @@ struct EditInformationView: View {
                           isImageChanged: $isImageChanged,
                           originalImage: userModel.user.image)
             
-            EditNameView(editable: $editable,
+            EditNameView(editable: $isNameEditable,
                          name: $name,
                          isNameChanged: $isNameChanged,
                          originalName: userModel.user.name)
             
+            EditBiographyView(editable: $isBiographyEditable,
+                              biography: $biography,
+                              isBiographyChanged: $isBiographyChanged,
+                              originalBiography: userModel.user.biography)
+            
             if let latestOAuthType = UserDefaults.standard.object(forKey: "latestOAuthType") as? String {
                 Text("Logged in with \(latestOAuthType)")
                     .font(.caption)
+                    .padding()
             }
             
             Spacer()
             
             Button {
                 if isNameChanged {
-                    userModel.updateName(self.name)
+                    userModel.updateName(name)
                 }
                 if isImageChanged {
                     userModel.updateImage(selectedImage)
                 }
-                self.isVisible = false
+                if isBiographyChanged {
+                    userModel.updateBiography(biography)
+                }
+                isVisible = false
             } label: {
                 Text("변경사항 저장")
             }
             .padding()
-            .background(isChanged && !editable ? .cyan : .gray)
+            .background(isChanged && !isEditing ? .cyan : .gray)
             .foregroundColor(.white)
             .cornerRadius(15)
-            .disabled(!isChanged || editable)
+            .disabled(!isChanged || isEditing)
             
             Spacer()
         }
@@ -80,6 +97,7 @@ struct EditInformationView: View {
 struct EditInformationView_Previews: PreviewProvider {
     static var previews: some View {
         EditInformationView(name: "test",
+                            biography: "test",
                             isVisible: .constant(true))
     }
 }

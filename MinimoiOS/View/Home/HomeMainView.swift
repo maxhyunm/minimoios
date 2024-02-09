@@ -36,6 +36,7 @@ struct HomeMainView: View {
                 .toolbarBackground(Tab.TabType.home.navigationBarBackground, for: .navigationBar)
                 .sheet(isPresented: $isEditInformationVisible) {
                     EditInformationView(name: userModel.user.name,
+                                        biography: userModel.user.biography,
                                         isVisible: $isEditInformationVisible)
                     .onDisappear {
                         viewModel.fetchContents()
