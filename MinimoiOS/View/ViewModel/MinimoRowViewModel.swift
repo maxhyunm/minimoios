@@ -29,8 +29,10 @@ final class MinimoRowViewModel: ObservableObject {
         self.userId = userId
         
         Task {
-            try await fetchCreatorData()
-            try await fetchClapData()
+            do {
+                try await fetchCreatorData()
+                try await fetchClapData()
+            } catch {}
         }
     }
     
@@ -63,7 +65,9 @@ final class MinimoRowViewModel: ObservableObject {
         }
         
         Task {
-            try await firebaseManager.deleteData(from: .contents, uuid: content.id)
+            do {
+                try await firebaseManager.deleteData(from: .contents, uuid: content.id)
+            } catch {}
         }
         
     }
@@ -79,8 +83,10 @@ final class MinimoRowViewModel: ObservableObject {
                     clapCount = claps.count
                     didUserClap = false
                 }
-                let clap: ClapDTO = try await firebaseManager.readSingleDataAsync(from: .claps, query: query)
-                try await firebaseManager.deleteData(from: .claps, uuid: clap.id)
+                do {
+                    let clap: ClapDTO = try await firebaseManager.readSingleDataAsync(from: .claps, query: query)
+                    try await firebaseManager.deleteData(from: .claps, uuid: clap.id)
+                } catch {}
             }
         } else {
             // 박수추가
@@ -93,7 +99,9 @@ final class MinimoRowViewModel: ObservableObject {
                     didUserClap = true
                 }
                 let clap = ClapDTO(id: UUID(), contentId: content.id, userId: userUuid)
-                try await firebaseManager.createData(to: .claps, data: clap)
+                do {
+                    try await firebaseManager.createData(to: .claps, data: clap)
+                } catch {}
             }
         }
     }

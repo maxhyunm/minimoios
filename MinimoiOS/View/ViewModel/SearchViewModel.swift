@@ -45,15 +45,17 @@ final class SearchViewModel: ObservableObject {
         let userQuery = Filter.whereField("name", isEqualTo: keyword)
         
         Task {
-            let userResult: [UserDTO] = try await firebaseManager.readMultipleDataAsync(from: .users,
-                                                                                      query: userQuery)
-            let contentResult: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
-                                                                                             query: contentQuery)
-            await MainActor.run {
-                users = userResult.sorted { $0.name < $1.name }
-                contents = contentResult.sorted { $0.createdAt > $1.createdAt }
-                isLoading = false
-            }
+            do {
+                let userResult: [UserDTO] = try await firebaseManager.readMultipleDataAsync(from: .users,
+                                                                                            query: userQuery)
+                let contentResult: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
+                                                                                                 query: contentQuery)
+                await MainActor.run {
+                    users = userResult.sorted { $0.name < $1.name }
+                    contents = contentResult.sorted { $0.createdAt > $1.createdAt }
+                    isLoading = false
+                }
+            } catch {}
         }
     }
 }

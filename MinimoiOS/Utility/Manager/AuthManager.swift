@@ -202,16 +202,18 @@ final class AuthManager: ObservableObject {
                               user: newUser.id)
         
         Task { [newUser, newAuth] in
-            try await firebaseManager.createData(to: .auth, data: newAuth)
-            try await firebaseManager.createData(to: .users, data: newUser)
-            
-            await MainActor.run {
-                auth = newAuth
-                userModel = UserModel(user: newUser, firebaseManager: self.firebaseManager)
-                UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
-                isLoading = false
-                isLoggedIn = true
-            }
+            do {
+                try await firebaseManager.createData(to: .auth, data: newAuth)
+                try await firebaseManager.createData(to: .users, data: newUser)
+                
+                await MainActor.run {
+                    auth = newAuth
+                    userModel = UserModel(user: newUser, firebaseManager: self.firebaseManager)
+                    UserDefaults.standard.setValue(type.rawValue, forKey: "latestOAuthType")
+                    isLoading = false
+                    isLoggedIn = true
+                }
+            } catch {}
         }
     }
 }

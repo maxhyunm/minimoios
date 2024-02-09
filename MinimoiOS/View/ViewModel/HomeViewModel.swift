@@ -47,13 +47,15 @@ final class HomeViewModel: ObservableObject {
         let query = Filter.andFilter([Filter.whereField("creator", in: readable.map { $0.uuidString })])
         
         Task {
-            let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
-                                                                                      query: query)
-            
-            await MainActor.run {
-                contents = result.sorted { $0.createdAt > $1.createdAt }
-                isLoading = false
-            }
+            do {
+                let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
+                                                                                          query: query)
+                
+                await MainActor.run {
+                    contents = result.sorted { $0.createdAt > $1.createdAt }
+                    isLoading = false
+                }
+            } catch {}
         }
     }
     
@@ -72,9 +74,11 @@ final class HomeViewModel: ObservableObject {
                                    images: [])
 
         Task { [newContent] in
-            try await firebaseManager.createData(to: .contents, data: newContent)
-            try await uploadImage(for: newContent, images: images)
-            fetchContents()
+            do {
+                try await firebaseManager.createData(to: .contents, data: newContent)
+                try await uploadImage(for: newContent, images: images)
+                fetchContents()
+            } catch {}
         }
     }
     

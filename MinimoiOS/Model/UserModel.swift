@@ -31,7 +31,9 @@ final class UserModel: ObservableObject {
     func updateName(_ name: String) {
         user.name = name
         Task {
-            try await firebaseManager.updateData(from: .users, uuid: user.id, data: ["name": name])
+            do {
+                try await firebaseManager.updateData(from: .users, uuid: user.id, data: ["name": name])
+            } catch {}
         }
     }
     
@@ -41,14 +43,16 @@ final class UserModel: ObservableObject {
         }
         
         Task {
-            let imageString = try await firebaseManager.saveJpegImageAsync(image: image, collection: .users, uuid: user.id)
-            try await firebaseManager.updateData(from: .users,
-                                                 uuid: self.user.id,
-                                                 data: ["image": imageString.url, "imagePath": imageString.path])
-            await MainActor.run {
-                user.image = imageString.url
-                user.imagePath = imageString.path
-            }
+            do {
+                let imageString = try await firebaseManager.saveJpegImageAsync(image: image, collection: .users, uuid: user.id)
+                try await firebaseManager.updateData(from: .users,
+                                                     uuid: self.user.id,
+                                                     data: ["image": imageString.url, "imagePath": imageString.path])
+                await MainActor.run {
+                    user.image = imageString.url
+                    user.imagePath = imageString.path
+                }
+            } catch {}
         }
     }
     
@@ -81,7 +85,9 @@ final class UserModel: ObservableObject {
         followings.append(targetUser)
         let newFollow = FollowDTO(id: UUID(), userId: user.id, targetId: targetUser)
         Task { [newFollow] in
-            try await firebaseManager.createData(to: .follows, data: newFollow)
+            do {
+                try await firebaseManager.createData(to: .follows, data: newFollow)
+            } catch {}
         }
     }
     
@@ -93,8 +99,10 @@ final class UserModel: ObservableObject {
                                       Filter.whereField("targetId", isEqualTo: targetUser.uuidString)])
         
         Task {
-            let follow: FollowDTO = try await firebaseManager.readSingleDataAsync(from: .follows, query: query)
-            try await self.firebaseManager.deleteData(from: .follows, uuid: follow.id)
+            do {
+                let follow: FollowDTO = try await firebaseManager.readSingleDataAsync(from: .follows, query: query)
+                try await self.firebaseManager.deleteData(from: .follows, uuid: follow.id)
+            } catch {}
         }
     }
 }

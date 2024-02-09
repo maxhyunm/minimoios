@@ -40,13 +40,15 @@ final class ProfileViewModel: ObservableObject {
         let query = Filter.whereField("creator", isEqualTo: ownerId.uuidString)
 
         Task {
-            let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
-                                                                                      query: query)
-            await MainActor.run {
-                allContents = result.sorted { $0.createdAt > $1.createdAt }
-                contents = allContents
-                isLoading = false
-            }
+            do {
+                let result: [MinimoDTO] = try await firebaseManager.readMultipleDataAsync(from: .contents,
+                                                                                          query: query)
+                await MainActor.run {
+                    allContents = result.sorted { $0.createdAt > $1.createdAt }
+                    contents = allContents
+                    isLoading = false
+                }
+            } catch {}
         }
     }
     
